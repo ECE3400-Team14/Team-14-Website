@@ -99,9 +99,7 @@ Week 9-12 (Lab 4, Milestone 3): Andrew
 Week 13-16 (Milestone 4, competition, final report): Michael
 
 a)    I participated in formulating the standards, roles, and procedures as stated in this contract. 
-
 b)    I understand that I am obligated to abide by these terms and conditions. 
-
 c)    I understand that if I do not abide by these terms and conditions, I will suffer the consequences as stated in this contract.
 
 1)  David Burgstahler                                     date: 8/3/18
