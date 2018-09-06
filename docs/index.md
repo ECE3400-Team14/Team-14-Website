@@ -11,6 +11,6 @@ Andrew Lin (yl656)
 Michaelangelo Rodriguez Ayala (mr2242)
 
 ## Labs
-* [Lab1]() [TBD]
+* [Lab1](Labs/Lab1.md)
 
 [Team Contract](./team_contract.md)
