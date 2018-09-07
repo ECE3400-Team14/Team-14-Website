@@ -27,7 +27,7 @@ void loop() {
 
 ```
 
-This is the main function/body of the Blink program. The digitalWrite () function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
+This is the main function/body of the Blink program. The `digitalWrite()` function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The `delay()` function here takes an input in ms and allows us to actually see the LED toggle between states.  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
 
 ## Blinking an external LED:
@@ -59,7 +59,27 @@ A potentiometer is essentially a voltage divider, with an adjustable ratio of in
 
 [photo of potentiometer and circuit diagram]
 
-Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
+Using the `analogRead()` in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
+
+```cpp
+int A_PINNAME = A0;//analog pin number
+
+void setup() {
+  // initialize serial port
+  Serial.begin(9600);
+}
+
+
+void loop() {
+  //Read analog pin value connected to potentiometer
+  int value = analogRead(A_PINNAME);
+
+  //print potentiometer value to serial port
+  Serial.println(value);
+}
+
+```
+
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
 
@@ -67,11 +87,35 @@ Using the analogRead() in-built function on the Arduino, we can utilize an analo
 
 ## Map the value of the potentiometer to the LED:
 
-It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is analogWrite(). The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
+It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is `analogWrite()`. The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
 
 [pwm signal example?]
 
-After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The analogWrite() function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to analogWrite(), the LED dims or brightens accordingly.
+After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The `analogWrite()` function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to `analogWrite()`, the LED dims or brightens accordingly.
+
+```cpp
+int PINNAME = 10;//digital PWM pin # connected to LED
+int A_PINNAME = A0;//Analog pin # connected to potentiometer
+
+void setup() {
+  // initialize digital pin PINNAME as an output for PWM.
+  pinMode(PINNAME, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Read analog pin value connected to potentiometer
+  int value = analogRead(A_PINNAME);
+
+  //Map analog pin value to between 0 and 255 for PWM output
+  int mapValue = map(value, 0, 1023, 0, 255);
+
+  //write value to PWM output pin  PINNAME
+  analogWrite(PINNAME, mapValue);
+  //display PINNAME value in serial port
+  Serial.println(mapValue);
+}
+```
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  \
 
@@ -80,6 +124,34 @@ After reading in an analog value from a potentiometer as a number between 0 and 
 ## Map the value of the potentiometer to the servo:
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
+
+```cpp
+Servo myservo; // create servo object to control a servo
+
+int PINNAME = 10;//digital PWM pin # connected to servo
+int A_PINNAME = A0;//Analog pin # connected to potentiometer
+
+void setup() {
+  // initialize digital pin PINNAME as an output for PWM.
+  pinMode(PINNAME, OUTPUT);
+  Serial.begin(9600);
+  //connect digital pin PINNAME to servo object
+  myservo.attach(PINNAME);
+}
+
+void loop() {
+  //Read analog pin value connected to potentiometer
+  int value = analogRead(A_PINNAME);
+  
+  //Map analog pin value to between 0 and 180 for servo control
+  int mapValue = map(value, 0, 1023, 0, 180);
+ 
+  //write value to PWM output pin PINNAME
+  myservo.write(mapValue);  
+  //display PINNAME value in serial port
+  Serial.println(mapValue);
+}
+```
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
 
