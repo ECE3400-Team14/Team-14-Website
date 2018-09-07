@@ -56,6 +56,7 @@ We were concerned that the USB cord would not reach from the Arduino USB port to
 
 ## Driving our robot autonomously:
 Having two servos connected to our Arduino board, we can simply move our robot using a few lines of code. If we were to make our robot go forward, we would have the two servos move in the same direction. If we were to make it turn, we would have the two servos move in the opposite direction. Wrapping these basic intructions for movement into functions, we have something like this:
+
 ```cpp
 #include <Servo.h>
 Servo left;
@@ -78,11 +79,13 @@ void stopMovement(){
   }
 ...
 ```
+
 After this, we coded some random pattern with random delays in between random movements. Then, we tested it on the floor as we didn't want it to fall off the table.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cHkXJKhpaUw?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Since we made sure each function works, we moved on to having the robot move in a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
+
 ```cpp
 void forwardOneBlcok(){
   forward();
@@ -100,18 +103,7 @@ void right90(){
   stopMovement();
   }
 ```
-The only thing left now is to combine these functions to create said patterns. For a square, that means merely two lines of code.
-
-```cpp
-void loop() {
-  forwardOneBlcok();
-  right90();
-}
-```
-
-[insert square video]
-
-For a figure-8, it takes an extra few lines.
+The only thing left now is to combine these functions to create said patterns. For a figure-8, it only takes a few lines.
 
 ```cpp
 void loop() {
@@ -133,4 +125,4 @@ void loop() {
 }
 ```
 
-[insert figure 8 video]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mq7fXP7EtU8?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
