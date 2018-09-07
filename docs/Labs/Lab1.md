@@ -78,11 +78,7 @@ void stopMovement(){
   }
 ...
 ```
-After this, we coded some random pattern with random delays in between random movements. However, when we tested on the floor, this happened.
-
-[insert robot not moving video] // do i need to include this part? david already described this at line 55. maybe move it here??
-
-[Power issue solved.] We then conducted the test on the floor one more time.
+After this, we coded some random pattern with random delays in between random movements. Then, we tested it on the floor as we didn't want it to fall down from the table.
 
 [insert random movement video]
 
