@@ -45,7 +45,7 @@ void loop() {
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -57,7 +57,7 @@ A potentiometer is essentially a voltage divider, with an adjustable ratio of in
 
 Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -69,7 +69,7 @@ It happens that the Arduino can output a pulse-width-modulated square waveform i
 
 After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The analogWrite() function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to analogWrite(), the LED dims or brightens accordingly.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -77,7 +77,7 @@ After reading in an analog value from a potentiometer as a number between 0 and 
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -154,8 +154,7 @@ void stopMovement(){
 ```
 
 After this, we coded some random pattern with random delays in between random movements. Then, we tested it on the floor as we didn't want it to fall off the table.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/cHkXJKhpaUw?rel=0" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/cHkXJKhpaUw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Since we made sure each function works, we moved on to having the robot move in a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
 
@@ -198,4 +197,4 @@ void loop() {
 }
 ```
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/mq7fXP7EtU8?rel=0" frameborder="0" allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/mq7fXP7EtU8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
