@@ -20,6 +20,8 @@ This was all the code needed to make an external LED blink. On the hardware side
 [picture of wiring with external LED]
 <iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+
+
 ## Reading the value of a potentiometer via the serial port: 
 
 A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. 
@@ -29,6 +31,8 @@ A potentiometer is essentially a voltage divider, with an adjustable ratio of in
 Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
 
 ## Map the value of the potentiometer to the LED:
 
@@ -40,11 +44,15 @@ After reading in an analog value from a potentiometer as a number between 0 and 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+
+
 ## Map the value of the potentiometer to the servo:
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+
 
 ## Assembling the robot:
 When building our robot testing, we used the following parts:
@@ -89,6 +97,8 @@ We decided to mount the battery pack under the chassis using the provided batter
 <img src="https://user-images.githubusercontent.com/12742304/45185080-f6790e80-b1f6-11e8-92de-32330f5be5b5.jpg" width="400" />
 
 We were concerned that the USB cord would not reach from the Arduino USB port to the battery, so we initially created a customized connector for connecting the USB input of the battery to the Arduino power jack. After testing this, we realized that the Arduino power jack required 9 Volts of power while the battery only provided 5 Volts. We discovered, however, that the provided USB cable was just long enough to reach from the battery to the Arduino USB port, allowing us to power the Arduino from the Battery successfully. 
+
+
 
 ## Driving our robot autonomously:
 Having two servos connected to our Arduino board, we can simply move our robot using a few lines of code. If we were to make our robot go forward, we would have the two servos move in the same direction. If we were to make it turn, we would have the two servos move in the opposite direction. Wrapping these basic intructions for movement into functions, we have something like this:
