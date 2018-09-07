@@ -1,14 +1,50 @@
 #  Lab 1: Microcontrollers
 
 ## Blinking an internal LED:
+In order to familiarize ourselves with basic arduino code, we used one of the examples already provided with the arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. -code-
+
+
+As seen in the code snippet above, we are setting the built-in LED as an output, which will allow use to toggle it off and on. 
+
+-code-
+This is the main function/body of the Blink program. The digitalWrite () function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
+<iframe width="1077" height="606" src="https://www.youtube.com/embed/JMLbzeyAlCI?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Blinking an external LED:
+The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
 
-## Reading the value of a potentiometer via the serial port:
+[picture of code for blinking external LED]
+
+This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
+
+[picture of wiring with external LED]
+<iframe width="1077" height="606" src="https://www.youtube.com/embed/G_6xJG0BkIg?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+## Reading the value of a potentiometer via the serial port: 
+
+A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. 
+
+[photo of potentiometer and circuit diagram]
+
+Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
+
+<iframe width="1077" height="606" src="https://www.youtube.com/embed/t6pg28G1tBA?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Map the value of the potentiometer to the LED:
 
+It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is analogWrite(). The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
+
+[pwm signal example?]
+
+After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The analogWrite() function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to analogWrite(), the LED dims or brightens accordingly.
+
+<iframe width="1077" height="606" src="https://www.youtube.com/embed/-2hUMhN6iGc?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
 ## Map the value of the potentiometer to the servo:
+
+Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
+
+<iframe width="1077" height="606" src="https://www.youtube.com/embed/JtpTWwkTesI?list=PLUnsnkzn2HpkZNRPkGVqMx-jQO87iygpf" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Assembling the robot:
 When building our robot testing, we used the following parts:
