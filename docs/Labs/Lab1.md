@@ -10,7 +10,7 @@ void setup() {
 }
 ```
 
-As seen in the code snippet above, we are setting the built-in LED as an output, which will allow use to toggle it off and on. 
+As seen in the code snippet above, we are setting the built-in LED port as an output, which will allow us to toggle it off and on. 
 
 
 ```cpp
@@ -23,14 +23,14 @@ void loop() {
 
 ```
 
-This is the main function/body of the Blink program. The digitalWrite () function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
+This is the main function/body of the Blink program. The digitalWrite () function takes a pin and a value as input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Blinking an external LED:
 The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
 ```cpp
 void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
+  // initialize digital pin 6 as an output.
   pinMode(6, OUTPUT);
 }
 // the loop function runs over and over again forever
