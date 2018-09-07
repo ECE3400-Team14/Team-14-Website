@@ -56,7 +56,8 @@ We were concerned that the USB cord would not reach from the Arduino USB port to
 
 ## Driving our robot autonomously:
 
-`void loop() {
+```cpp
+void loop() {
   forwardAndLeft();
   forwardAndRight();
   forwardAndRight();
@@ -65,4 +66,4 @@ We were concerned that the USB cord would not reach from the Arduino USB port to
   forwardAndLeft();
   forwardAndLeft();
   forwardAndLeft();
-}`
+}```
