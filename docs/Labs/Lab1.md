@@ -57,11 +57,84 @@ We were concerned that the USB cord would not reach from the Arduino USB port to
 ## Driving our robot autonomously:
 Having two servos connected to our Arduino board, we can simply move our robot using a few lines of code. If we were to make our robot go forward, we would have the two servos move in the same direction. If we were to make it turn, we would have the two servos move in the opposite direction. Wrapping these basic intructions for movement into functions, we have something like this:
 ```cpp
-
-
+#include <Servo.h>
+Servo left;
+Servo right;
+void setup() {
+  left.attach(3);
+  right.attach(5);
+}
+void forward(){
+  left.write(180);
+  right.write(0);
+  }
+void turnLeft(){
+  left.write(0);
+  right.write(0);
+  }
+void stopMovement(){
+  left.write(90);
+  right.write(90);
+  }
+...
 ```
+After this, we coded some random pattern with random delays in between random movements. However, when we tested on the floor, this happened.
 
-At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. 
+[insert robot not moving video] // do i need to include this part? david already described this at line 55. maybe move it here??
+
+Power issue solved. We then conducted the test on the floor one more time.
+
+[insert random movement video]
+
+Since we made sure each function works, we moved on to having the robot move a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
 ```cpp
-
+void forwardOneBlcok(){
+  forward();
+  delay(1700);
+  stopMovement();
+  }
+void left90(){
+  turnLeft();
+  delay(670);
+  stopMovement();
+  }
+void right90(){
+  turnRight();
+  delay(670);
+  stopMovement();
+  }
 ```
+The only thing left now is to combine these functions to create said patterns. For a square, that means merely two lines of code.
+
+```cpp
+void loop() {
+  forwardOneBlcok();
+  right90();
+}
+```
+
+[insert square video]
+
+For a figure-8, it takes an extra few lines.
+
+```cpp
+void loop() {
+  forwardOneBlcok();
+  right90();
+  forwardOneBlcok();
+  left90();
+  forwardOneBlcok();
+  left90();
+  forwardOneBlcok();
+  left90();
+  forwardOneBlcok();
+  left90();
+  forwardOneBlcok();
+  right90();
+  forwardOneBlcok();
+  right90();
+  forwardOneBlcok();
+}
+```
+
+[insert figure 8 video]
