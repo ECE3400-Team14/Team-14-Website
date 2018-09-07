@@ -1,5 +1,9 @@
 #  Lab 1: Microcontrollers
 
+**Purpose:** The goal if this lab was to become familiar with the Arduino Uno platform and the Arduino IDE. This lab demonstrates the steps to write code to control the analog and digital ports of the Arduino, as well as how to connect various hardware such as LEDs, potentiometers, and servos to the Arduino. The final part of this lab details the construction and testing of our first robot design. 
+
+The Arduino IDE was downloaded from [here](https://www.arduino.cc/en/Main/Software). We used the [Arduino reference page](https://www.arduino.cc/reference/en/) for learning the various commands available for programming our Arduino.  
+
 ## Blinking an internal LED:
 In order to familiarize ourselves with basic arduino code, we used one of the examples already provided with the arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. 
 
@@ -23,8 +27,10 @@ void loop() {
 
 ```
 
-This is the main function/body of the Blink program. The digitalWrite () function takes a pin and a value as input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+This is the main function/body of the Blink program. The `digitalWrite()` function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The `delay()` function here takes an input in ms and allows us to actually see the LED toggle between states.  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
+
 
 ## Blinking an external LED:
 The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
@@ -45,9 +51,11 @@ void loop() {
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
 
+
 ![led only](https://user-images.githubusercontent.com/16722348/45246918-0a457300-b2d2-11e8-9483-712681f4a5cc.png)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
+
 
 
 
@@ -57,21 +65,66 @@ A potentiometer is essentially a voltage divider, with an adjustable ratio of in
 
 ![potentiometer](https://user-images.githubusercontent.com/16722348/45246920-0a457300-b2d2-11e8-8558-bc733f779b9c.png)
 
-Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
+Using the `analogRead()` in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+```cpp
+int A_PINNAME = A0;//analog pin number
+
+void setup() {
+  // initialize serial port
+  Serial.begin(9600);
+}
+
+
+void loop() {
+  //Read analog pin value connected to potentiometer
+  int value = analogRead(A_PINNAME);
+
+  //print potentiometer value to serial port
+  Serial.println(value);
+}
+
+```
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
 
 
 
 ## Map the value of the potentiometer to the LED:
 
-It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is analogWrite(). The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
+It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is `analogWrite()`. The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
 
-After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The analogWrite() function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to analogWrite(), the LED dims or brightens accordingly.
 
+After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The `analogWrite()` function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to `analogWrite()`, the LED dims or brightens accordingly.
+
+```cpp
+int PINNAME = 10;//digital PWM pin # connected to LED
+int A_PINNAME = A0;//Analog pin # connected to potentiometer
+
+void setup() {
+  // initialize digital pin PINNAME as an output for PWM.
+  pinMode(PINNAME, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  //Read analog pin value connected to potentiometer
+  int value = analogRead(A_PINNAME);
+
+  //Map analog pin value to between 0 and 255 for PWM output
+  int mapValue = map(value, 0, 1023, 0, 255);
+
+  //write value to PWM output pin  PINNAME
+  analogWrite(PINNAME, mapValue);
+  //display PINNAME value in serial port
+  Serial.println(mapValue);
+}
+```
 ![pot and led](https://user-images.githubusercontent.com/16722348/45246919-0a457300-b2d2-11e8-9115-843a7708181d.png)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  \
+
 
 
 
@@ -79,9 +132,37 @@ After reading in an analog value from a potentiometer as a number between 0 and 
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
 
+
+```cpp
+Servo myservo; // create servo object to control a servo
+
+int PINNAME = 10;//digital PWM pin # connected to servo
+int A_PINNAME = A0;//Analog pin # connected to potentiometer
+
+void setup() {
+  // initialize digital pin PINNAME as an output for PWM.
+  pinMode(PINNAME, OUTPUT);
+  Serial.begin(9600);
+  //connect digital pin PINNAME to servo object
+  myservo.attach(PINNAME);
+}
+
+void loop() {
+  //Read analog pin value connected to potentiometer
+  int value = analogRead(A_PINNAME);
+  
+  //Map analog pin value to between 0 and 180 for servo control
+  int mapValue = map(value, 0, 1023, 0, 180);
+ 
+  //write value to PWM output pin PINNAME
+  myservo.write(mapValue);  
+  //display PINNAME value in serial port
+  Serial.println(mapValue);
+}
+```
 ![servo](https://user-images.githubusercontent.com/16722348/45246921-0a457300-b2d2-11e8-862a-ae9048efdca7.png)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
 
 
 
@@ -163,7 +244,7 @@ After this, we coded some random pattern with random delays in between random mo
 Since we made sure each function works, we moved on to having the robot move in a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
 
 ```cpp
-void forwardOneBlcok(){
+void forwardOneBlock(){
   forward();
   delay(1700);
   stopMovement();
@@ -183,21 +264,21 @@ The only thing left now is to combine these functions to create said patterns. F
 
 ```cpp
 void loop() {
-  forwardOneBlcok();
+  forwardOneBlock();
   right90();
-  forwardOneBlcok();
+  forwardOneBlock();
   left90();
-  forwardOneBlcok();
+  forwardOneBlock();
   left90();
-  forwardOneBlcok();
+  forwardOneBlock();
   left90();
-  forwardOneBlcok();
+  forwardOneBlock();
   left90();
-  forwardOneBlcok();
+  forwardOneBlock();
   right90();
-  forwardOneBlcok();
+  forwardOneBlock();
   right90();
-  forwardOneBlcok();
+  forwardOneBlock();
 }
 ```
 
