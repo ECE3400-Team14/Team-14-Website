@@ -45,6 +45,8 @@ void loop() {
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
 
+![led only](https://user-images.githubusercontent.com/16722348/45246918-0a457300-b2d2-11e8-9483-712681f4a5cc.png)
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 
@@ -53,7 +55,7 @@ This was all the code needed to make an external LED blink. On the hardware side
 
 A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. 
 
-[photo of potentiometer and circuit diagram]
+![potentiometer](https://user-images.githubusercontent.com/16722348/45246920-0a457300-b2d2-11e8-8558-bc733f779b9c.png)
 
 Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
 
@@ -65,9 +67,9 @@ Using the analogRead() in-built function on the Arduino, we can utilize an analo
 
 It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is analogWrite(). The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
 
-[pwm signal example?]
-
 After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The analogWrite() function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to analogWrite(), the LED dims or brightens accordingly.
+
+![pot and led](https://user-images.githubusercontent.com/16722348/45246919-0a457300-b2d2-11e8-9115-843a7708181d.png)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
@@ -76,6 +78,8 @@ After reading in an analog value from a potentiometer as a number between 0 and 
 ## Map the value of the potentiometer to the servo:
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
+
+![servo](https://user-images.githubusercontent.com/16722348/45246921-0a457300-b2d2-11e8-862a-ae9048efdca7.png)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
