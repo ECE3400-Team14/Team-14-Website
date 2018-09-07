@@ -1,12 +1,28 @@
 #  Lab 1: Microcontrollers
 
 ## Blinking an internal LED:
-In order to familiarize ourselves with basic arduino code, we used one of the examples already provided with the arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. -code-
+In order to familiarize ourselves with basic arduino code, we used one of the examples already provided with the arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. 
 
+```cpp
+void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+```
 
 As seen in the code snippet above, we are setting the built-in LED as an output, which will allow use to toggle it off and on. 
 
--code-
+
+```cpp
+void loop() {
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
+}
+
+```
+
 This is the main function/body of the Blink program. The digitalWrite () function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0"; encrypted-media" allowfullscreen></iframe>
 
@@ -60,7 +76,7 @@ When building our robot testing, we used the following parts:
 * 3D-Printed Chassis
 * 2x Servos
 * 2x 3D-Printed Servo mounts
-* Rechargeable 9V battery
+* Rechargeable 5V battery
 * USB Cable
 * 2x 3D-Printed battery mounts
 * Ball bearing + screw mount
