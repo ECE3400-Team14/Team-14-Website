@@ -24,7 +24,7 @@ void loop() {
 ```
 
 This is the main function/body of the Blink program. The digitalWrite () function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The delay () function here takes an input in ms and allows us to actually see the LED toggle between states.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0"; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Blinking an external LED:
 The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
@@ -45,7 +45,7 @@ void loop() {
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0"; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -57,7 +57,7 @@ A potentiometer is essentially a voltage divider, with an adjustable ratio of in
 
 Using the analogRead() in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0"; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -69,7 +69,7 @@ It happens that the Arduino can output a pulse-width-modulated square waveform i
 
 After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The analogWrite() function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to analogWrite(), the LED dims or brightens accordingly.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0"; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
 
 
 
@@ -77,7 +77,7 @@ After reading in an analog value from a potentiometer as a number between 0 and 
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0"; allow="encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; allow="encrypted-media" allowfullscreen></iframe>
 
 
 
