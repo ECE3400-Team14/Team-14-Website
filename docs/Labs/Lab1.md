@@ -80,7 +80,7 @@ void stopMovement(){
 ```
 After this, we coded some random pattern with random delays in between random movements. Then, we tested it on the floor as we didn't want it to fall down from the table.
 
-<iframe
+<iframe width="420" height="315"
 src="https://www.youtube.com/watch?v=cHkXJKhpaUw">
 </iframe>
 
