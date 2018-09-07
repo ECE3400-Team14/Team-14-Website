@@ -86,7 +86,7 @@ After this, we coded some random pattern with random delays in between random mo
 
 [insert random movement video]
 
-Since we made sure each function works, we moved on to having the robot move a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
+Since we made sure each function works, we moved on to having the robot move in a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
 ```cpp
 void forwardOneBlcok(){
   forward();
