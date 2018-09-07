@@ -33,7 +33,6 @@ The code used to blink the external LED is very similar to the example Blink pro
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
 
-[picture of wiring with external LED]
 <iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0"; allow="encrypted-media" allowfullscreen></iframe>
 
 
