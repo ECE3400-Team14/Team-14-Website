@@ -82,7 +82,7 @@ After this, we coded some random pattern with random delays in between random mo
 
 [insert robot not moving video] // do i need to include this part? david already described this at line 55. maybe move it here??
 
-Power issue solved. We then conducted the test on the floor one more time.
+[Power issue solved.] We then conducted the test on the floor one more time.
 
 [insert random movement video]
 
