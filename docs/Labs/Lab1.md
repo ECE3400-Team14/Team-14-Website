@@ -55,16 +55,13 @@ We decided to mount the battery pack under the chassis using the provided batter
 We were concerned that the USB cord would not reach from the Arduino USB port to the battery, so we initially created a customized connector for connecting the USB input of the battery to the Arduino power jack. After testing this, we realized that the Arduino power jack required 9 Volts of power while the battery only provided 5 Volts. We discovered, however, that the provided USB cable was just long enough to reach from the battery to the Arduino USB port, allowing us to power the Arduino from the Battery successfully. 
 
 ## Driving our robot autonomously:
-
+Having two servos connected to our Arduino board, we can simply move our robot using a few lines of code. If we were to make our robot go forward, we would have the two servos move in the same direction. If we were to make it turn, we would have the two servos move in the opposite direction. Wrapping these basic intructions for movement into functions, we have something like this:
 ```cpp
-void loop() {
-  forwardAndLeft();
-  forwardAndRight();
-  forwardAndRight();
-  forwardAndRight();
-  forwardAndRight();
-  forwardAndLeft();
-  forwardAndLeft();
-  forwardAndLeft();
-}
+
+
+```
+
+At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. 
+```cpp
+
 ```
