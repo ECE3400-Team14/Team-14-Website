@@ -28,8 +28,20 @@ This is the main function/body of the Blink program. The digitalWrite () functio
 
 ## Blinking an external LED:
 The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
+```cpp
+void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(6, OUTPUT);
+}
+// the loop function runs over and over again forever
+void loop() {
+  digitalWrite(6, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(6, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
+}
 
-[picture of code for blinking external LED]
+```
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
 
