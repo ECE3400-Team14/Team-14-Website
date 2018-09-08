@@ -217,6 +217,9 @@ After this, we attached the battery pack and breadboard to the chassis. We first
 
 <img src="https://user-images.githubusercontent.com/12742304/45185048-e3663e80-b1f6-11e8-9781-4d4908149fd9.jpg" width="400" />
 
+### Circuit Diagram:
+
+![arduino diagram_bb2](https://user-images.githubusercontent.com/12742304/45248389-1800f580-b2de-11e8-971d-0d76bd3425da.png)
 
 We decided to mount the battery pack under the chassis using the provided battery mounts. This setup allowed the battery to remain secure during motion while allowing for the battery pack to be easily added or removed. 
 
