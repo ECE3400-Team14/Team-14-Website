@@ -17,7 +17,7 @@ Michaelangelo Rodriguez Ayala (mr2242)
 
 ## Latenss Chart: 
 
-| Member       | # of Meeting Latenesses | # of Meeting Absenses | 
+| Member       | # of Meeting Latenesses | # of Meeting Absences | 
 | -------------|:-------------:|:-------------:|
 | David        | 0             | 0             |
 | Greg         | 0             | 0             | 
