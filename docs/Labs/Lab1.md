@@ -57,7 +57,7 @@ void loop() {
 
 This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the Arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the Arduino. 
 
-### Wiring Diagram:
+### Circuit Diagram:
 ![led only](https://user-images.githubusercontent.com/16722348/45246918-0a457300-b2d2-11e8-9483-712681f4a5cc.png)
 
 ### Video Demonstration:
@@ -69,7 +69,7 @@ This was all the code needed to make an external LED blink. On the hardware side
 
 A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. We connected the analog pin to the potentiometer through a 330 ohm resistor as a precaution to ensure the analog port did not take too much current.
 
-### Wiring Diagram:
+### Circuit Diagram:
 
 ![potentiometer](https://user-images.githubusercontent.com/16722348/45246920-0a457300-b2d2-11e8-8558-bc733f779b9c.png)
 
@@ -128,7 +128,7 @@ void loop() {
   Serial.println(mapValue);
 }
 ```
-### Wiring Diagram:
+### Circuit Diagram:
 
 ![pot-and-led](https://user-images.githubusercontent.com/16722348/45246919-0a457300-b2d2-11e8-9115-843a7708181d.png)
 
@@ -170,7 +170,7 @@ void loop() {
 }
 ```
 
-### Wiring Diagram:
+### Circuit Diagram:
 We connected the servo to the Arduino, powering it through the Arduino 5V pin and connecting the servo signal pin to a digital pin through a 330 ohm resistor as a precaution to ensure the pin does not draw too much current. 
 
 ![servo](https://user-images.githubusercontent.com/16722348/45246921-0a457300-b2d2-11e8-862a-ae9048efdca7.png)
