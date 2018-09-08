@@ -1,12 +1,13 @@
 #  Lab 1: Microcontrollers
 
-**Purpose:** The goal if this lab was to become familiar with the Arduino Uno platform and the Arduino IDE. This lab demonstrates the steps to write code to control the analog and digital ports of the Arduino, as well as how to connect various hardware such as LEDs, potentiometers, and servos to the Arduino. The final part of this lab details the construction and testing of our first robot design. 
+**Purpose:** The goal of this lab was to become familiar with the Arduino Uno platform and the Arduino IDE. This lab demonstrates the steps to write code to control the analog and digital ports of the Arduino, as well as how to connect various hardware components such as LEDs, potentiometers, and servos to the Arduino. The final part of this lab details the construction and testing of our first robot design. 
 
 The Arduino IDE was downloaded from [here](https://www.arduino.cc/en/Main/Software). We used the [Arduino reference page](https://www.arduino.cc/reference/en/) for learning the various commands available for programming our Arduino.  
 
 ## Blinking an internal LED:
 In order to familiarize ourselves with basic arduino code, we used one of the examples already provided with the arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. 
 
+### Code Segment 1:
 ```cpp
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
@@ -14,26 +15,31 @@ void setup() {
 }
 ```
 
-As seen in the code snippet above, we are setting the built-in LED port as an output, which will allow us to toggle it off and on. 
+As seen in **Code Segment 1** above, we are setting the built-in LED port as an output, which will allow us to toggle it off and on. 
 
-
+### Code Segment 2:
 ```cpp
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH); // turn the LED on (HIGH is the voltage level)
-  delay(1000);                     // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);  // turn the LED off by making the voltage LOW
-  delay(1000);                     // wait for a second
+  digitalWrite(LED_BUILTIN, HIGH);// turn the LED on (HIGH is the voltage level)
+  delay(1000);                    // wait for a second
+  digitalWrite(LED_BUILTIN, LOW); // turn the LED off by making the voltage LOW
+  delay(1000);                    // wait for a second
 }
 
 ```
 
+**Code Segment 2** is the main function/body of the Blink program. The `digitalWrite()` function takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The `delay()` function here takes an input in ms and allows us to actually see the LED toggle between states.  
 
-This is the main function/body of the Blink program. The `digitalWrite()` function which takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The `delay()` function here takes an input in ms and allows us to actually see the LED toggle between states.  
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
+### Video Demonsration:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
+
+&nbsp;
 
 
 ## Blinking an external LED:
 The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
+
+### Code:
 ```cpp
 void setup() {
   // initialize digital pin 6 as an output.
@@ -42,31 +48,34 @@ void setup() {
 // the loop function runs over and over again forever
 void loop() {
   digitalWrite(6, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
+  delay(1000);             // wait for a second
   digitalWrite(6, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                       // wait for a second
+  delay(1000);             // wait for a second
 }
 
 ```
 
-This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the arduino. 
+This was all the code needed to make an external LED blink. On the hardware side, we still had to connect the external LED to the Arduino. In order to do this, we simply have to wire the previously defined output pin in series with a 330 ohm resistor, to prevent the LED pin from taking too much current and blowing out, and then grounding the LED with the already defined ground pin on the Arduino. 
 
-
+### Circuit Diagram:
 ![led only](https://user-images.githubusercontent.com/16722348/45246918-0a457300-b2d2-11e8-9483-712681f4a5cc.png)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
+### Video Demonstration:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/G_6xJG0BkIg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
 
-
-
+&nbsp;
 
 ## Reading the value of a potentiometer via the serial port: 
 
-A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. 
+A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. We connected the analog pin to the potentiometer through a 330 ohm resistor as a precaution to ensure the analog port did not take too much current.
+
+### Circuit Diagram:
 
 ![potentiometer](https://user-images.githubusercontent.com/16722348/45246920-0a457300-b2d2-11e8-8558-bc733f779b9c.png)
 
 Using the `analogRead()` in-built function on the Arduino, we can utilize an analog to digital converter in the microcontroller to read this adjustable voltage as a number between 0 and 1023. A value of zero corresponds to the potentiometer’s minimum, and 1023 to its maximum. Using a print statement, this values can be seen clearly.
 
+### Code:
 ```cpp
 int A_PINNAME = A0;//analog pin number
 
@@ -74,7 +83,6 @@ void setup() {
   // initialize serial port
   Serial.begin(9600);
 }
-
 
 void loop() {
   //Read analog pin value connected to potentiometer
@@ -85,19 +93,18 @@ void loop() {
 }
 
 ```
+### Video Demonstration:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/t6pg28G1tBA" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
-
-
+&nbsp;
 
 ## Map the value of the potentiometer to the LED:
 
 It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is `analogWrite()`. The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
 
-
 After reading in an analog value from a potentiometer as a number between 0 and 1023, it can be linearly mapped to any other range of values. The `analogWrite()` function takes values of 0 to 255, so we map to those values. Now, by adjusting the potentiometer, and therefore the value fed to `analogWrite()`, the LED dims or brightens accordingly.
 
+### Code:
 ```cpp
 int PINNAME = 10;//digital PWM pin # connected to LED
 int A_PINNAME = A0;//Analog pin # connected to potentiometer
@@ -121,18 +128,20 @@ void loop() {
   Serial.println(mapValue);
 }
 ```
-![pot and led](https://user-images.githubusercontent.com/16722348/45246919-0a457300-b2d2-11e8-9115-843a7708181d.png)
+### Circuit Diagram:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  \
+![pot-and-led](https://user-images.githubusercontent.com/16722348/45246919-0a457300-b2d2-11e8-9115-843a7708181d.png)
 
+### Video Demonsration:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-2hUMhN6iGc" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>  
 
-
+&nbsp;
 
 ## Map the value of the potentiometer to the servo:
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
 
-
+### Code:
 ```cpp
 Servo myservo; // create servo object to control a servo
 
@@ -160,11 +169,16 @@ void loop() {
   Serial.println(mapValue);
 }
 ```
+
+### Circuit Diagram:
+We connected the servo to the Arduino, powering it through the Arduino 5V pin and connecting the servo signal pin to a digital pin through a 330 ohm resistor as a precaution to ensure the pin does not draw too much current. 
+
 ![servo](https://user-images.githubusercontent.com/16722348/45246921-0a457300-b2d2-11e8-862a-ae9048efdca7.png)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> \
+### Video Demonsration:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JtpTWwkTesI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
 
-
+&nbsp;
 
 ## Assembling the robot:
 When building our robot testing, we used the following parts:
@@ -215,6 +229,7 @@ We were concerned that the USB cord would not reach from the Arduino USB port to
 ## Driving our robot autonomously:
 Having two servos connected to our Arduino board, we can simply move our robot using a few lines of code. If we were to make our robot go forward, we would have the two servos move in the same direction. If we were to make it turn, we would have the two servos move in the opposite direction. Wrapping these basic intructions for movement into functions, we have something like this:
 
+### Code Segment 1:
 ```cpp
 #include <Servo.h>
 Servo left;
@@ -243,6 +258,7 @@ After this, we coded some random pattern with random delays in between random mo
 
 Since we made sure each function works, we moved on to having the robot move in a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
 
+### Code Segment 2:
 ```cpp
 void forwardOneBlock(){
   forward();
@@ -262,6 +278,7 @@ void right90(){
 ```
 The only thing left now is to combine these functions to create said patterns. For a figure-8, it only takes a few lines.
 
+### Code Segment 3:
 ```cpp
 void loop() {
   forwardOneBlock();
@@ -282,4 +299,5 @@ void loop() {
 }
 ```
 
+### Video Demonstration of Figure-8 Motion
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mq7fXP7EtU8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
