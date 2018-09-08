@@ -257,7 +257,7 @@ void stopMovement(){
 ...
 ```
 
-After this, we coded some random pattern with random delays in between random movements. Then, we tested it on the floor as we didn't want it to fall off the table.
+After this, we coded some random pattern with random delays in between random movements. Then, we tested it on the floor as we didn't want our robot to fall off the table.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/cHkXJKhpaUw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Since we made sure each function works, we moved on to having the robot move in a specific pattern, like a square or a figure-8. At this point, we had yet to install line sensors for our robot, thus the only way for it to move in a specific pattern was to hard code the delays between movements into the program. After testing different delay time, we achieved an accuracy that we were satisfied with.
