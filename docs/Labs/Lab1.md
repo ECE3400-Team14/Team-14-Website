@@ -1,11 +1,11 @@
 #  Lab 1: Microcontrollers
 
-**Purpose:** The goal of this lab was to become familiar with the Arduino Uno platform and the Arduino IDE. This lab demonstrates the steps to write code to control the analog and digital ports of the Arduino, as well as how to connect various hardware components such as LEDs, potentiometers, and servos to the Arduino. The final part of this lab details the construction and testing of our first robot design. 
+**Purpose:** The goal of this lab was to become familiar with the Arduino Uno platform and the Arduino IDE. This page describes how to connect various hardware components, such as LEDs, potentiometers, and servos, to the Arduino, and we show how to write code to control these devices through the Arduino's analog and digital ports. The final part of this lab details the construction and testing of our initial robot design. 
 
 The Arduino IDE was downloaded from [here](https://www.arduino.cc/en/Main/Software). We used the [Arduino reference page](https://www.arduino.cc/reference/en/) for learning the various commands available for programming our Arduino.  
 
-## Blinking an internal LED:
-In order to familiarize ourselves with basic arduino code, we used one of the examples already provided with the arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. 
+## Blinking an Internal LED:
+In order to familiarize ourselves with basic Arduino code, we used one of the examples already provided with the Arduino IDE. The example used in order to blink the LED is called Blink, and can be accessed within the IDE by selecting File -> Examples -> Basics -> Blink. 
 
 ### Code Segment 1:
 ```cpp
@@ -20,15 +20,15 @@ As seen in **Code Segment 1** above, we are setting the built-in LED port as an 
 ### Code Segment 2:
 ```cpp
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);// turn the LED on (HIGH is the voltage level)
-  delay(1000);                    // wait for a second
-  digitalWrite(LED_BUILTIN, LOW); // turn the LED off by making the voltage LOW
-  delay(1000);                    // wait for a second
+  digitalWrite(LED_BUILTIN, HIGH); // turn the LED on with HIGH voltage
+  delay(1000); // wait for a second
+  digitalWrite(LED_BUILTIN, LOW); // turn the LED off with LOW voltage
+  delay(1000); // wait for a second
 }
 
 ```
 
-**Code Segment 2** is the main function/body of the Blink program. The `digitalWrite()` function takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the arduino IDE and correspond to setting the output LED on/off. The `delay()` function here takes an input in ms and allows us to actually see the LED toggle between states.  
+**Code Segment 2** is the main function/body of the Blink program. The `digitalWrite()` function takes a pin name and a value as an input. The HIGH and LOW values have already been predefined in the Arduino IDE and correspond to setting the output LED on/off. The `delay()` function here takes an input in ms and allows us to actually see the LED toggle between states.  
 
 ### Video Demonsration:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/JMLbzeyAlCI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> 
@@ -36,8 +36,8 @@ void loop() {
 &nbsp;
 
 
-## Blinking an external LED:
-The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the LED_BUILTIN as the output, we used an I/O pin to toggle between High and Low values. 
+## Blinking an External LED:
+The code used to blink the external LED is very similar to the example Blink program used above. Instead of using the `LED_BUILTIN` as the output, we used an I/O pin to toggle between HIGH and LOW values. 
 
 ### Code:
 ```cpp
@@ -65,7 +65,7 @@ This was all the code needed to make an external LED blink. On the hardware side
 
 &nbsp;
 
-## Reading the value of a potentiometer via the serial port: 
+## Reading the Value of a Potentiometer via the Serial Port: 
 
 A potentiometer is essentially a voltage divider, with an adjustable ratio of input to output voltage. By hooking up one end to HIGH (5V) and the other end to ground, we can adjust the output voltage of the potentiometer between those two values. We connected the analog pin to the potentiometer through a 330 ohm resistor as a precaution to ensure the analog port did not take too much current.
 
@@ -98,7 +98,7 @@ void loop() {
 
 &nbsp;
 
-## Map the value of the potentiometer to the LED:
+## Mapping the Value of the Potentiometer to the LED:
 
 It happens that the Arduino can output a pulse-width-modulated square waveform in order to turn on and off an LED rapidly. This function is `analogWrite()`. The percentage of the period of this oscillation that the signal reads HIGH corresponds to how long during each period that the LED is on. By decreasing this percentage, over the same period, the LED is on for a shorter amount of total time. Since this frequency is still well above the threshold of human persistence of vison, the LED simply appears dim.
 
@@ -137,7 +137,7 @@ void loop() {
 
 &nbsp;
 
-## Map the value of the potentiometer to the servo:
+## Mapping the Value of the Potentiometer to the Servo:
 
 Similar to the LED dimming, the potentiometer read value is mapped to a range of numbers, this time between 0 and 180. The continuously rotating servos will rotate one way at full speed at 180, and in the opposite direction at full speed at 0, where 90 corresponds to a stationary servo. Therefore in the middle of the potentiometer range, we saw the servo stop moving entirely, and at the maximum and minimum the servo turned quite fast!
 
@@ -180,7 +180,7 @@ We connected the servo to the Arduino, powering it through the Arduino 5V pin an
 
 &nbsp;
 
-## Assembling the robot:
+## Assembling the Robot:
 When building our robot testing, we used the following parts:
 * Arduino Uno
 * 3D-Printed Chassis
@@ -226,7 +226,7 @@ We were concerned that the USB cord would not reach from the Arduino USB port to
 
 
 
-## Driving our robot autonomously:
+## Driving our Robot Autonomously:
 Having two servos connected to our Arduino board, we can simply move our robot using a few lines of code. If we were to make our robot go forward, we would have the two servos move in the same direction. If we were to make it turn, we would have the two servos move in the opposite direction. Wrapping these basic intructions for movement into functions, we have something like this:
 
 ### Code Segment 1:
