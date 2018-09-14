@@ -42,13 +42,14 @@ Our robot makes a turn as follows:
 ```
 
 * If all four sensors detect a line, the robot hits an intersection, and starts turning left or right, depending on the function called
-* The robot is stuck in an infinite loop until one of the middle sensors moves out of the line
+
+* The robot is stuck in a while loop until one of the middle sensors moves out of the line
 
 ```cpp
   while (readLeftSensor() == 0 && readRightSensor() == 0);
 ```
 
-* The robot is stuck in another infinite loop until both middle sensors detect the line
+* The robot is stuck in another while loop until both middle sensors detect the line
 
 ```cpp
   while (readLeftSensor() == 1 || readRightSensor() == 1);
