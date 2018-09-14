@@ -20,9 +20,26 @@ While we were able to get this design to perform successful line detection and g
 In order for the robot the detect the white line for the robot to follow, we decided to use two line sensors close together on the front side of the chassis. These two sensors can provide the robot with the necessary information to orient itself on a line:
 
 * If both sensors detect the line, the robot is aligned with the white line and should move forward.
-* If one sensor detects the line while the other detects the ground, the robot should turn towards the sensor that detects the line until both sensors detect the line.
-* If both sensors do not detect the line, the robot should move backwards (this prevents the robot from leaving the grid, which is bounded by black tape).
 
+```cpp
+    if (readLeftSensor() == 0 && readRightSensor() == 0)
+      forward();
+```
+
+* If one sensor detects the line while the other detects the ground, the robot should turn towards the sensor that detects the line until both sensors detect the line.
+
+```cpp
+    else if (readLeftSensor() == 0 && readRightSensor() == 1){
+      writeRight(180);
+      writeLeft(90);
+    }
+    else if (readLeftSensor() == 1 && readRightSensor() == 0){
+      writeLeft(180);
+      writeRight(90);
+    }
+```
+
+* If both sensors do not detect the line, the robot should move backwards (this prevents the robot from leaving the grid, which is bounded by black tape).
 
 ### Demonstration of Line Navitation
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uoAQjQ9QIC0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
