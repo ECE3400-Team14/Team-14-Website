@@ -13,6 +13,8 @@ Michaelangelo Rodriguez Ayala (mr2242)
 ## Labs
 * [Lab1](Labs/Lab1.md)
 
+* [Milestone1](Milestones/Milestone1.md)
+
 [Team Contract](./team_contract.md)
 
 ## Latenss Chart: 
