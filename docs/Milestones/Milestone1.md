@@ -54,5 +54,6 @@ Our robot makes a turn as follows:
 ```
 
 * The robot has finished the turn and freezes all motor functions until further instructions
+
 ### Demonstration of Figure Eight
 [insert video of figure eight]
