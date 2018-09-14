@@ -17,7 +17,7 @@ Michaelangelo Rodriguez Ayala (mr2242)
 
 [Team Contract](./team_contract.md)
 
-## Latenss Chart: 
+## Lateness Chart: 
 
 | Member       | # of Meeting Latenesses | # of Meeting Absences | 
 | -------------|:-------------:|:-------------:|
