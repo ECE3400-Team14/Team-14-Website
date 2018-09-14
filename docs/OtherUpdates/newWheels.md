@@ -18,3 +18,6 @@ and cleaner, easier access to the electrical connections.
  
  Front end:
  ![20180914_181828](https://user-images.githubusercontent.com/16722348/45579045-0e820b00-b853-11e8-875c-55214e10163c.jpg)
+
+
+Look out for more changes to come! Thanks.
