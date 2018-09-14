@@ -22,9 +22,37 @@ In order for the robot the detect the white line for the robot to follow, we dec
 
 
 ### Demonstration of Line Navitation
-
+[insert video of line tracking]
 ## Intersection Detection
 
 ### Algorithm
+Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task.
 
+[insert close up shot on all four sensors, if available]
+
+Our robot makes a turn as follows:
+
+* If both sensors in the middle detect the line, but neither of the sensors on the outside detects the line, the robot is between two intersections and keeps tracking the line while moving forward
+
+```cpp
+  while (readLeftmostSensor() == 1 || readRightmostSensor() == 1){
+    trackLine();
+  }
+```
+
+* If all four sensors detect a line, the robot hits an intersection, and starts turning left or right, depending on the function called
+* The robot is stuck in an infinite loop until one of the middle sensors moves out of the line
+
+```cpp
+  while (readLeftSensor() == 0 && readRightSensor() == 0);
+```
+
+* The robot is stuck in another infinite loop until both middle sensors detect the line
+
+```cpp
+  while (readLeftSensor() == 1 || readRightSensor() == 1);
+```
+
+* The robot has finished the turn and freezes all motor functions until further instructions
 ### Demonstration of Figure Eight
+[insert video of figure eight]
