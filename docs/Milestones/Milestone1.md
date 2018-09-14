@@ -6,13 +6,13 @@ In order to implement line-following functionality, we added four analog line se
 
 To gather accurate readings, we mounted the sensors close to the ground using the bent stilt 3-D-printed pieces provided in the lab. Because the wheels we used were too small, we had to mount the stilts above the chassis using spacers. We also added spacers to the ground-facing end of the stilts to lower the sensor to the ideal height. We go into more detail on the optimal calbiration of these sensors in later sections. 
 
-<img src="https://user-images.githubusercontent.com/12742304/45529003-f954a000-b7b0-11e8-8332-0f714e077335.jpeg" width="300" />
+<img src="https://user-images.githubusercontent.com/12742304/45529003-f954a000-b7b0-11e8-8332-0f714e077335.jpeg" width="400" />
 
 While we were able to get this design to perform successful line detection and grid navigation, we were unsatisfied with the disorganized wiring and instability of the sensor stilts. We are in the process of performing a redesign of the robot using bigger wheels to raise the chassis and clean up the sensor wiring. Updates will be added with the modified design. 
 
 ### Circuit Diagram:
 
-<img src="https://user-images.githubusercontent.com/12742304/45528981-e2ae4900-b7b0-11e8-82cb-600af7f6c201.png" width="400" />
+<img src="https://user-images.githubusercontent.com/12742304/45528981-e2ae4900-b7b0-11e8-82cb-600af7f6c201.png" width="500" />
 
 ## Line Detection
 
