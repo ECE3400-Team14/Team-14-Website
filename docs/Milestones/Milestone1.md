@@ -25,10 +25,11 @@ In order for the robot the detect the white line for the robot to follow, we dec
 [insert video of line tracking]
 ## Intersection Detection
 
-### Algorithm
 Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task.
 
 [insert close up shot on all four sensors, if available]
+
+### Algorithm
 
 Our robot makes a turn as follows:
 
