@@ -29,6 +29,7 @@ In order for the robot the detect the white line for the robot to follow, we dec
 Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task.
 
 [insert close up shot on all four sensors, if available]
+
 Our robot makes a turn as follows:
 
 * If both sensors in the middle detect the line, but neither of the sensors on the outside detects the line, the robot is between two intersections and keeps tracking the line while moving forward
