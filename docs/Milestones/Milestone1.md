@@ -16,7 +16,7 @@ While we were able to get this design to perform successful line detection and g
 
 ## Line Detection
 
-Reading anolog values from the line sensors, we have to determine what values correspond to the white line and what values correspond to the dark surface. The readings vary across different sensors due to different setup and installations. Thus, we have to calibrate each sensors. Here's one of the four functions:
+After reading anolog values from the line sensors, we have to determine what values correspond to the white line and what values correspond to the dark surface by setting a threshold. The readings vary across different sensors due to different setup and installations. Thus, we have to calibrate our threashold for each sensor. Here's one of the four functions:
 
 ```cpp
 /* returns 0 if white detected, 1 if black */
