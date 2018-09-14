@@ -53,7 +53,7 @@ In order for the robot the detect the white line for the robot to follow, we dec
 * If both sensors do not detect the line, the robot should move backwards (this prevents the robot from leaving the grid, which is bounded by black tape).
 
 ### Demonstration of Line Navitation
-<iframe width="560" height="315" src="https://www.youtube.com/embed/uoAQjQ9QIC0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uoAQjQ9QIC0?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 ## Intersection Detection
 
 Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task.
@@ -90,7 +90,7 @@ Our robot makes a turn as follows:
 
 ### Demonstration of Figure Eight
 At first, we had the turn executed with only one wheel turning, and the other stationary to act as a pivot:
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9SsG4Rz07zQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9SsG4Rz07zQ?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Then, we implemented a faster turn using both wheels. We called this a "dime turn":
-<iframe width="560" height="315" src="https://www.youtube.com/embed/m2-dYcXzxF4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m2-dYcXzxF4?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
