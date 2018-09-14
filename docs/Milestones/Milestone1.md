@@ -16,7 +16,18 @@ While we were able to get this design to perform successful line detection and g
 
 ## Line Detection
 
+After reading anolog values from the line sensors, we have to determine what values correspond to the white line and what values correspond to the dark surface by setting a threshold. The readings vary across different sensors due to different setup and installations. Thus, we have to calibrate our threashold for each sensor. Here's one of the four functions:
+
+```cpp
+/* returns 0 if white detected, 1 if black */
+int readLeftSensor(){
+  int val = analogRead(0);
+  return val > 800? 1:0;
+  }
+```
+
 ### Algorithm
+
 In order for the robot the detect the white line for the robot to follow, we decided to use two line sensors close together on the front side of the chassis. These two sensors can provide the robot with the necessary information to orient itself on a line:
 
 * If both sensors detect the line, the robot is aligned with the white line and should move forward.
