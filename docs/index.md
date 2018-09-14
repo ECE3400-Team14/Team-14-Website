@@ -18,6 +18,9 @@ Michaelangelo Rodriguez Ayala (mr2242)
 
 [Team Contract](./team_contract.md)
 
+## Other Robot Updates
+* [New Wheels](OtherUpdates/newWheels.md)
+
 ## Lateness Chart: 
 
 | Member       | # of Meeting Latenesses | # of Meeting Absences | 
