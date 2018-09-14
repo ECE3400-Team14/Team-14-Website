@@ -2,7 +2,7 @@
 
 ## Overview of Robot Modifications
 
-In order to implement line-following functionality into our robot, we added four analog line sensors to our robot. These sensors contain photo-diodes that output a varying voltage based on the light entering the sensor (voltage decreases as light increases). Since the grid is made of white tape on a dark surface, we used the voltage from these sensors to distinguish when the robot is over the white line (low voltage) and when it is on the black surface (high voltage). 
+In order to implement line-following functionality, we added four analog line sensors to our robot. These sensors contain photo-diodes that output a varying voltage based on the light entering the sensor (voltage decreases as light increases). Since the grid is made of white tape on a dark surface, we used the voltage from these sensors to distinguish between when the robot is over the white line (low voltage) and when it is on the black surface (high voltage). 
 
 To gather accurate readings, we mounted the sensors close to the ground using the bent stilt 3-D-printed pieces provided in the lab. Because the wheels we used were too small, we had to mount the stilts above the chassis using spacers. We also added spacers to the ground-facing end of the stilts to lower the sensor to the ideal height. We go into more detail on the optimal calbiration of these sensors in later sections. 
 
@@ -16,13 +16,13 @@ While we were able to get this design to perform successful line detection and g
 ### Algorithm
 In order for the robot the detect the white line for the robot to follow, we decided to use two line sensors close together on the front side of the chassis. These two sensors can provide the robot with the necessary information to orient itself on a line:
 
-* If both sensors detect the line, the robot is aligned with the white line and should move forward
-* If one sensor detects the line while the other detects the ground, the robot should turn towards the sensor that detects the line until both sensors detect the line
-* If both sensors do not detect the line, the robot should move backwards (this prevents the robot from leaving the grid, which is bounded by black tape)
+* If both sensors detect the line, the robot is aligned with the white line and should move forward.
+* If one sensor detects the line while the other detects the ground, the robot should turn towards the sensor that detects the line until both sensors detect the line.
+* If both sensors do not detect the line, the robot should move backwards (this prevents the robot from leaving the grid, which is bounded by black tape).
 
 
 ### Demonstration of Line Navitation
-[insert video of line tracking]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uoAQjQ9QIC0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 ## Intersection Detection
 
 Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task.
@@ -58,4 +58,8 @@ Our robot makes a turn as follows:
 * The robot has finished the turn and freezes all motor functions until further instructions
 
 ### Demonstration of Figure Eight
-[insert video of figure eight]
+At first, we had the turn executed with only one wheel turning, and the other stationary to act as a pivot:
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9SsG4Rz07zQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Then, we implemented a faster turn using both wheels. We called this a "dime turn":
+<iframe width="560" height="315" src="https://www.youtube.com/embed/m2-dYcXzxF4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
