@@ -4,11 +4,11 @@
 
 In order to implement line-following functionality, we added four analog line sensors to our robot. These sensors contain photo-diodes that output a varying voltage based on the light entering the sensor (voltage decreases as light increases). Since the grid is made of white tape on a dark surface, we used the voltage from these sensors to distinguish between when the robot is over the white line (low voltage) and when it is on the black surface (high voltage). 
 
-To gather accurate readings, we mounted the sensors close to the ground using the bent stilt 3-D-printed pieces provided in the lab. Because the wheels we used were too small, we had to mount the stilts above the chassis using spacers. We also added spacers to the ground-facing end of the stilts to lower the sensor to the ideal height. We go into more detail on the optimal calbiration of these sensors in later sections. 
+To gather accurate readings, we mounted the sensors close to the ground using the bent stilt 3D-printed pieces provided in the lab. Because the wheels we used were too small, we had to mount the stilts above the chassis using spacers. We also added spacers to the ground-facing end of the stilts to lower the sensor to the ideal height. We go into more detail on the optimal calbiration of these sensors in later sections. 
 
 <img src="https://user-images.githubusercontent.com/12742304/45529003-f954a000-b7b0-11e8-8332-0f714e077335.jpeg" width="400" />
 
-While we were able to get this design to perform successful line detection and grid navigation, we were unsatisfied with the disorganized wiring and instability of the sensor stilts. We are in the process of performing a redesign of the robot using bigger wheels to raise the chassis and clean up the sensor wiring. Updates will be added with the modified design. 
+While we were able to get this design to perform successful line detection and grid navigation, we were unsatisfied with the disorganized wiring and instability of the sensor stilts. We are in the process of performing a redesign of the robot using bigger wheels to raise the chassis and clean up the sensor wiring. Updates on the modified design can be found [here](../OtherUpdates/newWheels.md).
 
 ### Circuit Diagram:
 
@@ -20,10 +20,10 @@ After reading anolog values from the line sensors, we have to determine what val
 
 ```cpp
 /* returns 0 if white detected, 1 if black */
-int readLeftSensor(){
+int readLeftSensor() {
   int val = analogRead(0);
   return val > 800? 1:0;
-  }
+}
 ```
 
 ### Algorithm
@@ -56,9 +56,8 @@ In order for the robot the detect the white line for the robot to follow, we dec
 <iframe width="560" height="315" src="https://www.youtube.com/embed/uoAQjQ9QIC0?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 ## Intersection Detection
 
-Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task.
+Once we finished the line detection part, we moved on to the having our robot detect intersections. In addition to the two line sensors already installed, we added two more sensors to achieve this task, mounting to the sides of the othe two line sensors and farther back under the chassis.
 
-[insert close up shot on all four sensors, if available]
 
 ### Algorithm
 
