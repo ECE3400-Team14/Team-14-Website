@@ -53,7 +53,7 @@ else digitalWrite(LED_pin, LOW);
 
 ## Integrated System:
 
-To have an integrated system, we added an extra mux in order to conserve analog input ports. The mux is an analog 8-to-1 mux with 3-bit selection inputs. Pin diagram and function table shown below.
+To have an integrated system where both the audio and IR system share the same FFT analysis system on the Arduino, we added a mux in order to route both signals through a single analog port. The mux is an analog 8-to-1 mux with 3-bit selection inputs, which we used as a 2-1 mux by grounding two of the select pins and selecting between two inputs with one pin. Pin diagram and function table shown below.
 
 ![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)![functiontable](https://user-images.githubusercontent.com/42748229/46560910-63012f00-c8c3-11e8-9337-37a1eb17cdac.png)
 
