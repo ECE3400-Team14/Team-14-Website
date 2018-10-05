@@ -2,7 +2,6 @@
 
 **Purpose:** The goal of this lab was to test and implement the audio and IR signal detection systems to be added onto our robot at a later date. This involved preparing both the analog and digital components necessary for our robot to perform signal analysis. Our first task was to capture an audio signal via an amplified microphone circuit and detect a 660 Hz signal. Our second task was to read a 6.08 kHz IR signal using a phototransistor circuit while ignoring an 18 kHz IR signal. Analysis of these signals were done on an Arduino using Fast Fourier Transform (FFT) analysis through the [Open Music Labs FFT Library](http://wiki.openmusiclabs.com/wiki/ArduinoFFT). 
 
-
 **Team Assignment:** David and Greg worked on the audio-detection task while Andrew and Michael worked on IR detection. Both groups worked on constructing the combined audio-IR analysis system.
 
 ## Audio Team:
@@ -49,4 +48,10 @@ else digitalWrite(LED_pin, LOW);
 
 ## Integrated System:
 
-3 points: Demonstration of a single system with nicely merged code that can do both IR and audio
+To have an integrated system, we added an extra mux in order to conserve analog input ports. The mux is an analog 8-to-1 mux with 3-bit selection inputs. Pin diagram shown below.
+
+![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)
+
+Since we only have two signals going into the mux, we decided to ground S1 and S2, and only control S0 so that we select from A1 and A0.
+
+[integrated system circuit diagram?]
