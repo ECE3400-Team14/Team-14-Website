@@ -6,7 +6,30 @@
 
 ## Audio Team:
 
-2 points: Correct FFT analysis for audio
+### Setting Up FFT Analysis for Audio
+
+We started by checking that we could detect a 660 Hz signal from a signal generator using the FFT library. In order to detect the signal, we used the example file `fft_adc_serial`, found in the FFT/examples folder downloaded with the library. We made some small additions to the code:
+
+We changed the prescale factor of the Arduino Analog-to-Digital Converter (ADC) to the highest value possible (128). This is because the audio signal we are trying to detect is at a low frequency, and does not require a high sample rate. The ADC sample rate is the Arduino clock speed (16 MHz) divided by the prescale factor and the number of cycles to process an input (13): 16 MHz / 128 / 13 ~ 9600 Hz sample rate. The maximum frequency that can be samples at 9600 Hz is half the sampling rate, 4800 Hz, more than enough for sampling 660 Hz. 
+
+```cpp
+void setup() {
+  Serial.begin(9600); // use the serial port
+  TIMSK0 = 0; // turn off timer0 for lower jitter
+  ADCSRA = 0xe7; //CHANGED THIS LINE (for prescale factor of 128)
+  ADMUX = 0x40; // use adc0
+  DIDR0 = 0x01; // turn off the digital input for adc0
+}
+```
+
+At this sampling rate, we needed to determine which bin to find the amplitude of a 660 Hz signal calculated by the FFT. As the FFT converts a signal in the time domain to one in the frequency domain, the output of the FFT is organized into bins corresponding to the signal amplitude at different frequencies. With 127 evenly-spaced frequency bins available and a maximum frequency of 4800 Hz in the last bin, 660 Hz would be in the bin (660/4800)*127 ~ 17. 
+
+Testing this in practice with a 660 Hz signal from a signal generator, we found that the highest-amplitude bin was indeed pin 17:
+
+![signal gen no amp2](https://user-images.githubusercontent.com/12742304/46562847-284fc480-c8cc-11e8-8610-b3972fd84115.png)
+
+We noticed, however, that there were a lot of harmonics present in the signal, despite the input being a sine wave. We expected that this may have been caused by low output impedance of the signal generator when input into the Arduino analog port. Such a problem was solved later when we added an amplifier with higher output impedance. 
+
 
 2 points: Working amplifier (or active filter) circuit for audio
 
