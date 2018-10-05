@@ -36,11 +36,11 @@ The theoretical sampling frequency is calculated as follows. The arduino ADC clo
 
 <img src="https://user-images.githubusercontent.com/42748229/46559383-3565b700-c8be-11e8-998c-e61b1a442d93.png"/>
 
-                      *FFT from IR Hat*
+                               FFT from IR Hat
 
 <img src="https://user-images.githubusercontent.com/42748229/46559389-3bf42e80-c8be-11e8-90a9-d87d710551df.png"/>
 
-                      *FFT from Decoy*
+                               FFT from Decoy
 
 By setting an appropriate threshold for bin 21, we can detect the IR hat from about 50cm away and ignore the decoy. We connected an external LED to indicate such detection.
 
