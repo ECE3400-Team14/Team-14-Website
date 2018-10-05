@@ -40,8 +40,8 @@ The theoretical sampling frequency is calculate as follow. The arduino ADC clock
 By setting an appropriate threshold for bin 21, we can detect the IR hat from about 50cm away and ignore the decoy. We connected an external LED to indicate such detection.
 
 ```cpp
-if (fft_log_out[21] > 35) digitalWrite(13, HIGH);
-elsedigitalWrite(13, LOW);
+if (fft_log_out[21] > 60) digitalWrite(13, HIGH);
+else digitalWrite(13, LOW);
 ```
 
 [insert videos of IR hat and decoy]
