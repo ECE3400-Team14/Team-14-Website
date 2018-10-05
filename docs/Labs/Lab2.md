@@ -30,8 +30,27 @@ Testing this in practice with a 660 Hz signal from a signal generator, we found 
 
 We noticed, however, that there were a lot of harmonics present in the signal, despite the input being a sine wave. We expected that this may have been caused by low output impedance of the signal generator when input into the Arduino analog port. Such a problem was solved later when we added an amplifier with higher output impedance. 
 
+### Building the Amplifier:
 
-2 points: Working amplifier (or active filter) circuit for audio
+After constructing the simple microphone circuit from lab and monitoring the output on the oscilloscope, we noticed that the output signal had a low amplitude (around 50 mV) even for loud noise. Therefore, we decided to build an amplifier for our microphone circuit. We got the amplifier to work was setting it up with a single rail and DC biasing our input signal. We initially tried to build a non-inverting amplifier with an op-amp, but we had trouble getting the DC biasing to work at the positive terminal along with the AC signal. We eventually switched over to an inverting amplifier resembling the one constructed by [Team Alpha last year](https://cei-lab.github.io/ECE3400-2017-teamAlpha/lab2.html). Including a capacitor between VCC and ground reduced some noice in the circuit caused by the amplified AC signal. 
+
+#### Image of Circuit: 
+
+![img_4307](https://user-images.githubusercontent.com/12742304/46564783-9a79d680-c8d7-11e8-9ab5-7763a0f102cf.jpg)
+
+#### Circuit Diagram:
+
+![microphoneampcircuit](https://user-images.githubusercontent.com/12742304/46564808-b41b1e00-c8d7-11e8-990c-038a51144e3a.png)
+
+We had to adjust the DC biasing of the positive terminal in order to make sure that a large enough input would not hit the rails of the circuit. We initially assumed that the DC bias needed to be exactly between VCC and ground (2.5V) but we found that our signal was clipping at a lower voltage than expected from above. We tried lowering the voltage divider ratio at the positive terminal (R5/(R4 + R5) so the DC bias was around 1.8 Volts, and this gave us the largest voltage swing:
+
+#### The maximum voltage swing through the amplifier (from signal generator):
+
+![signal gen](https://user-images.githubusercontent.com/12742304/46564901-563b0600-c8d8-11e8-84cc-009f24f3f423.png)
+
+#### A 660 Hz tone played in close proximity to the microphone. 
+
+![microphone signal](https://user-images.githubusercontent.com/12742304/46564881-27bd2b00-c8d8-11e8-8a75-79862429c925.png)
 
 2 points: Distinguish a 660Hz tone from background noise (talking/music)
 
