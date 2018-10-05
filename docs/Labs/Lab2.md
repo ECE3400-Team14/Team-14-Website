@@ -17,6 +17,7 @@
 For our IR circuit, we started with the circuit that only consists of the phototransistor and a 1.8kΩ resistor, as provided in the lab handout:
 
 <img src="https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png" width="200"/>
+
 ![circuit](https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png)
 
 And it looks like this on the breadboard:
