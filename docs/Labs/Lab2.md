@@ -56,6 +56,6 @@ Since we only have two signals going into the mux, we decided to ground S1 and S
 
 [integrated system circuit diagram?]
 
-When our system first starts running, it only receives signal from the microphone and waits for the 660Hz signal. Once it detects a tone at that frequency, it flips S0 so now it only receives signal from the phototransistor. From that point on, it ignores the decoy signal at about 18kHz and react once it detects the IR hat signal from other robots at about 6kHz.
+When our system first starts running, it only receives signal from the microphone and waits for the 660Hz signal. Once it detects a tone at that frequency, it flips S0 so now it only receives signal from the phototransistor. From that point on, it ignores the decoy signal at about 18kHz and reacts once it detects the IR hat signal from other robots at about 6kHz.
 
 [insert code segmants, video, etc.]
