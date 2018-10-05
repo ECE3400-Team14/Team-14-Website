@@ -48,9 +48,9 @@ else digitalWrite(LED_pin, LOW);
 
 ## Integrated System:
 
-To have an integrated system, we added an extra mux in order to conserve analog input ports. The mux is an analog 8-to-1 mux with 3-bit selection inputs. Pin diagram shown below.
+To have an integrated system, we added an extra mux in order to conserve analog input ports. The mux is an analog 8-to-1 mux with 3-bit selection inputs. Pin diagram and function table shown below.
 
-![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)
+![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)![functiontable](https://user-images.githubusercontent.com/42748229/46560910-63012f00-c8c3-11e8-9337-37a1eb17cdac.png)
 
 Since we only have two signals going into the mux, we decided to ground S1 and S2, and only control S0 so that we select from A1 and A0. Pin 6, which is enable, also needs to be grounded, since it's active-low.
 
