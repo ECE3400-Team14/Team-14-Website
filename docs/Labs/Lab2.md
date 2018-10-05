@@ -16,7 +16,7 @@
 
 For our IR circuit, we started with the circuit that only consists of the phototransistor and a 1.8kΩ resistor, as provided in the lab handout:
 
-<img src="https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png" width="720"/>
+<img src="https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png"/>
 
 And it looks like this on the breadboard:
 
@@ -30,12 +30,12 @@ After seeing the result, we were satisfied with the strength of the signal as th
 
 By modifying the sample code given by the FFT library and plotting the output, we can clearly distinguish the robot signal and the decoy signal. But first, we had to make a minor and yet important change to our code. In the sample code, ADCSRA was set up to be 0xe5, where the last last digit corresponds to the prescale factor as shown in the table below.
 
-<img src="https://user-images.githubusercontent.com/42748229/46558523-60024080-c8bb-11e8-8624-8f1513b950d4.png" width="720"/>
+<img src="https://user-images.githubusercontent.com/42748229/46558523-60024080-c8bb-11e8-8624-8f1513b950d4.png"/>
 
 The theoretical sampling frequency is calculate as follow. The arduino ADC clock runs at 16MHz. If the prescale factor is 64, the clock then runs at 16/64 = 0.25MHz. Each ADC conversion takes 13 cycles, which means the theoretical sampling frequency is 0.25MHz/13 = 19.2kHz. In order to eliminate aliasing for our 18kHz signal, the sampling rate needs to be at least 36kHz, which means a prescale factor of 32 should suffice. However, since the calculation is theoretical, we set the prescale factor to 16 just to be safe. This way, we absolutely would not confuse the 18kHz signal with the 6kHz signal. With a sampling frequency of 76.8kHz and 128 bins, the 6kHz signal, which is actually 6.47kHz, should fall into bin 21, as 6kHz is between 76.8/2/128*21 = 6.3kHz and 76.8/2/128*22 = 6.6kHz. Similarly, the 18kHz decoy signal should fall near bin 62. As we plot the matrix obtained through FFT, we see exactly that.
 
-<img src="https://user-images.githubusercontent.com/42748229/46559383-3565b700-c8be-11e8-998c-e61b1a442d93.png" width="720"/>
-<img src="https://user-images.githubusercontent.com/42748229/46559389-3bf42e80-c8be-11e8-90a9-d87d710551df.png" width="720"/>
+<img src="https://user-images.githubusercontent.com/42748229/46559383-3565b700-c8be-11e8-998c-e61b1a442d93.png"/>
+<img src="https://user-images.githubusercontent.com/42748229/46559389-3bf42e80-c8be-11e8-90a9-d87d710551df.png"/>
 
 By setting an appropriate threshold for bin 21, we can detect the IR hat from about 50cm away and ignore the decoy. We connected an external LED to indicate such detection.
 
