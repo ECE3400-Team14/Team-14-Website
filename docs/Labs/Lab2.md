@@ -34,7 +34,7 @@ By modifying the sample code given by the FFT library and plotting the output, w
 
 The theoretical sampling frequency is calculate as follow. The arduino ADC clock runs at 16MHz. If the prescale factor is 64, the clock then runs at 16/64 = 0.25MHz. Each ADC conversion takes 13 cycles, which means the theoretical sampling frequency is 0.25MHz/13 = 19.2kHz. In order to eliminate aliasing for our 18kHz signal, the sampling rate needs to be at least 36kHz, which means a prescale factor of 32 should suffice. However, since the calculation is theoretical, we set the prescale factor to 16 just to be safe. This way, we absolutely would not confuse the 18kHz signal with the 6kHz signal. With a sampling frequency of 76.8kHz and 128 bins, the 6kHz signal, which is actually 6.47kHz, should fall into bin 21, as 6kHz is between 76.8/2/128*21 = 6.3kHz and 76.8/2/128*22 = 6.6kHz. Similarly, the 18kHz decoy signal should fall near bin 62. As we plot the matrix obtained through FFT, we see exactly that.
 
-![irhat](https://user-images.githubusercontent.com/42748229/46559383-3565b700-c8be-11e8-998c-e61b1a442d93.png =300x)
+![irhat](https://user-images.githubusercontent.com/42748229/46559383-3565b700-c8be-11e8-998c-e61b1a442d93.png){ width: 200px; }
 ![decoy](https://user-images.githubusercontent.com/42748229/46559389-3bf42e80-c8be-11e8-90a9-d87d710551df.png =300x)
 
 By setting an appropriate threshold for bin 21, we can detect the IR hat from about 50cm away and ignore the decoy. We connected an external LED to indicate such detection.
