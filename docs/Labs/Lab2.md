@@ -52,7 +52,7 @@ To have an integrated system, we added an extra mux in order to conserve analog 
 
 ![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)
 
-Since we only have two signals going into the mux, we decided to ground S1 and S2, and only control S0 so that we select from A1 and A0.
+Since we only have two signals going into the mux, we decided to ground S1 and S2, and only control S0 so that we select from A1 and A0. Pin 6, which is enable, also needs to be grounded, since it's active-low.
 
 [integrated system circuit diagram?]
 
