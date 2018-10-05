@@ -58,7 +58,7 @@ By modifying the sample code given by the FFT library and plotting the output, w
 The theoretical sampling frequency is calculated as follows. The arduino ADC clock runs at 16MHz. If the prescale factor is 64, i.e. ADCSRA set to 0xe6, the clock then runs at 16/64 = 0.25MHz. Each ADC conversion takes 13 cycles, which means the theoretical sampling frequency is 0.25MHz/13 = 19.2kHz. In order to eliminate aliasing for our 18kHz signal, the sampling rate needs to be at least 36kHz, which means a prescale factor of 32 should suffice. However, the decoy signal is not a pure sinusodal wave, which means it has peaks not only at its first harmonic frequency, but also at its overtones. The amplitudes at the overtone frequencies compared to the amplitude at the fundemental frequency is small and yet cannot be ignored. By setting the sampling frequency to 76.8kHz, theoretically only frequencies over 38.4kHz would cause aliasing, i.e. the 3rd harmonic. In addition, only be peaks after the 4th harmonic frequency might accumulate near 6kHz. Since the amplitudes at overones decays linearly, the accumulated result does not matter if we choose our threshold carefully. This way, we most likely will not confuse the 18kHz signal with the 6kHz signal. 
 
 ```cpp
-ADCSRA = 0xe4; // prescale factor of 32
+ADCSRA = 0xe4; // prescale factor of 16
 ```
 With a sampling frequency of 76.8kHz and 128 bins, the 6kHz signal, which is actually 6.47kHz, should have a peak at bin 21, as 6.47kHz is between 76.8/2/128\*21 = 6.3kHz and 76.8/2/128\*22 = 6.6kHz. Similarly, the 18kHz decoy signal should have a peak near bin 62. As we plot the arrays obtained through FFT, we see exactly that.
 
