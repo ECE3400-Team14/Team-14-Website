@@ -14,9 +14,14 @@
 
 ## IR Team:
 
-For our IR circuit, we started with the circuit provided in the lab handout:
+For our IR circuit, we started with the circuit that only consists of a phototransistor and a 1.8kΩ resistor, as provided in the lab handout:
 
 ![circuit](https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png)
+
+And it looks like this:
+
+![circuit](https://user-images.githubusercontent.com/42748229/46548398-fa06c080-c89c-11e8-80ef-c81fa1885d85.png)
+
 
 2 points: Correct FFT analysis for IR
 
