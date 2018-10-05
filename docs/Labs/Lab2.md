@@ -16,7 +16,7 @@
 
 For our IR circuit, we started with the circuit provided in the lab handout:
 
-https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png
+(https://cei-lab.github.io/ece3400-2018/images/lab2_phototransistor_schem.png)
 
 2 points: Correct FFT analysis for IR
 
