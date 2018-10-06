@@ -137,12 +137,19 @@ To have an integrated system where both the audio and IR system share the same F
 
 ![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)![functiontable](https://user-images.githubusercontent.com/42748229/46560910-63012f00-c8c3-11e8-9337-37a1eb17cdac.png)
 
-Since we only have two signals going into the mux, we decided to ground S1 and S2, and only control S0 so that we select from A1 and A0. Pin 6, which is enable, also needs to be grounded, since it's active-low.
+Since we only have two signals going into the mux, we decided to ground S1 (B) and S2 (C), and only control S0 (A) so that we select from A1 (IO1) and A0 (IO0). Pin 6, which is enable, also needs to be grounded, since it's active-low.
 
-[integrated system circuit diagram?]
+![combinedcircuit2](https://user-images.githubusercontent.com/12742304/46565779-791de800-c8e1-11e8-95dd-8c57641d9373.png)
 
 When our system first starts running, it only receives signal from the microphone and waits for the 660Hz signal. Once it detects a tone at that frequency, it flips S0 so now it only receives signal from the phototransistor. From that point on, it ignores the decoy signal at about 18kHz and reacts once it detects the IR hat signal from other robots at about 6kHz.
 
-[insert code segmants?]
+[Here is a link to our merged code, demonstrated in the video below](https://github.com/ECE3400-Team14/3400/blob/master/Lab2/fft_adc_combine_audio_IR/fft_adc_combine_audio_IR.ino)
+ 
+When getting this system to work, we initially had the same problem as the Audio circuit where threshold values were much lower than expected, but this time the photo-transistor voltage was dampened. When comparing our group's code as we were merging them together, we discovered that the audio team had set the analog port selection mux wrong for input to A0: they had `ADMUX = 0x41` rather than `ADMUX = 0x40`, setting the active analog port to A1 rather than A0. 
+
+<img width="400" alt="screen shot 2018-10-05 at 9 09 09 pm" src="https://user-images.githubusercontent.com/12742304/46565882-0ca3e880-c8e3-11e8-95a1-e1e3c60805db.png">
+
+However, we had able to still read a dampened signal through A0, which made this problem hard to detect until late in the process. 
+
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/G33SoUJ0GdY?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
