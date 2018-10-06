@@ -6,7 +6,7 @@
 
 ## Audio Team:
 
-### Setting Up FFT Analysis for Audio
+### Setting Up FFT Analysis for Audio: 
 
 We started by checking that we could detect a 660 Hz signal from a signal generator using the FFT library. In order to detect the signal, we used the example file `fft_adc_serial`, found in the FFT/examples folder downloaded with the library. We made some small additions to the code:
 
@@ -113,11 +113,11 @@ ADCSRA = 0xe4; // prescale factor of 16
 ```
 With a sampling frequency of 76.8kHz and 128 bins, the 6kHz signal, which is actually 6.47kHz, should have a peak at bin 21, as 6.47kHz is between 76.8/2/128\*21 = 6.3kHz and 76.8/2/128\*22 = 6.6kHz. Similarly, the 18kHz decoy signal should have a peak near bin 62. As we plot the arrays obtained through FFT, we see exactly that.
 
-FFT from IR Hat:
+#### FFT from IR Hat:
 
 <img src="https://user-images.githubusercontent.com/42748229/46559383-3565b700-c8be-11e8-998c-e61b1a442d93.png"/>
 
-FFT from Decoy:
+#### FFT from Decoy:
 
 <img src="https://user-images.githubusercontent.com/42748229/46559389-3bf42e80-c8be-11e8-90a9-d87d710551df.png"/>
 
