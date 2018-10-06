@@ -96,7 +96,8 @@ if (fft_log_out[21] > 60) digitalWrite(LED_pin, HIGH);
 else digitalWrite(LED_pin, LOW);
 ```
 
-[insert videos of IR hat and decoy]
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/gvSTcTZvcyI?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/aDfAOPTeVJ4?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ## Integrated System:
 
@@ -110,4 +111,6 @@ Since we only have two signals going into the mux, we decided to ground S1 and S
 
 When our system first starts running, it only receives signal from the microphone and waits for the 660Hz signal. Once it detects a tone at that frequency, it flips S0 so now it only receives signal from the phototransistor. From that point on, it ignores the decoy signal at about 18kHz and reacts once it detects the IR hat signal from other robots at about 6kHz.
 
-[insert code segmants, video, etc.]
+[insert code segmants?]
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/G33SoUJ0GdY?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
