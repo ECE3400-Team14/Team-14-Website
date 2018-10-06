@@ -52,7 +52,41 @@ We had to adjust the DC biasing of the positive terminal in order to make sure t
 
 ![microphone signal](https://user-images.githubusercontent.com/12742304/46564881-27bd2b00-c8d8-11e8-8a75-79862429c925.png)
 
-2 points: Distinguish a 660Hz tone from background noise (talking/music)
+### Distinguishing the 660Hz Tone:
+
+When performing FFT analysis on our amplified microphone signal, we found that bin 17 contained our peak 660 Hz signal amplitude, but the amplitude seemed much lower than expected. For even a loud 660 Hz tone, the FFT signal would barely exceed 100, which we thought was low compared to our first readings from the signal generator. However, we were able to work with this signal to detect 660 Hz tones by setting a low enough threshold on the FFT bin (we eventually discovered what the problem was late during the process of integrating with IR, more on that later).
+
+#### FFT of amplified microphone signal when playing 660 Hz tone close to microphone (amongst lab backround noise): 
+
+![microphone_660hz_2](https://user-images.githubusercontent.com/12742304/46565444-6bfefa00-c8dd-11e8-9851-a56c318c5fed.png)
+There is a distinguishable peak in bin 17, but it only reaches a amplitude of around 75.
+
+
+Next, in order to distinguish 660 Hz audio signals, we modified our FFT code to detect only inputs in the 660 Hz bin. In our first design, we counted any signal in the 660 Hz bin (bin 17) over a certain threshold as a verified detection. However, we found that normal speech near the microphone would sometimes set of a detection. Therefore, we decided to add some time filtering, ignoring infrequent detection and only signaling a verified detection signal for multiple above-threshold detections in a row: 
+
+```cpp
+ int threshold = 70;
+ int has_started = 0;
+ int max_count = 5;
+ /*
+ ...
+ */
+  if(fft_log_out[17] > threshold) {//if the 660 Hz tone is above our threshold value
+        Serial.println("660Hz detected!");
+        start_count++;
+	//Only start the robot after [max_count] number of above-threshold values
+        if(start_count == max_count) {
+          Serial.println("Go!!!!!!");//The Verified Detection Message
+          start_count = 0;
+       }
+ else { start_count = (start_count != 0) ? start_count - 1 : 0;}
+
+```
+
+[Video of detection] 
+
+&nbsp;
+
 
 ## IR Team:
 
