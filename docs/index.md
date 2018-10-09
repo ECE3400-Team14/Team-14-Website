@@ -18,6 +18,7 @@ Michaelangelo Rodriguez Ayala (mr2242)
 
 ## Milestones
 * [Milestone1](Milestones/Milestone1.md)
+* [Milestone2](Milestones/Milestone2.md)
 
 ## Other Robot Updates
 * [New Wheels](OtherUpdates/newWheels.md)
