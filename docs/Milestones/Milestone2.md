@@ -6,6 +6,39 @@ In this milestone, we aimed to use line tracking (previously developed) to imple
 to navigate an arbitrary set of walls while avoiding decoy robots. This integrates multiple systems explored in previous labs
 into a working system on the robot.
 
+### Robot Maintenance:
+
+In order to have more room on the top of our robot for mounting the new components (wall sensors, IR circuit, and IR hat), we added a second chassis under the wheels of the robot. On this lower chassis, we mounted our line sensors and stored our breadboard circuits while keeping our Arduino on the top level, freeing up space next to the arduino for other components. 
+
+[Picture?]
+
+Additionally, in order to free up analog ports for our wall sensors and IR detection circuit, we routed all of our line sensor outputs to a single analog port through a 4-to-1 mux circuit, with two digital pins to select which line sensor to read from. We did using the first 4 inputs (A0 to A3) on an 8-to-1 MUX, grounding the most significant selector pin. In order to perform accurate readings from each sensor, we had to include a small delay before reading from the analog port after swithcing the MUX input channel selector pins (arount 6 ms). 
+
+![image](https://user-images.githubusercontent.com/42748229/46560456-d43fe280-c8c1-11e8-92ec-740b3bd49977.png)![functiontable](https://user-images.githubusercontent.com/42748229/46560910-63012f00-c8c3-11e8-9337-37a1eb17cdac.png)
+
+
+#### Example for reading Left Sensor:
+```cpp
+  //Select input 0 with 00 select input
+  digitalWrite(mux0, LOW);
+  digitalWrite(mux1, LOW);
+  delay(muxReadDelay);// delay for around 6 ms
+  int val = analogRead(muxRead);//read the mux output
+```
+
+#### Circuit Diagram:
+
+![arduino diagram_m2_8_bb](https://user-images.githubusercontent.com/12742304/46901204-9290d800-ce7d-11e8-908f-b253cb75bee4.png)
+
+### Adding Wall Sensors and IR circuit:
+
+We decided to mount two wall sensors onto our robot: one facing forward and one facing to the right. We decided that these two wall sensors would be effective enough to implement right-hand wall following. Additionally, we added LEDs corresponding to each wall sensor to indicate when a wall sensor detects a wall. (see section __Wall Follow Algorithm__ for more details). 
+ 
+#### Updated Circuit Diagram:
+![arduino diagram_m2_10_bb](https://user-images.githubusercontent.com/12742304/46901306-02539280-ce7f-11e8-9437-b0db9fb561f1.png)
+
+To add our IR circuit to the robot...
+
 ### Wall Follow Algorithm
 
 The basic wall following algorithm is a simple set of rules that hold the robot hugging a right-hand wall. If there is a wall on the right
