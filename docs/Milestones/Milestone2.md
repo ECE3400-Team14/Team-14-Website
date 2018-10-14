@@ -3,7 +3,7 @@
 ## Overview of Robot Modifications
 
 In this milestone, we aimed to use line tracking (previously developed) to implement a wall-following algorithm 
-to navigate an arbitrary set of walls while avoiding decoy robots. This integrates multiple systems explored in previous labs
+to navigate an arbitrary set of walls while avoiding other robots. This integrates multiple systems explored in previous labs
 into a working system on the robot.
 
 ### Robot Maintenance:
@@ -43,7 +43,26 @@ To add our IR circuit to the robot...
 
 The basic wall following algorithm is a simple set of rules that hold the robot hugging a right-hand wall. If there is a wall on the right
 the robot will go straight. If there is a wall on the right, and a wall in front, the robot will turn left. Finally, if there is no wall on the right,
-the robot should turn right in order to find the wall again.
+the robot should turn right in order to find the wall again:
+
+```cpp
+void wallFollowAndStop(){
+  int hasRightWall = readRightWallSensor();
+  int hasFrontWall = readForwardWallSensor();
+` if (hasRightWall==1&&hasFrontWall==0) {
+    forwardAndStop();
+   }
+  else if (hasRightWall==1&&hasFrontWall==1){
+    turnLeft();
+    finishTurn();
+   }
+  else if (hasRightWall==0){
+    turnRight();
+    finishTurn();
+    forwardAndStop();
+   }
+}
+```
 
 Our robot is tuned such that it will only sense a wall at quite close range. This is so that the robot only has to check for a wall at every intersection.
 This is why, in the video below, the LED indicators only change their values at intersections. That is where turn decisions are made.
