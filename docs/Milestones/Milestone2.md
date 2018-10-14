@@ -39,7 +39,7 @@ We decided to mount two wall sensors onto our robot: one facing forward and one 
 
 To add our IR circuit to the robot...
 
-### Wall Follow Algorithm
+### Wall Follow Algorithm:
 
 The basic wall following algorithm is a simple set of rules that hold the robot hugging a right-hand wall. If there is a wall on the right
 the robot will go straight. If there is a wall on the right, and a wall in front, the robot will turn left. Finally, if there is no wall on the right,
@@ -51,10 +51,22 @@ This is why, in the video below, the LED indicators only change their values at 
 The green light on the right side of the robot indicates that the robot "sees" a wall on the right side.
 The yellow light on the front of the robot indicates that the robot"sees" a wall in front of the robot.
 
-[Robot wall follow demonstration video]
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LUa8-9yA-2w" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Notice that this algorithm can successfully navigate any set of walls until hitting an "edge" of our table.
 
-### Robot Avoidance Algorithm
+### Robot Avoidance Algorithm:
 
-### Both Wall and Robot Avoidance
+During the process of integrating our free-running analog sampling and FFT analysis, we encountered the following issues:
+
+* __Memory Shortage:__ We found that integrating our FFT analysis with 256 samples from [Lab 2](https://ece3400-team14.github.io/Team-14-Website/Labs/Lab2.html) caused our program to use 75% of dynamic memory, highly limiting our heap space. In order to avoid any issues when adding additional code in the future, we reduced the memory used by the FFT library by halving the number of samples we analyzed to 128 (`#define FFT_N 128`), reducing our total dynamic memory usage to 47%. While this reduced the number of frequency bins and the accuracy of the FFT output frequencies, we found that we were still getting accurate detection results from our IR circuit. 
+
+* __Combining Free-Running ADC Reading With Analog Read:__ After our initial failed attempts at combining FFT analysis with our wall-following code, we realized we had to make changes to the FFT setup:
+  * We made sure not to turn off `timer0`, as it affects timing used when calling `delay()` in other parts of the program. 
+  * To avoid conflicts when running `AnalogRead()` between FFT calls, we made sure to run our FFT setup each time before reading from our free-running port devoted to FFT (`A0`). This included setting `ADMUX` to select `A0` and setting our ADC free-running and prescale settings in `ADCSRA`. We also needed to make sure we restored the previous settings of `ADCSRA` before exiting our FFT analysis function. 
+  
+Our combined code for Milestone 2 can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Milestone2). 
+
+### Both Wall and Robot Avoidance:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Yrjw4R42oCg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
