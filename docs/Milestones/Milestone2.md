@@ -86,6 +86,32 @@ During the process of integrating our free-running analog sampling and FFT analy
   
 Our combined code for Milestone 2 can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Milestone2). 
 
+The way we ran robot avoidance was once every few cycles anytime the robot is moving between intersections:
+```cpp
+void forwardAndStop(){
+    int i = 0;
+    while (readLeftmostSensor() == 1 || readRightmostSensor() == 1){
+      //Serial.println("BEGIN");
+      trackLine();
+      //perform FFT every __ number of cycles
+      if (i == 5) {
+        Serial.println("Running fft");
+        fft_analyze();
+        while (fft_detect/**/) {
+          stopMovement();
+          fft_analyze();
+        } //Added
+        i = 0;
+      }
+      else { i++; }
+    }
+  stopMovement();
+}
+```
+This allowed adequate time for the line sensors to keep the robot on track while also maintaining a decent reaction time to a robot stop signal.
+
 ### Both Wall and Robot Avoidance:
+
+Combining the two algorithms was then easy because we integrated avoidance into the movement of the robot. Like an obedient pet, our robot correctly executed wall following while ignoring decoy bots and stopping in the prescence of a real robot signal:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Yrjw4R42oCg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
