@@ -10,7 +10,6 @@ into a working system on the robot.
 
 In order to have more room on the top of our robot for mounting the new components (wall sensors, IR circuit, and IR hat), we added a second chassis under the wheels of the robot. On this lower chassis, we mounted our line sensors and stored our breadboard circuits while keeping our Arduino on the top level, freeing up space next to the arduino for other components. 
 
-[Picture?]
 ![edited milestone 2 robo v2](https://user-images.githubusercontent.com/31755830/47049908-9fa71300-d16c-11e8-8526-2262277617ce.jpg)
 
 
