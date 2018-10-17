@@ -1,4 +1,4 @@
-#  Milestone 1
+#  Milestone 2
 
 ## Overview of Robot Modifications
 
@@ -52,7 +52,7 @@ the robot should turn right in order to find the wall again:
 void wallFollowAndStop(){
   int hasRightWall = readRightWallSensor();
   int hasFrontWall = readForwardWallSensor();
-` if (hasRightWall==1&&hasFrontWall==0) {
+  if (hasRightWall==1&&hasFrontWall==0) {
     forwardAndStop();
    }
   else if (hasRightWall==1&&hasFrontWall==1){
