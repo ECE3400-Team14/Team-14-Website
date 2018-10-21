@@ -1,6 +1,7 @@
 # Lab 3: System Integration and Radio Communication 
 
 ### Purpose: 
+The goal of this lab was to integrate all of our components from previous labs and milestones into our robot and add radio communication between the robot and a computer base station to display the robot's maze data in the provided [GUI](https://github.com/backhous/ece3400-maze-gui). David and Michael worked on integrating robot components, namely the 660 Hz start signal, while Greg and Andrew worked on setting up radio communication and GUI integration. All members participated in the final stage of integrating radio communication with right-hand-wall maze following and robot detection. 
 
 Efficient data scheme to store all maze information on an Arduino
 
@@ -22,7 +23,7 @@ We decided to use our combined audio-IR signal circuit from [Lab2](https://ece34
 ![combinedcircuit2](https://user-images.githubusercontent.com/12742304/46565779-791de800-c8e1-11e8-95dd-8c57641d9373.png)
 
 #### Picture of Mounted Circuit:
-[TODO: picture of mounted circuit]
+<img src="https://user-images.githubusercontent.com/12742304/47273803-f6e02580-d568-11e8-9dab-e9cf199d0096.jpeg" width="600" />
 
 #### Software:
 
