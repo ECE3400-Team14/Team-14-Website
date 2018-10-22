@@ -58,6 +58,8 @@ We tested that our combined Audio-IR FFT detection code worked along with our li
 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/TWhD7SeIBSQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
+&nbsp
+
 ### Data Storage:
 
 Since our Arduino has a very limited memory and the maze has size of 9 by 9, we had to use an efficient way to store our data, otherwise we can possibly exceed our memory limit. If we use int to store every piece of data, which includes x/y coordinates, whether there are walls on east, south, west, and north directions, whether we have a treasure at the intersection and what color it is, that would use at least 8 \* 81 = 648 ints, which has a size of 648 \* 2 = 1296 bytes, if each int is represented by 2 bytes. This is clearly unacceptable.
@@ -108,7 +110,7 @@ void updateMaze(){
   if (orientation == 0){
     setNorthWall(x, y, hasFrontWall);
     setEastWall(x, y, hasRightWall);
-  }else if …
+  }else if ...
 }
 ```
 
@@ -125,7 +127,7 @@ void sendMaze(){
   bool ok = radio.write( mazeData+x+rowLength*y, sizeof(unsigned int) );
   if (ok) Serial.println("ok...");
   else Serial.print("failed.\n\r");
-  …
+  ...
 }
 ...
 ```
@@ -138,9 +140,9 @@ After installing the GUI, we tested it using 2x3.ino provided in the arduino fol
 ```cpp
 ...
 void loop(){
-  Serial.println(“reset”);
+  Serial.println("reset");
   delay(1000);
-  Serial.println(“0,0,north=true,west=true”);
+  Serial.println("0,0,north=true,west=true");
   ...
 }
 ...
