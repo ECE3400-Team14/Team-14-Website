@@ -180,7 +180,7 @@ else Serial.print(",east=false");
 ...
 ```
 
-We set our robot free in the maze, but the GUI was updating results that we did not anticipate. We were seeing phantom west walls at places where there are no west walls. In fact, there were west walls in every block. After carefully comparing what the serial monitor showed and what the GUI showed, We thought that maybe the GUI wasn’t parsing west=false correctly, so we got rid of that line completely to see what happens. To our surprise, we now saw phantom south walls.It was then clear to us that the GUI wasn’t parsing the last argument correctly. If the last parameter is false, the GUI thinks that it is true. We then solved the issue by printing arguments that are false before printing arguments that are true.
+We set our robot free in the maze, but the GUI was updating results that we did not anticipate. We were seeing phantom west walls at places where there are no west walls. In fact, there were west walls in every block. After carefully comparing what the serial monitor showed and what the GUI showed, We thought that maybe the GUI wasn’t parsing west=false correctly, so we got rid of that line completely to see what happens. To our surprise, we now saw phantom south walls. It was then clear to us that the GUI wasn’t parsing the last argument correctly. If the last parameter is false, the GUI thinks that it is true. We then solved the issue by printing arguments that are false before printing arguments that are true.
 
 
 ```cpp
