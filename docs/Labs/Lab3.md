@@ -144,18 +144,37 @@ int s = (data & (1<<10)) >> 10;
 printf("%d",x);
 printf(",%d", y);
 if (n) Serial.print(",north=true");
-else  Serial.print(",north=false");
 if (e) Serial.print(",east=true"); 
-else Serial.print(",east=false"); 
 ...
 Serial.print("\n");
 ```
 
-
-
 ### Robot-to-GUI integration, full exploration and update on the GUI
 
-Once each of these pieces was verified, we put together the radio transmission code with our right-wall following algorithm, complete with audio start and IR robot detection into a single working sketch. The wheels are a bit sluggish at times (this is believed to be an isolated power allocation problem) but with a bit of encouragement in the form of a gentle nudge, our robot performed quite well:
+Once each of these pieces was verified, we put together the radio transmission code with our right-wall following algorithm, complete with audio start and IR robot detection into a single working sketch. We also added a few extra lines for the receiver so that if our wall detection is a false positive, which happens way more often than false negatives as we only saw false negatives happened once or twice, it can correct itself later when it crosses that non-existent wall. 
+
+```cpp
+...
+if (n) Serial.print(",north=true");
+else Serial.print(",north=false")
+if (e) Serial.print(",east=true"); 
+else Serial.print(",east=false")
+...
+```
+
+We set our robot free in the maze, but the GUI was updating results that we did not anticipate. We were seeing phantom west walls at places where there are no west walls. In fact, there were west walls in every block. After carefully comparing what the serial monitor showed and what the GUI showed, We thought that maybe the GUI wasn’t parsing west=false correctly, so we got rid of that line completely to see what happens. To our surprise, we now saw phantom south walls.It was then clear to us that the GUI wasn’t parsing the last argument correctly. If the last parameter is false, the GUI thinks that it is true. We then solved the issue by printing arguments that are false before printing arguments that are true.
+
+
+```cpp
+...
+if (n == 0) Serial.print(",north=false")
+if (n) Serial.print(",north=true");
+if (e == 0)Serial.print(",east=false")
+if (e) Serial.print(",east=true"); 
+...
+```
+
+The GUI then works perfectly fine. When we performed our final test, the wheels are a bit sluggish at times (an unknown outstanding error, split of opinion on the cause) but with a bit of encouragement in the form of a gentle nudge, our robot performed quite well:
 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/3K9Ro9Qo02I" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
