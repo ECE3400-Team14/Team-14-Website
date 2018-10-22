@@ -110,7 +110,8 @@ void updateMaze(){
   if (orientation == 0){
     setNorthWall(x, y, hasFrontWall);
     setEastWall(x, y, hasRightWall);
-  }else if ...
+  }else if (orientation == 1){
+  ...
 }
 ```
 
