@@ -22,7 +22,7 @@ We decided to use our combined audio-IR signal circuit from [Lab2](https://ece34
 ![combinedcircuit2](https://user-images.githubusercontent.com/12742304/46565779-791de800-c8e1-11e8-95dd-8c57641d9373.png)
 
 #### Picture of Mounted Circuit:
-[TODO: picture of mounted circuit]
+<img src="https://user-images.githubusercontent.com/12742304/47275458-aa531500-d57d-11e8-8240-7aa98b1976b9.jpeg" width="600" />
 
 #### Software:
 
