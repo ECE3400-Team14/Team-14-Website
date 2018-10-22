@@ -3,14 +3,6 @@
 ### Purpose: 
 The goal of this lab was to integrate the components from previous labs and milestones into our robot and use radio communication between Arduinos to update the [provided GUI](https://github.com/backhous/ece3400-maze-gui) with accurate maze data from the robot. David and Michael worked on integrating robot components, namely the 660 Hz start signal, while Greg and Andrew worked on setting up radio communication and protocols for updating the GUI. All team members worked on combining radio communication with robot right-hand-wall following and robot detection.
 
-Efficient data scheme to store all maze information on an Arduino
-
-Sending maze information wirelessly between Arduino’s
-
-Updating the GUI from the base station
-
-Updating the GUI from a virtual robot on a separate Arduino which is wirelessly connected to the base station
-
 ## System Integration:
 
 We completed and demonstrated the integration of right-hand wall following and robot detection in [milestone 2](https://ece3400-team14.github.io/Team-14-Website/Milestones/Milestone2.html). In this lab, we integrated the 660 Hz audio start signal into our system from milestone 2.
