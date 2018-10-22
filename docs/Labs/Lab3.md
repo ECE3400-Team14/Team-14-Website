@@ -136,7 +136,7 @@ The source code for `sendMaze()` can be found [here](https://github.com/ECE3400-
 After installing the GUI, we tested it using 2x3.ino provided in the arduino folder. This program has nothing to do with radio, as it simply prints information to the serial port.
 
 ```cpp
-…
+...
 void loop(){
   Serial.println(“reset”);
   delay(1000);
