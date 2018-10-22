@@ -128,6 +128,7 @@ void sendMaze(){
   bool ok = radio.write( mazeData+x+rowLength*y, sizeof(unsigned int) );
   if (ok) Serial.println("ok...");
   else Serial.print("failed.\n\r");
+  ...
 }
 ...
 ```
@@ -140,9 +141,9 @@ After installing the GUI, we tested it using 2x3.ino provided in the arduino fol
 ```cpp
 ...
 void loop(){
-  Serial.println(reset);
+  Serial.println("reset");
   delay(1000);
-  Serial.println(0,0,north=true,west=true);
+  Serial.println("0,0,north=true,west=true");
   ...
 }
 ...
