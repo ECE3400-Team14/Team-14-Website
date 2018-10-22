@@ -183,8 +183,9 @@ We set our robot free in the maze, but the GUI was updating results that we did 
 ```cpp
 ...
 if (n == 0) Serial.print(",north=false")
-if (n) Serial.print(",north=true");
 if (e == 0)Serial.print(",east=false")
+...
+if (n) Serial.print(",north=true");
 if (e) Serial.print(",east=true"); 
 ...
 ```
