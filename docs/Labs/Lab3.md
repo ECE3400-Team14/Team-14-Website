@@ -55,7 +55,26 @@ One challenged that we faced was making sure that the conditions for a start sig
         else  fft_detect = false;//indicate no fft detection
    }
 ```
+### Initial Radio Verification
+The radio team started by making sure that the radios were correctly communicating with each other based on the default code given to us by the 3400 TA's. This printed some strings back and forth between the radios, allowing the base station arduino to send a "message received" signal to confirm data transmission. Lab was pretty packed, so we ended up doing this out in a hallway, but we were able to get good data back and forth down the entire length of the hallway (at least 30 feet). This should be plenty for competition day.
 
+We then tested that the GUI was working correctly by printing some dummy statements on the base station Arduino (no signal input, just Arduino --> GUI ). It was accurately updating the robot's position and the wall information which was hard coded into the sketch.
+
+```cpp
+while (true) {
+  Serial.println("0,0,north=true,west=true");
+  Serial.println("1,0,south=true,west=true");
+  Serial.println("1,1,south=true,east=true");
+  Serial.println("0,1,north=true,east=true");
+  }
+```
+
+The last step was to send dummy robot information from the "robot" arduino to the base station, and then update the GUI based on that. ("Robot" Arduino --> Base Station --> GUI). 
+
+This concluded our testing of the radio transmission section of this lab, so we moved on to figuring out how we would store and pack and send accurate information from the robot based on all of its sensor inputs.
+
+### Robot Data Organization and Sending
+[@Andrew]
 
 ### Robot starting on a 660Hz tone
 [TODO: Demo Video]
