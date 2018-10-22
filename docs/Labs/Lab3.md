@@ -174,9 +174,9 @@ Once each of these pieces was verified, we put together the radio transmission c
 ```cpp
 ...
 if (n) Serial.print(",north=true");
-else Serial.print(",north=false")
+else Serial.print(",north=false");
 if (e) Serial.print(",east=true"); 
-else Serial.print(",east=false")
+else Serial.print(",east=false");
 ...
 ```
 
@@ -185,8 +185,8 @@ We set our robot free in the maze, but the GUI was updating results that we did 
 
 ```cpp
 ...
-if (n == 0) Serial.print(",north=false")
-if (e == 0)Serial.print(",east=false")
+if (n == 0) Serial.print(",north=false");
+if (e == 0)Serial.print(",east=false");
 ...
 if (n) Serial.print(",north=true");
 if (e) Serial.print(",east=true"); 
