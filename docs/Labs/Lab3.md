@@ -60,7 +60,7 @@ We tested that our combined Audio-IR FFT detection code worked along with our li
 
 Since our Arduino has a very limited memory and the maze has size of 9 by 9, we had to use an efficient way to store our data, otherwise we can possibly exceed our memory limit. If we use int to store every piece of data, which includes x/y coordinates, whether there are walls on east, south, west, and north directions, whether we have a treasure at the intersection and what color it is, that would use at least 8 \* 81 = 648 ints, which has a size of 648 \* 2 = 1296 bytes, if each int is represented by 2 bytes. This is clearly unacceptable.
 
-Therefore, we utilize every bit of an int by bit-masking an int to store information more efficiently and compactly. As we found out, we could fit the data of an intersection completely into an int, which means we only need an array of size 81 to store the entire maze, which only has a size of 81 \* 2 = 162 bytes, an astonishing improvement from the plan mentioned above. Details of the encoding and parts of the code are shown below.
+Therefore, we utilize every bit of an int by bit-masking an int to store information more efficiently and compactly. As we found out, we could fit the data of an intersection completely into an int, which means we only need an int array of size 81 to store the entire maze, which only has a size of 81 \* 2 = 162 bytes, an astonishing improvement from the plan mentioned above. Details of the encoding and parts of the code are shown below.
 
 ![format](https://user-images.githubusercontent.com/42748229/47276135-1e43ec00-d583-11e8-921a-59b541f5e384.png)
 
@@ -89,17 +89,28 @@ void setNorthWall(int x, int y, int valid){
 
 #### Verification of Radio Function
 
-First we followed the Getting Started sketches to get the radios communicating with each other. After double checking that the radios were hooked up to 3.3V, we ran the sketches using the correct “pipes” numbers. For our lab (Wednesday, Team 14) we used 28 and 29 (in hex) for each of the radios. 
+First we followed the Getting Started sketches to get the radios communicating with each other. After double checking that the radios were hooked up to 3.3V, we ran the sketches using the correct “pipes” numbers. For our lab (Wednesday, Team 14) we used 0x28 and 0x29 for each of the radios. 
 
-Running the base code given to us, we got good transmission between the radios and had good send/receive messages from all the way down a hallway (at least 30 feet) which will be plenty for competition day. 
-
-We then ran some dummy code straight from the base station arduino to the GUI, which updated correctly based on just some simple lines following the format that the GUI requires.
+Running the base code given to us, we got good transmission between the radios and had good send/receive messages from all the way down a hallway (at least 30 feet with no blocking) which will be plenty for competition day. 
 
 We were now ready to set up the data structure for getting information from the robot GUI to the base station GUI, since all other parts of the pipeline were verified. [See GUI section below]
 
 #### Robot Information Gathering
 
-At each intersection, our robot detects the walls around that intersection and stores that information into mazeData. That information will be incomplete for the first time we visit that corner, since right now we are only collecting information about our front wall and right wall using our front wall sensor and right wall sensor. The back wall, which is where the robot comes from, is always false without doubt. Then, the robot Arduino sends the int that contains all the information of this specific information through our RF transceiver. We modified the example code given to us slightly to do that.
+At each intersection, our robot detects the walls around that intersection and stores that information into mazeData. That information will be incomplete for the first time we visit that intersection, since right now we are only collecting information about our front wall and right wall using our front wall sensor and right wall sensor. The back wall, which is where the robot comes from, is always false without doubt. We update our mazeData by calling the function updateMaze(). 
+
+```cpp
+void updateMaze(){
+  int hasFrontWall = readForwardWallSensor();
+  int hasRightWall = readRightWallSensor();
+  if (orientation == 0){
+    setNorthWall(x, y, hasFrontWall);
+    setEastWall(x, y, hasRightWall);
+  }else if …
+}
+```
+
+Then, the robot Arduino sends the int that contains all the information of this specific information through our RF transceiver. We modified the example code given to us slightly to do that.
 
 ```cpp
 ...
@@ -131,7 +142,7 @@ void loop(){
 ...
 ```
 
-After verifying that the GUI opens and refreshes properly on Chrome, we started testing our implementation of encoding and decoding data sent through RF. On the robot Arduino, we manually created an int with value 0b 0000 0101 1001 0100. According to the standard we developed, that means at x = 4 and y = 9, there is a south wall and a north wall. We transmitted that message from the robot Arduino to the base station Arduino, and decoded the message using bitwise AND and shifting. We then print that message to serial to confirm the result. It worked just as we expected
+After verifying that the GUI opens and refreshes properly on Chrome, we started testing our implementation of encoding and decoding data sent through RF. On the robot Arduino, we manually created an int with value 0b 0000 0101 1001 0100. According to the standard we developed, that means at x = 4 and y = 9, there is a south wall and a north wall. We transmitted that message from the robot Arduino to the base station Arduino, and decoded the message using bitwise AND and shifting. We then print that message to serial to confirm the result. It worked just as we expected.
 
 ```cpp
 ...
@@ -179,6 +190,3 @@ The GUI then works perfectly fine. When we performed our final test, the wheels 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/3K9Ro9Qo02I" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Maze data was accurate and the start signal was consistent as ever.
-
-
-
