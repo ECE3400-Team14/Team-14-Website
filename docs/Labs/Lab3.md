@@ -50,13 +50,15 @@ One challenged that we faced was making sure that the conditions for a start sig
    }
 ```
 
+Complete FFT code showing this algorithm can be found [here](https://github.com/ECE3400-Team14/3400/blob/master/Lab3_Combined/Signal_Processing.ino)
+
 ### Combining Audio and IR Detection with Wall Following:
 
 We tested that our combined Audio-IR FFT detection code worked along with our line following and wall following code. The following video demonstrates that our robot is able to start on an audio signal and switch over to IR detection while moving:
 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/TWhD7SeIBSQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
-### Data Storage
+### Data Storage:
 
 Since our Arduino has a very limited memory and the maze has size of 9 by 9, we had to use an efficient way to store our data, otherwise we can possibly exceed our memory limit. If we use int to store every piece of data, which includes x/y coordinates, whether there are walls on east, south, west, and north directions, whether we have a treasure at the intersection and what color it is, that would use at least 8 \* 81 = 648 ints, which has a size of 648 \* 2 = 1296 bytes, if each int is represented by 2 bytes. This is clearly unacceptable.
 
@@ -85,9 +87,9 @@ void setNorthWall(int x, int y, int valid){
 ...
 ```
 
-### Radio
+### Radio:
 
-#### Verification of Radio Function
+#### Verification of Radio Function:
 
 First we followed the Getting Started sketches to get the radios communicating with each other. After double checking that the radios were hooked up to 3.3V, we ran the sketches using the correct “pipes” numbers. For our lab (Wednesday, Team 14) we used 0x28 and 0x29 for each of the radios. 
 
@@ -95,7 +97,7 @@ Running the base code given to us, we got good transmission between the radios a
 
 We were now ready to set up the data structure for getting information from the robot GUI to the base station GUI, since all other parts of the pipeline were verified. [See GUI section below]
 
-#### Robot Information Gathering
+#### Robot Information Gathering:
 
 At each intersection, our robot detects the walls around that intersection and stores that information into mazeData. That information will be incomplete for the first time we visit that intersection, since right now we are only collecting information about our front wall and right wall using our front wall sensor and right wall sensor. The back wall, which is where the robot comes from, is always false without doubt. We update our mazeData by calling the function updateMaze(). 
 
@@ -109,6 +111,8 @@ void updateMaze(){
   }else if …
 }
 ```
+
+The source code for `updateMaze()` can be found [here](https://github.com/ECE3400-Team14/3400/blob/master/Lab3_Combined/Lab3_Combined.ino).
 
 Then, the robot Arduino sends the int that contains all the information of this specific information through our RF transceiver. We modified the example code given to us slightly to do that.
 
@@ -125,9 +129,9 @@ void sendMaze(){
 }
 ...
 ```
-The source code can be found here.[github link]
+The source code for `sendMaze()` can be found [here](https://github.com/ECE3400-Team14/3400/blob/master/Lab3_Combined/Radio.ino).
 
-### GUI
+### GUI:
 
 After installing the GUI, we tested it using 2x3.ino provided in the arduino folder. This program has nothing to do with radio, as it simply prints information to the serial port.
 
@@ -160,7 +164,7 @@ if (e) Serial.print(",east=true");
 Serial.print("\n");
 ```
 
-### Robot-to-GUI integration, full exploration and update on the GUI
+### Robot-to-GUI integration, full exploration and update on the GUI:
 
 Once each of these pieces was verified, we put together the radio transmission code with our right-wall following algorithm, complete with audio start and IR robot detection into a single working sketch. We also added a few extra lines for the receiver so that if our wall detection is a false positive, which happens way more often than false negatives as we only saw false negatives happened once or twice, it can correct itself later when it crosses that non-existent wall. 
 
@@ -190,3 +194,5 @@ The GUI then works perfectly fine. When we performed our final test, the wheels 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/3K9Ro9Qo02I" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Maze data was accurate and the start signal was consistent as ever.
+
+Our Lab 3 source code for the robot can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Lab3_Combined) and our full base station code can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Lab3_Base_Station/Base_Station_to_GUI)
