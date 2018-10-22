@@ -60,7 +60,7 @@ We tested that our combined Audio-IR FFT detection code worked along with our li
 
 Since our Arduino has a very limited memory and the maze has size of 9 by 9, we had to use an efficient way to store our data, otherwise we can possibly exceed our memory limit. If we use int to store every piece of data, which includes x/y coordinates, whether there are walls on east, south, west, and north directions, whether we have a treasure at the intersection and what color it is, that would use at least 8 \* 81 = 648 ints, which has a size of 648 \* 2 = 1296 bytes, if each int is represented by 2 bytes. This is clearly unacceptable.
 
-Therefore, we utilize every bit of an int by bit-masking and int to store information more efficiently and compactly. As we found out, we could fit the data of an intersection completely into an int, which means we only need an array of size 81 to store the entire maze, which only has a size of 81 \* 2 = 162 bytes, an astonishing improvement from the plan mentioned above. Details of the encoding and parts of the code are shown below.
+Therefore, we utilize every bit of an int by bit-masking an int to store information more efficiently and compactly. As we found out, we could fit the data of an intersection completely into an int, which means we only need an array of size 81 to store the entire maze, which only has a size of 81 \* 2 = 162 bytes, an astonishing improvement from the plan mentioned above. Details of the encoding and parts of the code are shown below.
 
 ![format](https://user-images.githubusercontent.com/42748229/47276135-1e43ec00-d583-11e8-921a-59b541f5e384.png)
 
@@ -179,5 +179,6 @@ The GUI then works perfectly fine. When we performed our final test, the wheels 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/3K9Ro9Qo02I" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 Maze data was accurate and the start signal was consistent as ever.
+
 
 
