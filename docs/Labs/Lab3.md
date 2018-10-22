@@ -1,7 +1,7 @@
 # Lab 3: System Integration and Radio Communication 
 
 ### Purpose: 
-The goal of this lab was to integrate the components from previous labs and milestones into our robot and use radio communcation between Arduinos to update the [provided GUI](https://github.com/backhous/ece3400-maze-gui) with accurate maze data from the robot. David and Michael worked on integrating robot components, namely the 660 Hz start signal, and Greg and Andrew worked on setting up radio communcation and protocols for updating the GUI. All team members worked on combining radio communication with robot right-hand-wall following and robot detection. 
+The goal of this lab was to integrate the components from previous labs and milestones into our robot and use radio communication between Arduinos to update the [provided GUI](https://github.com/backhous/ece3400-maze-gui) with accurate maze data from the robot. David and Michael worked on integrating robot components, namely the 660 Hz start signal, while Greg and Andrew worked on setting up radio communication and protocols for updating the GUI. All team members worked on combining radio communication with robot right-hand-wall following and robot detection.
 
 Efficient data scheme to store all maze information on an Arduino
 
@@ -17,17 +17,18 @@ We completed and demonstrated the integration of right-hand wall following and r
 
 ### Hardware:
 
-We decided to use our combined audio-IR signal circuit from [Lab2](https://ece3400-team14.github.io/Team-14-Website/Labs/Lab2.html): an amplified microphone circuit and phototransistor circuit routed into an analog mux so that both circuits can share an analog port on the Arduino. With our phototransistor circuit already mounted on the robot, we integrate the remaning elements of the circuit onto a perfboard to be mounted on the back side of our robot. This perfboard included our microphone circuit, our microphone and single-rail inverting amplifier from Lab2, and the mux.  
+We decided to use our combined audio-IR signal circuit from [Lab2](https://ece3400-team14.github.io/Team-14-Website/Labs/Lab2.html): an amplified microphone circuit and phototransistor circuit routed into an analog mux so that both circuits can share an analog port on the Arduino. With our phototransistor circuit already mounted on the robot, we integrate the remaining elements of the circuit onto a perfboard to be mounted on the back side of our robot. This perfboard included our microphone circuit, our microphone and single-rail inverting amplifier from Lab2, and the mux.  
 
 #### Audio-IR Circuit Diagram:
 ![combinedcircuit2](https://user-images.githubusercontent.com/12742304/46565779-791de800-c8e1-11e8-95dd-8c57641d9373.png)
 
 #### Picture of Mounted Circuit:
-[TODO: picture of mounted circuit]
+<img src="https://user-images.githubusercontent.com/12742304/47275458-aa531500-d57d-11e8-8240-7aa98b1976b9.jpeg" width="600" />
+
 
 #### Software:
 
-Our software system for start signal detection on the robot performs similarly to the one we used in [Lab2](https://ece3400-team14.github.io/Team-14-Website/Labs/Lab2.html): we run FFT analysis on a free-running ADC input from the microphone until a valid start signal is detected, then we switch the mux input to the IR circuit to perform FFT analysis on the IR signal to detect other robots while our robot is moving. To do this, we loop our `fft_analyze()` function in `setup()`, which continously runs FFT free-running analysis on the input to pin `A0` until the start signal is detected, setting `has_started` to true:
+Our software system for start signal detection on the robot performs similarly to the one we used in [Lab2](https://ece3400-team14.github.io/Team-14-Website/Labs/Lab2.html): we run FFT analysis on a free-running ADC input from the microphone until a valid start signal is detected, then we switch the mux input to the IR circuit to perform FFT analysis on the IR signal to detect other robots while our robot is moving. To do this, we loop our `fft_analyze()` function in `setup()`, which continuously runs FFT free-running analysis on the input to pin `A0` until the start signal is detected, setting `has_started` to true:
 
 ```cpp
   analogRead(1);//initialize analog (explanation below)
@@ -41,7 +42,7 @@ Our software system for start signal detection on the robot performs similarly t
 ```
 Due to issues with initializing our analog port for FFT analysis, our program occasionally crashed when using analog port `A0` in free-running mode while using `analogRead()` in other parts of the code. We came up with some solutions in [milestone2](https://ece3400-team14.github.io/Team-14-Website/Milestones/Milestone2.html), but we also needed to make sure we ran `analogRead()` before `fft_analyze()` for the free-running ADC settings to enable properly.
 
-One challenged that we faced was making sure that the conditions for a start signal were sufficient that normal speech nearby the robot would cause it to start moving. We distinguish a valid start audio signal from other audio by checking the FFT bin closest to 660 Hz against a minimum threshold. If the amplitude of the frequency signal in this bin remains above the threshold for a certain number of consectutive cycles, we then say the start signal is valid. 
+One challenged that we faced was making sure that the conditions for a start signal were sufficient that normal speech nearby the robot would cause it to start moving. We distinguish a valid start audio signal from other audio by checking the FFT bin closest to 660 Hz against a minimum threshold. If the amplitude of the frequency signal in this bin remains above the threshold for a certain number of consecutive cycles, we then say the start signal is valid. 
 
 ```cpp
   if(!has_started) {
@@ -56,16 +57,116 @@ One challenged that we faced was making sure that the conditions for a start sig
         else  fft_detect = false;//indicate no fft detection
    }
 ```
-### Radio Verification
 
-### Robot starting on a 660Hz tone
-[TODO: Demo Video]
+### Combining Audio and IR Detection with Wall Following:
 
-### Robot starting on a 660Hz tone and exploring the entire maze
-[TODO: Demo Video]
+We tested that our combined Audio-IR FFT detection code worked along with our line following and wall following code. The following video demonstrates that our robot is able to start on an audio signal and switch over to IR detection while moving:
 
-### Robot that explores, and stops if it sees another robot, but ignores decoys
-[TODO: Demo Video]
+<iframe width="853" height="480" src="https://www.youtube.com/embed/TWhD7SeIBSQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+### Data Storage
+
+Since our Arduino has a very limited memory and the maze has size of 9 by 9, we had to use an efficient way to store our data, otherwise we can possibly exceed our memory limit. If we use int to store every piece of data, which includes x/y coordinates, whether there are walls on east, south, west, and north directions, whether we have a treasure at the intersection and what color it is, that would use at least 8 \* 81 = 648 ints, which has a size of 648 \* 2 = 1296 bytes, if each int is represented by 2 bytes. This is clearly unacceptable.
+
+Therefore, we utilize every bit of an int by bit-masking and int to store information more efficiently and compactly. As we found out, we could fit the data of an intersection completely into an int, which means we only need an array of size 81 to store the entire maze, which only has a size of 81 \* 2 = 162 bytes, an astonishing improvement from the plan mentioned above. Details of the encoding and parts of the code are shown below.
+
+![format](https://user-images.githubusercontent.com/42748229/47276135-1e43ec00-d583-11e8-921a-59b541f5e384.png)
+
+```cpp
+const int rowLength = 2;
+const int colLength = 3;
+unsigned int mazeData[rowLength * colLength ];//index = x + rowLength*y
+
+void initMaze(){
+  for (int xn = 0; xn < rowLength; xn++){
+    for (int yn = 0; yn < colLength; yn++){
+      int coordinates = 0;
+      coordinates = coordinates | (xn | (yn << 4));
+      mazeData[xn+rowLength*yn] = coordinates; 
+    }
+  }
+}
+void setNorthWall(int x, int y, int valid){
+  if(valid) bitSet(mazeData[x+rowLength*y], 8);
+  else bitClear(mazeData[x+rowLength*y], 8);
+}
+...
+```
+
+### Radio
+
+#### Verification of Radio Function
+
+First we followed the Getting Started sketches to get the radios communicating with each other. After double checking that the radios were hooked up to 3.3V, we ran the sketches using the correct “pipes” numbers. For our lab (Wednesday, Team 14) we used 28 and 29 (in hex) for each of the radios. 
+
+Running the base code given to us, we got good transmission between the radios and had good send/receive messages from all the way down a hallway (at least 30 feet) which will be plenty for competition day. 
+
+We then ran some dummy code straight from the base station arduino to the GUI, which updated correctly based on just some simple lines following the format that the GUI requires.
+
+We were now ready to set up the data structure for getting information from the robot GUI to the base station GUI, since all other parts of the pipeline were verified. [See GUI section below]
+
+#### Robot Information Gathering
+
+At each intersection, our robot detects the walls around that intersection and stores that information into mazeData. That information will be incomplete for the first time we visit that corner, since right now we are only collecting information about our front wall and right wall using our front wall sensor and right wall sensor. The back wall, which is where the robot comes from, is always false without doubt. Then, the robot Arduino sends the int that contains all the information of this specific information through our RF transceiver. We modified the example code given to us slightly to do that.
+
+```cpp
+...
+void sendMaze(){
+  // First, stop listening so we can talk. 
+  radio.stopListening();
+  // Take the time, and send it. This will block until complete 
+  bool ok = radio.write( mazeData+x+rowLength*y, sizeof(unsigned int) );
+  if (ok) Serial.println("ok...");
+  else Serial.print("failed.\n\r");
+  …
+}
+...
+```
+The source code can be found here.[github link]
+
+### GUI
+
+After installing the GUI, we tested it using 2x3.ino provided in the arduino folder. This program has nothing to do with radio, as it simply prints information to the serial port.
+
+```cpp
+…
+void loop(){
+  Serial.println(“reset”);
+  delay(1000);
+  Serial.println(“0,0,north=true,west=true”);
+  ...
+}
+...
+```
+
+After verifying that the GUI opens and refreshes properly on Chrome, we started testing our implementation of encoding and decoding data sent through RF. On the robot Arduino, we manually created an int with value 0b 0000 0101 1001 0100. According to the standard we developed, that means at x = 4 and y = 9, there is a south wall and a north wall. We transmitted that message from the robot Arduino to the base station Arduino, and decoded the message using bitwise AND and shifting. We then print that message to serial to confirm the result. It worked just as we expected
+
+```cpp
+...
+int x = data & 0xf;
+int y = (data & 0xf0) >> 4;
+int n = (data & (1<<8)) >> 8;
+int e = (data & (1<<9)) >> 9;
+int s = (data & (1<<10)) >> 10;
+...
+printf("%d",x);
+printf(",%d", y);
+if (n) Serial.print(",north=true");
+else  Serial.print(",north=false");
+if (e) Serial.print(",east=true"); 
+else Serial.print(",east=false"); 
+...
+Serial.print("\n");
+```
+
+
 
 ### Robot-to-GUI integration, full exploration and update on the GUI
-[TODO: Demo Video]
+
+Once each of these pieces was verified, we put together the radio transmission code with our right-wall following algorithm, complete with audio start and IR robot detection into a single working sketch. The wheels are a bit sluggish at times (this is believed to be an isolated power allocation problem) but with a bit of encouragement in the form of a gentle nudge, our robot performed quite well:
+
+<iframe width="853" height="480" src="https://www.youtube.com/embed/3K9Ro9Qo02I" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+Maze data was accurate and the start signal was consistent as ever.
+
+
