@@ -2,14 +2,44 @@
 
 ### Purpose:
 
-The goal of this lab was to set up the Camera-FPGA system our robot will use to detect treasures during the competition. This involved configuring the settings our [OV7670 camera](https://www.voti.nl/docs/OV7670.pdf) camera, storing the camera output data in our [DE0-Nano FPGA](http://www.ti.com/lit/ug/tidu737/tidu737.pdf), and using the FPGA to communicate the color of the camera image to our Arduino. One team, Greg and Michael, used our Arduino to both control the camera via I2C communication and set up a communication protocol for receiving color and shape data about the camera image from the FPGA. The other team, Andrew and David, worked on setting up the FPGA to provide a clock signal to the camera, receive, down-sample, and store the camera output in memory, and process the image in memeory to determine the image color. Both teams worked on integrating the two systems together to accurately transmit images from the camera to the FPGA and transmit the color of the image from the FPGA to the Arduino. 
+The goal of this lab was to set up the Camera-FPGA system our robot will use to detect treasures during the competition. This involved configuring the settings our [OV7670 camera](https://www.voti.nl/docs/OV7670.pdf) camera, storing the camera output data in our [DE0-Nano FPGA](http://www.ti.com/lit/ug/tidu737/tidu737.pdf), and using the FPGA to communicate the color of the camera image to our Arduino. One team, Greg and Michael, used our Arduino to both control the camera via I2C communication and set up a communication protocol for receiving color and shape data about the camera image from the FPGA. The other team, Andrew and David, worked on setting up the FPGA to provide a clock signal to the camera, receive, down-sample, and store the camera output in memory, and process the image in memory to determine the image color. Both teams worked on integrating the two systems together to accurately transmit images from the camera to the FPGA and transmit the color of the image from the FPGA to the Arduino. 
 
 ## Team Arduino
 ### Configuring the Camera
 2 points: Arduino-Camera communication (writing the correct registers)
 
+In order to get the camera to send the correct data, we first searched through the datasheet for the OV7670 camera to find the settings we needed. Consulting the lab description we found registers and values for the following settings:
+
+Reset all registers --> COM7 is register 0x12 in hex, and setting it to 0x80 resets all registers on the camera
+Enable scaling --> COM14 at 0x3E set to 0x08
+Use external clock as internal clock -->
+Pixel and resolution format -->
+Enable a color bar test -->
+Vertical and mirror flip -->
+Other parameters -->
+
+Once we decided the values to start with, we wrote code for the OV7670_SETUP file which first reads and prints the values stored at the register addresses, writes the values that we want, and then reads and prints them again to check for good setup. 
+
+```cpp
+//TODO insert code block for setting the register values
+```
+Then we set up the circuit as shown in the Lab description,
+[insert photo from lab of the hookup diagram, as well as a fritzing wire diagram and the photos we took]
+and tried to write the registers of the camera, which seemed to come out accurately.
+[photo of the computer screen with confirmed register settings]
+
+It took some significant debugging to make sure that these register values were correct, since communication to the FPGA was wrong and hard to diagnose. After changing many of them around, we settled on the values listed above.
+
 ### Setting up Arduino-FPGA Communication
-3 points: Arduino-FPGA communication (communicating treasure/no treasure + shape and color)
+For this lab, we decided to keep it simple and do a straightforward proof-of-concept for the FPGA-->Arduino communication scheme. The FPGA sends high or low signals to a few of its pins based on color and shape, and the Arduino reads individually over those pins to figure out if the camera is seeing a certain shape or color.
+
+```cpp
+//TODO insert code block for communication scheme
+```
+
+The Arduino lights up LEDs based on these read values.
+
+For the actual robot, this commnuication scheme will be done over a [spi or i2c] data scheme so that the Arduino need only read information of a certain size over a given input pin.
 
 ## Team FPGA
 
