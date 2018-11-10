@@ -10,15 +10,15 @@ The goal of this lab was to set up the Camera-FPGA system our robot will use to 
 
 In order to get the camera to send the correct data, we first searched through the datasheet for the OV7670 camera to find the settings we needed. Consulting the lab description we found registers and values for the following settings:
 
-Reset all registers --> COM7 is register 0x12 in hex, and setting it to 0x80 resets all registers on the camera
-Enable scaling --> COM14 at 0x3E set to 0x08
-Use external clock as internal clock --> register 0x11 set to 0xC0
-Pixel and resolution format --> register 0x12 set to 0xC
-Set the gain ceiling to something stable --> register 0x14 set to 0x01
-Set pixel format --> register 0x40 to 0xD0
-Enable a color bar test --> register 0x42 set to 0x8
-Vertical and mirror flip --> register 0x1E set to 0x30
-Other parameters --> We set the camera to RGB444 since 565 wasn't working (register 0x8C set to 0x2)
+Reset all registers --> COM7 is register 0x12 in hex, and setting it to 0x80 resets all registers on the camera<br/>
+Enable scaling --> COM14 at 0x3E set to 0x08<br/>
+Use external clock as internal clock --> register 0x11 set to 0xC0<br/>
+Pixel and resolution format --> register 0x12 set to 0xC<br/>
+Set the gain ceiling to something stable --> register 0x14 set to 0x01<br/>
+Set pixel format --> register 0x40 to 0xD0<br/>
+Enable a color bar test --> register 0x42 set to 0x8<br/>
+Vertical and mirror flip --> register 0x1E set to 0x30<br/>
+Other parameters --> We set the camera to RGB444 since 565 wasn't working (register 0x8C set to 0x2)<br/>
 
 Once we decided the values to start with, we wrote code for the OV7670_SETUP file which first reads and prints the values stored at the register addresses, writes the values that we want, and then reads and prints them again to check for good setup. 
 
