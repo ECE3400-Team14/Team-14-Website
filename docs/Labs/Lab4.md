@@ -12,21 +12,39 @@ In order to get the camera to send the correct data, we first searched through t
 
 Reset all registers --> COM7 is register 0x12 in hex, and setting it to 0x80 resets all registers on the camera
 Enable scaling --> COM14 at 0x3E set to 0x08
-Use external clock as internal clock -->
-Pixel and resolution format -->
-Enable a color bar test -->
-Vertical and mirror flip -->
-Other parameters -->
+Use external clock as internal clock --> register 0x11 set to 0xC0
+Pixel and resolution format --> register 0x12 set to 0xC
+Set the gain ceiling to something stable --> register 0x14 set to 0x01
+Set pixel format --> register 0x40 to 0xD0
+Enable a color bar test --> register 0x42 set to 0x8
+Vertical and mirror flip --> register 0x1E set to 0x30
+Other parameters --> We set the camera to RGB444 since 565 wasn't working (register 0x8C set to 0x2)
 
 Once we decided the values to start with, we wrote code for the OV7670_SETUP file which first reads and prints the values stored at the register addresses, writes the values that we want, and then reads and prints them again to check for good setup. 
 
 ```cpp
-//TODO insert code block for setting the register values
+  read_key_registers();
+  OV7670_write_register(0x12, 0x80);//reset all registers COM7
+  OV7670_write_register(0x0C, 0x8); //COM3 enable scaling
+  OV7670_write_register(0x11, 0xC0);//use external clock
+  OV7670_write_register(0x12, 0xE);//set camera pixel format and enable color bar test with 0xE disable with 0xC
+  OV7670_write_register(0x14, 0x01);//automated gain ceiling of 2x
+  OV7670_write_register(0x40, 0xD0);//COM15 set for RGB 565 11010000 (208) D0
+  OV7670_write_register(0x1E, 0x30); //mirror and flip
+  OV7670_write_register(0x8C, 0x2); //RGB444
+  OV7670_write_register(0x42, 0x8);//COM17 enable DSP color bar
+  read_key_registers();
+  set_color_matrix();
 ```
 Then we set up the circuit as shown in the Lab description,
-[insert photo from lab of the hookup diagram, as well as a fritzing wire diagram and the photos we took]
-and tried to write the registers of the camera, which seemed to come out accurately.
-[photo of the computer screen with confirmed register settings]
+![image](https://user-images.githubusercontent.com/16722348/48296590-8d1bb300-e466-11e8-8ca3-37659c2458d5.png)
+(from https://cei-lab.github.io/ece3400-2018/lab4.html)
+
+SIOD and SIOC from the camera were hooked up to A4 and A5 of the Arduino, respectively. It looked something like this:
+
+and tried to write the registers of the camera, which seemed to come out accurately:
+![image](https://user-images.githubusercontent.com/16722348/48296667-af620080-e467-11e8-8426-2aa60d31fb95.png)
+
 
 It took some significant debugging to make sure that these register values were correct, since communication to the FPGA was wrong and hard to diagnose. After changing many of them around, we settled on the values listed above.
 
