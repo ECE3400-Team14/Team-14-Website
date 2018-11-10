@@ -16,6 +16,7 @@ Michaelangelo Rodriguez Ayala (mr2242)
 * [Lab1](Labs/Lab1.md)
 * [Lab2](Labs/Lab2.md)
 * [Lab3](Labs/Lab3.md)
+* [Lab4](Labs/Lab4.md)
 
 ## Milestones
 * [Milestone1](Milestones/Milestone1.md)
