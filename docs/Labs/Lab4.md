@@ -40,7 +40,7 @@ Then we set up the circuit as shown in the Lab description,
 ![image](https://user-images.githubusercontent.com/16722348/48296590-8d1bb300-e466-11e8-8ca3-37659c2458d5.png)
 (from https://cei-lab.github.io/ece3400-2018/lab4.html)
 
-SIOD and SIOC from the camera were hooked up to A4 and A5 of the Arduino, respectively. It looked something like this:
+SDA and SCL from the camera were hooked up to A4 and A5 of the Arduino, respectively. It looked something like this:
 
 and tried to write the registers of the camera, which seemed to come out accurately:
 ![image](https://user-images.githubusercontent.com/16722348/48296667-af620080-e467-11e8-8426-2aa60d31fb95.png)
