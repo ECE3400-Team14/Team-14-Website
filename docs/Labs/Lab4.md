@@ -52,7 +52,14 @@ It took some significant debugging to make sure that these register values were 
 For this lab, we decided to keep it simple and do a straightforward proof-of-concept for the FPGA-->Arduino communication scheme. The FPGA sends high or low signals to a few of its pins based on color and shape, and the Arduino reads individually over those pins to figure out if the camera is seeing a certain shape or color.
 
 ```cpp
-//TODO insert code block for communication scheme
+if (isBlue) {digitalWrite(blueLED, HIGH);}
+else {digitalWrite(blueLED, LOW);}
+if (isRed) {digitalWrite(redLED, HIGH);}
+else {digitalWrite(redLED, LOW);}
+if (isTriangle) {digitalWrite(triangleLED, HIGH);}
+else {digitalWrite(triangleLED, LOW);}
+if (isSquare) {digitalWrite(squareLED, HIGH);}
+else {digitalWrite(squareLED, LOW);}
 ```
 
 The Arduino lights up LEDs based on these read values.
