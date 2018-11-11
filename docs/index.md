@@ -1,6 +1,6 @@
 #  ECE 3400: Team 14
 
-<img width="800" alt="team photo resize" src="https://user-images.githubusercontent.com/12742304/48309828-96347f00-e54f-11e8-9730-968ae422ac79.png">
+<img width="1024" alt="team photo resize" src="https://user-images.githubusercontent.com/12742304/48309828-96347f00-e54f-11e8-9730-968ae422ac79.png">
 
 
 ## Members:
