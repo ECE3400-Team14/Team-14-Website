@@ -67,7 +67,9 @@ For the actual robot, this commnunication scheme will be done over a [spi or i2c
 
 ## Team FPGA
 
-### Setting Up PLL [?]
+### Setting Up PLL
+
+To set up our PLL, we followed the instructions given to us exactly. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies.
 
 ### Reading and Writing memory
 
