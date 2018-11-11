@@ -122,7 +122,7 @@ We then moved on implementing our image processor.
 
 ### Image Processor for Color Detection
 
-We implemented our image processor without using inputs from the camera as we felt that we should test it in a more controlled environment and make sure it works before feeding the camera input to it. Therefore, we wrote our image processing module to detect the color of the image. Our algorithm was as follows:
+We implemented our image processor without using inputs from the camera as we felt that we should test it in a more controlled environment and make sure it works before connecting it with the camera input. Therefore, we wrote our image processing module to detect the color of the image. Our algorithm was as follows:
 * For each pixel in the image, check if the pixel is mostly red or mostly blue. Mostly red means the most significant bit of the red part is 1 and the two most significant bits of the green and blue parts are 0. Mostly blue means the most significant bit of the blue part is 1 and two most significant parts of the red and green parts are 0. 
 
 #### Analyzing Each Pixel in the Image:
@@ -176,10 +176,10 @@ We connected the output of color detection to the LEDs on the FPGA. The left 4 L
 <img src="https://user-images.githubusercontent.com/12742304/47939837-11969080-debf-11e8-80ca-b91544b9a397.jpg" width="400" />
 
 ##### Detecting Red Background with Blue Cross:
-![RBBC](https://user-images.githubusercontent.com/42748229/48320049-15bf5e00-e5e3-11e8-9ebe-e51df376a169.jpg)
+<img src="https://user-images.githubusercontent.com/42748229/48320049-15bf5e00-e5e3-11e8-9ebe-e51df376a169.jpg" width="400" />
 
 ##### Detecting Blue Background with Red Cross:
-![BBRC](https://user-images.githubusercontent.com/42748229/48320058-21ab2000-e5e3-11e8-97c7-c596be2c47b4.jpg)
+<img src="https://user-images.githubusercontent.com/42748229/48320058-21ab2000-e5e3-11e8-97c7-c596be2c47b4.jpg" width="400" />
 
 ##### Detecting No Color (White):
 <img src="https://user-images.githubusercontent.com/12742304/47939863-24a96080-debf-11e8-97ff-fe6eae21846d.jpg" width="400" />
