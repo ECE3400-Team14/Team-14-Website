@@ -69,9 +69,127 @@ For the actual robot, this commnunication scheme will be done over a [spi or i2c
 
 ### Setting Up PLL
 
-To set up our PLL, we followed the instructions given to us exactly. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies.
+To set up our PLL, we followed the instructions given to us exactly. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies. Below are outputs from the oscilloscope with clk_c0 (24 MHz), clk_c1 (25 MHz), and clk_c2 (50 MHz), respectively.
+
+![24 MHz](https://user-images.githubusercontent.com/42748229/48320017-d5f87680-e5e2-11e8-9cba-878ecbb4d99f.jpg)
+
+![25 MHz](https://user-images.githubusercontent.com/42748229/48320019-ddb81b00-e5e2-11e8-8900-8e1c53b006b3.jpg)
+
+![50 MHz](https://user-images.githubusercontent.com/42748229/48320020-e4469280-e5e2-11e8-9d0e-47f175d68daa.jpg)
 
 ### Reading and Writing memory
+
+We first tested the memory module without inputs from the camera to make sure we actually understand how it works. In 'CONTROL_UNIT', we created two registers: `X_ADDR` that increments every clock cycle, and `Y_ADDR` that increments every time an entire row of data has been written into the memory. We then set `w_en` to 1 and output different colors according to the x-y coordinates. For example, to create our own color bar test, the output is defined as follows:
+
+```verilog
+  if (X_ADDR < 20)
+  begin
+    input_data <= 8'b11111111;
+  end
+  if (X_ADDR < 40 && X_ADDR > 19)
+  begin
+    input_data <= 8'b00000010;
+  end
+  if (X_ADDR < 60 && X_ADDR > 39)
+  begin
+    input_data <= 8'b00000100;
+  end
+  if (X_ADDR < 80 && X_ADDR > 59)
+  begin
+    input_data <= 8'b00001000;
+  end
+  if (X_ADDR < 100 && X_ADDR > 79)
+  begin
+    input_data <= 8'b00010000;
+  end
+  if (X_ADDR < 120 && X_ADDR > 99)
+  begin
+    input_data <= 8'b00100000;
+  end
+  if (X_ADDR < 140 && X_ADDR > 119)
+  begin
+    input_data <= 8'b01000000;
+  end
+  if (X_ADDR < 176 && X_ADDR > 139)
+  begin
+    input_data <= 8'b10000000;
+  end
+```
+![img_4378](https://user-images.githubusercontent.com/42748229/48320033-f32d4500-e5e2-11e8-8e21-c8740993b3e0.jpg)
+
+![img_4374](https://user-images.githubusercontent.com/42748229/48320035-f45e7200-e5e2-11e8-8452-a6153e5a0d98.jpg)
+
+![img_4375](https://user-images.githubusercontent.com/42748229/48320036-f58f9f00-e5e2-11e8-8fb0-2aa98bc8425e.jpg)
+
+We then moved on implementing our image processor.
+
+### Image Processor for Color Detection
+
+We implemented our image processor without using inputs from the camera as we felt that we should test it in a more controlled environment and make sure it works before feeding the camera input to it. Therefore, we wrote our image processing module to detect the color of the image. Our algorithm was as follows:
+* For each pixel in the image, check if the pixel is mostly red or mostly blue. Mostly red means the most significant bit of the red part is 1 and the two most significant bits of the green and blue parts are 0. Mostly blue means the most significant bit of the blue part is 1 and two most significant parts of the red and green parts are 0. 
+
+#### Analyzing Each Pixel in the Image:
+```verilog
+always @ (posedge CLK) begin
+	if (VGA_PIXEL_X == 0 && VGA_PIXEL_Y == 0) begin
+		blue <= 0;
+		red <= 0;
+	end
+	else begin
+		if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144) begin
+			if (PIXEL_IN[7] == 1 && PIXEL_IN[1:0] == 0 && PIXEL_IN[4:3] == 0) begin
+				red <= red + 1;
+			end
+			else begin
+				red <= red;
+			end
+			if (PIXEL_IN[7:6] == 0 && PIXEL_IN[1] == 1 && PIXEL_IN[4:3] == 0) begin
+				blue <= blue + 1;
+			end
+			else begin
+				blue <= blue;
+			end
+		end
+	end
+end
+```
+#### Calculating the Total Color of the Image
+
+```verilog
+always @ (*) begin
+	if (red > 12672) begin
+		RESULT <= 8'b00000001;
+	end
+	else begin
+		if (blue > 12672) begin
+			RESULT <= 8'b00000010;
+		end
+		else begin
+			RESULT <= 8'b0;
+		end
+	end
+end
+```
+We connected the output of color detection to the LEDs on the FPGA. The left 4 LEDs light up when the image is red and the 4 right LEDs light up when the image is blue.
+
+##### Detecting Red:
+<img src="https://user-images.githubusercontent.com/12742304/47939808-02afde00-debf-11e8-87ac-3e35e1386200.jpg" width="400" />
+
+##### Detecting Blue:
+<img src="https://user-images.githubusercontent.com/12742304/47939837-11969080-debf-11e8-80ca-b91544b9a397.jpg" width="400" />
+
+##### Detecting Red Background with Blue Cross:
+![RBBC](https://user-images.githubusercontent.com/42748229/48320049-15bf5e00-e5e3-11e8-9ebe-e51df376a169.jpg)
+
+##### Detecting Blue Background with Red Cross:
+![BBRC](https://user-images.githubusercontent.com/42748229/48320058-21ab2000-e5e3-11e8-97c7-c596be2c47b4.jpg)
+
+##### Detecting No Color (White):
+<img src="https://user-images.githubusercontent.com/12742304/47939863-24a96080-debf-11e8-97ff-fe6eae21846d.jpg" width="400" />
+
+##### Detecting No Color (Purple):
+<img src="https://user-images.githubusercontent.com/12742304/47939878-2d019b80-debf-11e8-95f4-0800ee1c90cb.jpg" width="400" />
+
 
 ### The Control Unit and Downsampler
 
@@ -145,16 +263,11 @@ To convert the 16-bit camera data to 8-bits to store the data in memory, we put 
 ### Our Initial Downsampler:
 <img src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png" width="800" />
 
-
 We started off by writing some test images to memory. We did this by writing sample data from our [Simulator]() to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
-
-<img src="https://user-images.githubusercontent.com/12742304/48309614-4b653800-e54c-11e8-9d73-195a590ea2f0.jpg" width="250" />
 
 <img src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg" width="250" />
 
 <img src="https://user-images.githubusercontent.com/12742304/48309608-3092c380-e54c-11e8-9479-c64f8968aadb.jpg" width="250" />
-
-
 
 ### Sampling From the Camera:
 
@@ -183,70 +296,5 @@ Notably, the second-to-last color was orange instead of dark red, and the last c
 
 With the resulting solution, we were able to easily distinguish red on a white background, and somewhat distinguish blue. The blue tresure must be directly illuminated in order to be visible on the camera feed, suggesting that the current setup of the camera might not be sensitive enough to blue. 
 
-### Color Detection
-
-Next, we wrote our image processing module to detect the color of the image. Our algorithm was as follows:
-* For each pixel in the image, check if the pixel is mostly red or mostly blue. Mostly red means the most significant bit of the red part is 1 and the two most significant bits of the green and blue parts are 0. Mostly blue means the most significant bit of the blue part is 1 and two most significant parts of the red and green parts are 0. 
-
-#### Analyzing Each Pixel in the Image:
-```verilog
-always @ (posedge CLK) begin
-	if (VGA_PIXEL_X == 0 && VGA_PIXEL_Y == 0) begin
-		blue <= 0;
-		red <= 0;
-	end
-	else begin
-		if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144) begin
-			if (PIXEL_IN[7] == 1 && PIXEL_IN[1:0] == 0 && PIXEL_IN[4:3] == 0) begin
-				red <= red + 1;
-			end
-			else begin
-				red <= red;
-			end
-			if (PIXEL_IN[7:6] == 0 && PIXEL_IN[1] == 1 && PIXEL_IN[4:3] == 0) begin
-				blue <= blue + 1;
-			end
-			else begin
-				blue <= blue;
-			end
-		end
-	end
-end
-```
-#### Calculating the Total Color of the Image
-
-```verilog
-always @ (*) begin
-	if (red > 12672) begin
-		RESULT <= 8'b00000001;
-	end
-	else begin
-		if (blue > 12672) begin
-			RESULT <= 8'b00000010;
-		end
-		else begin
-			RESULT <= 8'b0;
-		end
-	end
-end
-```
-We connected the output of color detection to the LEDs on the FPGA. The left 4 LEDs light up when the image is red and the 4 right LEDs light up when the image is blue.
-
-##### Detecting Red:
-<img src="https://user-images.githubusercontent.com/12742304/47939808-02afde00-debf-11e8-87ac-3e35e1386200.jpg" width="400" />
-
-##### Detecting Blue:
-<img src="https://user-images.githubusercontent.com/12742304/47939837-11969080-debf-11e8-80ca-b91544b9a397.jpg" width="400" />
-
-##### Detecting No Color (White):
-<img src="https://user-images.githubusercontent.com/12742304/47939863-24a96080-debf-11e8-97ff-fe6eae21846d.jpg" width="400" />
-
-##### Detecting No Color (Purple):
-<img src="https://user-images.githubusercontent.com/12742304/47939878-2d019b80-debf-11e8-95f4-0800ee1c90cb.jpg" width="400" />
-
-[code]
-
 ### Demonstration of Color Detection from Camera Feed:
 [video]
-
-
