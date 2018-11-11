@@ -71,11 +71,9 @@ For the actual robot, this commnunication scheme will be done over a [spi or i2c
 
 To set up our PLL, we followed the instructions given to us exactly. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies. Below are outputs from the oscilloscope with clk_c0 (24 MHz), clk_c1 (25 MHz), and clk_c2 (50 MHz), respectively.
 
-![24 MHz](https://user-images.githubusercontent.com/42748229/48320017-d5f87680-e5e2-11e8-9cba-878ecbb4d99f.jpg)
-
-![25 MHz](https://user-images.githubusercontent.com/42748229/48320019-ddb81b00-e5e2-11e8-8900-8e1c53b006b3.jpg)
-
-![50 MHz](https://user-images.githubusercontent.com/42748229/48320020-e4469280-e5e2-11e8-9d0e-47f175d68daa.jpg)
+<img src="https://user-images.githubusercontent.com/42748229/48320017-d5f87680-e5e2-11e8-9cba-878ecbb4d99f.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320019-ddb81b00-e5e2-11e8-8900-8e1c53b006b3.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320020-e4469280-e5e2-11e8-9d0e-47f175d68daa.jpg" width="400" />
 
 ### Reading and Writing memory
 
@@ -115,11 +113,10 @@ We first tested the memory module without inputs from the camera to make sure we
     input_data <= 8'b10000000;
   end
 ```
-![img_4378](https://user-images.githubusercontent.com/42748229/48320033-f32d4500-e5e2-11e8-8e21-c8740993b3e0.jpg)
 
-![img_4374](https://user-images.githubusercontent.com/42748229/48320035-f45e7200-e5e2-11e8-8452-a6153e5a0d98.jpg)
-
-![img_4375](https://user-images.githubusercontent.com/42748229/48320036-f58f9f00-e5e2-11e8-8fb0-2aa98bc8425e.jpg)
+<img src="https://user-images.githubusercontent.com/42748229/48320033-f32d4500-e5e2-11e8-8e21-c8740993b3e0.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320035-f45e7200-e5e2-11e8-8452-a6153e5a0d98.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320036-f58f9f00-e5e2-11e8-8fb0-2aa98bc8425e.jpg" width="400" />
 
 We then moved on implementing our image processor.
 
