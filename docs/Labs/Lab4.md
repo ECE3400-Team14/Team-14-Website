@@ -2,7 +2,7 @@
 
 ### Purpose:
 
-The goal of this lab was to set up the Camera-FPGA system our robot will use to detect treasures during the competition. This involved configuring the settings our [OV7670 camera](https://www.voti.nl/docs/OV7670.pdf) camera, storing the camera output data in our [DE0-Nano FPGA](http://www.ti.com/lit/ug/tidu737/tidu737.pdf), and using the FPGA to communicate the color of the camera image to our Arduino. One team, Greg and Michael, used our Arduino to both control the camera via I2C communication and set up a communication protocol for receiving color and shape data about the camera image from the FPGA. The other team, Andrew and David, worked on setting up the FPGA to provide a clock signal to the camera, receive, down-sample, and store the camera output in memory, and process the image in memory to determine the image color. Both teams worked on integrating the two systems together to accurately transmit images from the camera to the FPGA and transmit the color of the image from the FPGA to the Arduino. 
+The goal of this lab was to set up the Camera-FPGA system our robot will use to detect treasures during the competition. This involved configuring the settings our [OV7670 camera](http://web.mit.edu/6.111/www/f2016/tools/OV7670_2006.pdf) camera, storing the camera output data in our [DE0-Nano FPGA](http://www.ti.com/lit/ug/tidu737/tidu737.pdf), and using the FPGA to communicate the color of the camera image to our Arduino. One team, Greg and Michael, used our Arduino to both control the camera via I2C communication and set up a communication protocol for receiving color and shape data about the camera image from the FPGA. The other team, Andrew and David, worked on setting up the FPGA to provide a clock signal to the camera, receive, down-sample, and store the camera output in memory, and process the image in memory to determine the image color. Both teams worked on integrating the two systems together to accurately transmit images from the camera to the FPGA and transmit the color of the image from the FPGA to the Arduino. 
 
 ## Team Arduino
 ### Configuring the Camera
@@ -64,17 +64,124 @@ else {digitalWrite(squareLED, LOW);}
 
 The Arduino lights up LEDs based on these read values.
 
-For the actual robot, this commnuication scheme will be done over a [spi or i2c] data scheme so that the Arduino need only read information of a certain size over a given input pin.
+For the actual robot, this commnunication scheme will be done over a [spi or i2c] data scheme so that the Arduino need only read information of a certain size over a given input pin.
 
 ## Team FPGA
 
-### Setting Up PLL
+### Setting Up PLL [?]
 
 ### Reading and Writing memory
 
-We started off by writing some test images to memory. We did this by writing our `CONTROL_UNIT` module to iterate through each pixel of the 176 x 144 image and output a color based on the coordinates of the pixel (noted by `X_ADDR` and `Y_ADDR`). Connecting our FPGA to the computer screen via our FPGA adaptor, we were able to see the shapes we created, trying out various options:
+### The Control Unit and Downsampler
 
-[images here]
+We set up our 'CONTROL_UNIT' Module to read in a stream of pixel data, down-sample the data to and 8-bit format, and store it in memory. 
+The module definition is shown below:
+
+```verilog
+module CONTROL_UNIT (
+  CLK,//the PCLK output from the camera, set using the 24 MHz clock (c0_sig) from the PLL. 
+  HREF,//Input HREF from the camera to indicate when row data is being sent
+  VSYNC,//Indicates frame reset
+  input_data,//8-bit input from the camera[D7-D0]
+  output_data,//8-bit output to be sent to memory
+  X_ADDR,//pixel x-address where [output_data] should be stored in memory
+  Y_ADDR,//pixel y-address where [output_data] should be stored in memory
+  w_en//output that enables the M9K block to write [output_data] to the address indicated by [X_Addr] and [Y_Addr]
+);
+```
+
+Because the camera sends 16 bits of data per pixel (when using RGB565, RGB555, or RGB444, we needed a way to read pixel data over two clock cycles to be down-sampled to 8-bits for storage in memory. Our module alternates between writing data to the 8-bit register `part1` and `part2`, then combines these parts into the 16-bit value `{part1,part2}` to be downsampled and written to memory after both parts have been sent by the camera. 
+
+```verilog
+always @ (posedge CLK) begin
+  if (HREF)//row data is sent only when HREF is high
+  begin
+    if (write == 0)//write data to part1
+    begin
+      part1 <= input_data;
+      write <= 1; 
+      w_en <= 0;
+      X_ADDR <= X_ADDR ;
+    end
+    else//write data to part2 and store output to memory
+    begin
+      part2 <= input_data;
+      write <= 0;
+      w_en <= 1;//enable writing to memory
+      X_ADDR <= X_ADDR+1;//update pixel x address
+    end
+  end
+  else//no row data is being sent
+  begin
+     w_en <= 0;
+     write <= 0;
+     X_ADDR <= 0;
+  end
+end
+
+```
+
+We use signals from the camera's `HREF` and `VSYNC` output to determine when to read data from each pixel to store in memory. As shown above, `HREF` is high when row data is being sent, and `HREF` goes low between rows. Thus, we use the negative edge of `HREF` to update the y address `Y_ADDR` of the pixel being read. `VSYNC` goes high to indicate the start of a new frame, so we use the positive edge of `VSYNC` to reset `Y_ADDR`.
+
+<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309517-004a2580-e54a-11e8-8052-1d2a17e8c3f4.png">
+
+
+```verilog
+always @ (posedge VSYNC, negedge HREF) begin
+  if (VSYNC) begin
+    Y_ADDR <= 0;
+  end
+  else begin
+    Y_ADDR <= Y_ADDR + 1;
+  end
+end
+```
+To convert the 16-bit camera data to 8-bits to store the data in memory, we put the data read from the camera, `{part1, part2}` through a downsampler. This downsampler took the most significant bits from each color to construct an 8-bit RGB332 value (3-bits red, 3-bits green, 3-bits blue). 
+
+### OV7670 Color Formats:
+<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309510-e9a3ce80-e549-11e8-94ff-89ef7d3ae721.png">
+
+### Our Initial Downsampler:
+<img width=“400” alt="screen shot 2018-11-10 at 11 34 51 pm" src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png">
+
+
+We started off by writing some test images to memory. We did this by writing sample data from our [Simulator]() to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
+
+<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309614-4b653800-e54c-11e8-9d73-195a590ea2f0.jpg">
+
+<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg">
+
+<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309608-3092c380-e54c-11e8-9479-c64f8968aadb.jpg">
+
+
+
+### Sampling From the Camera:
+
+#### Arduino-Camera-FPGA Setup:
+<img width=“200” src="https://user-images.githubusercontent.com/12742304/48309624-5f109e80-e54c-11e8-98f9-269bc3d439e9.jpg">
+
+For a frustratingly long time, we attempted to read in RGB565 data from the camera. We were able to get an image from the camera, but the colors were all jumbled. Not good if your trying to detect certain colors! We thought that this was initially due to the camera sending us the wrong color format, but we found no way on the camera to correct the error. When we tried RGB444, however, we began to see an image with more correct color output. We noticed that the expected order of the bits was swapped (giving us GB, Rx, rather than xR,GB as expected), but this was easily corrected by switching `part1` and `part2` in the control unit. 
+
+Using the camera color bar test, we noticed that most of the colors were close to accurate except the last two:
+
+#### Reference Color Bar:
+
+<img width=“200” src="https://user-images.githubusercontent.com/12742304/48309629-73ed3200-e54c-11e8-8524-0572750f21c2.jpg">
+
+### Actual Color Bar:
+![img_4446](https://user-images.githubusercontent.com/12742304/48309671-16a5b080-e54d-11e8-9bc1-fcc779138d31.jpg)
+
+Notably, the second-to-last color was orange instead of dark red, and the last color bar was green when it should be black. What the color bar test suggested is that we were receiving excess amounts of green and red in our image. Viewing the camera feed confirmed this suspician, as the entire image was saturated with green. We found that specifically the second-most signifcant green bit (G2) seemed to trigger much more often than it should. Therefore, we removed it from the downsampler. After doing this, we still noticed a lot of red in the image, so we removed the second-most significant bit of red (R1) from the downsampler. The resulting image was dark, but we did start to see colors correctly. 
+
+<img width="1213" src="https://user-images.githubusercontent.com/12742304/48309540-73ec3280-e54a-11e8-8ac4-1e5eed06d4d4.png">
+
+#### Red Saturation:
+![img_4453](https://user-images.githubusercontent.com/12742304/48309637-86676b80-e54c-11e8-83c6-ab8f8885f6f8.jpg)
+
+#### With Modified Downsampler:
+![img_4456](https://user-images.githubusercontent.com/12742304/48309641-92ebc400-e54c-11e8-9654-4c7829c1fc8e.jpg)
+
+With the resulting solution, we were able to easily distinguish red on a white background, and somewhat distinguish blue. The blue tresure must be directly illuminated in order to be visible on the camera feed, suggesting that the current setup of the camera might not be sensitive enough to blue. 
 
 ### Color Detection
 
@@ -137,10 +244,9 @@ We connected the output of color detection to the LEDs on the FPGA. The left 4 L
 ##### Detecting No Color (Purple):
 <img src="https://user-images.githubusercontent.com/12742304/47939878-2d019b80-debf-11e8-95f4-0800ee1c90cb.jpg" width="400" />
 
-### Down-sampler and Camera Simulation
-2 points: Displaying the contents of an M9K block on the screen
+[code]
 
-## Integrating the Camera, Arduino, and FPGA
-3 points: Camera-FPGA communication (downsampling and storing in the M9K buffer)
-2 points: Displaying the test image from the camera on the screen
-3 points: Color detection with the FPGA, camera, and Arduino
+### Demonstration of Color Detection from Camera Feed:
+[video]
+
+
