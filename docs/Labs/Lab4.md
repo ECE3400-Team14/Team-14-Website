@@ -123,7 +123,7 @@ end
 
 We use signals from the camera's `HREF` and `VSYNC` output to determine when to read data from each pixel to store in memory. As shown above, `HREF` is high when row data is being sent, and `HREF` goes low between rows. Thus, we use the negative edge of `HREF` to update the y address `Y_ADDR` of the pixel being read. `VSYNC` goes high to indicate the start of a new frame, so we use the positive edge of `VSYNC` to reset `Y_ADDR`.
 
-<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309517-004a2580-e54a-11e8-8052-1d2a17e8c3f4.png">
+<img src="https://user-images.githubusercontent.com/12742304/48309517-004a2580-e54a-11e8-8052-1d2a17e8c3f4.png" width=“400”>
 
 
 ```verilog
@@ -139,41 +139,40 @@ end
 To convert the 16-bit camera data to 8-bits to store the data in memory, we put the data read from the camera, `{part1, part2}` through a downsampler. This downsampler took the most significant bits from each color to construct an 8-bit RGB332 value (3-bits red, 3-bits green, 3-bits blue). 
 
 ### OV7670 Color Formats:
-<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309510-e9a3ce80-e549-11e8-94ff-89ef7d3ae721.png">
+<img src="https://user-images.githubusercontent.com/12742304/48309510-e9a3ce80-e549-11e8-94ff-89ef7d3ae721.png" width=“400”>
 
 ### Our Initial Downsampler:
-<img width=“400” alt="screen shot 2018-11-10 at 11 34 51 pm" src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png">
+<img src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png" width=“400”>
 
 
 We started off by writing some test images to memory. We did this by writing sample data from our [Simulator]() to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
 
-<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309614-4b653800-e54c-11e8-9d73-195a590ea2f0.jpg">
+<img src="https://user-images.githubusercontent.com/12742304/48309614-4b653800-e54c-11e8-9d73-195a590ea2f0.jpg" width=“400”>
 
-<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg">
+<img src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg" width=“400” >
 
-<img width=“400” src="https://user-images.githubusercontent.com/12742304/48309608-3092c380-e54c-11e8-9479-c64f8968aadb.jpg">
+<img src="https://user-images.githubusercontent.com/12742304/48309608-3092c380-e54c-11e8-9479-c64f8968aadb.jpg" width=“400”>
 
 
 
 ### Sampling From the Camera:
 
 #### Arduino-Camera-FPGA Setup:
-<img width=“200” src="https://user-images.githubusercontent.com/12742304/48309624-5f109e80-e54c-11e8-98f9-269bc3d439e9.jpg">
+<img width=“200” alt="image" src="https://user-images.githubusercontent.com/12742304/48309624-5f109e80-e54c-11e8-98f9-269bc3d439e9.jpg">
 
 For a frustratingly long time, we attempted to read in RGB565 data from the camera. We were able to get an image from the camera, but the colors were all jumbled. Not good if your trying to detect certain colors! We thought that this was initially due to the camera sending us the wrong color format, but we found no way on the camera to correct the error. When we tried RGB444, however, we began to see an image with more correct color output. We noticed that the expected order of the bits was swapped (giving us GB, Rx, rather than xR,GB as expected), but this was easily corrected by switching `part1` and `part2` in the control unit. 
 
 Using the camera color bar test, we noticed that most of the colors were close to accurate except the last two:
 
-#### Reference Color Bar:
-
-<img width=“200” src="https://user-images.githubusercontent.com/12742304/48309629-73ed3200-e54c-11e8-8524-0572750f21c2.jpg">
+#### Reference Color Bar
+<img src="https://user-images.githubusercontent.com/12742304/48309629-73ed3200-e54c-11e8-8524-0572750f21c2.jpg" width=“200”>
 
 ### Actual Color Bar:
 ![img_4446](https://user-images.githubusercontent.com/12742304/48309671-16a5b080-e54d-11e8-9bc1-fcc779138d31.jpg)
 
 Notably, the second-to-last color was orange instead of dark red, and the last color bar was green when it should be black. What the color bar test suggested is that we were receiving excess amounts of green and red in our image. Viewing the camera feed confirmed this suspician, as the entire image was saturated with green. We found that specifically the second-most signifcant green bit (G2) seemed to trigger much more often than it should. Therefore, we removed it from the downsampler. After doing this, we still noticed a lot of red in the image, so we removed the second-most significant bit of red (R1) from the downsampler. The resulting image was dark, but we did start to see colors correctly. 
 
-<img width="1213" src="https://user-images.githubusercontent.com/12742304/48309540-73ec3280-e54a-11e8-8ac4-1e5eed06d4d4.png">
+<img src="https://user-images.githubusercontent.com/12742304/48309540-73ec3280-e54a-11e8-8ac4-1e5eed06d4d4.png" width="1213">
 
 #### Red Saturation:
 ![img_4453](https://user-images.githubusercontent.com/12742304/48309637-86676b80-e54c-11e8-83c6-ab8f8885f6f8.jpg)
