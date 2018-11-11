@@ -6,7 +6,6 @@ The goal of this lab was to set up the Camera-FPGA system our robot will use to 
 
 ## Team Arduino
 ### Configuring the Camera
-2 points: Arduino-Camera communication (writing the correct registers)
 
 In order to get the camera to send the correct data, we first searched through the datasheet for the OV7670 camera to find the settings we needed. Consulting the lab description we found registers and values for the following settings:
 
