@@ -9,7 +9,7 @@ Since we have an integrated system of different components, we had a hard time i
 `define SCREEN_WIDTH 176
 `define SCREEN_HEIGHT 144
 `define STRIDE 180
-`define FRAME_LENGTH 800000 // 0 VSYNC low, 1-2 VSYNC high, 3 VSYNC low, then start at 4, each row with 176*2 valid data bytes while HREF high, then 8 cycles while HREF low
+`define FRAME_LENGTH 800000 //0 VSYNC low, 1-2 VSYNC high, 3 VSYNC low, then start at 4, each row with 176*2 valid data bytes while HREF high, then 8 cycles while HREF low
 
 module SIMULATOR(
   CLK,
