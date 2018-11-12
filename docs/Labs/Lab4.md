@@ -260,7 +260,7 @@ To convert the 16-bit camera data to 8-bits to store the data in memory, we put 
 ### Our Initial Downsampler:
 <img src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png" width="800" />
 
-We started off by writing some test images to memory. We did this by writing sample data from our [Simulator]() to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
+We started off by writing some test images to memory. We did this by writing sample data from our [Simulator](/docs/OtherUpdates/Simulator.md) to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
 
 <img src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg" width="250" />
 
