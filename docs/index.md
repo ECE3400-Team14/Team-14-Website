@@ -27,6 +27,7 @@ Michaelangelo Rodriguez Ayala (mr2242)
 
 ## Other Robot Updates
 * [New Wheels](OtherUpdates/newWheels.md)
+* [Simulator](OtherUpdates/Simulator.md)
 
 ## Lateness Chart: 
 
