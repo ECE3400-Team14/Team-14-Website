@@ -206,7 +206,7 @@ module CONTROL_UNIT (
 );
 ```
 
-Because the camera sends 16 bits of data per pixel (when using RGB565, RGB555, or RGB444, we needed a way to read pixel data over two clock cycles to be down-sampled to 8-bits for storage in memory. Our module alternates between writing data to the 8-bit register `part1` and `part2`, then combines these parts into the 16-bit value `{part1,part2}` to be downsampled and written to memory after both parts have been sent by the camera. 
+Because the camera sends 16 bits of data per pixel (when using RGB565, RGB555, or RGB444), we needed a way to read pixel data over two clock cycles to be down-sampled to 8-bits for storage in memory. Our module alternates between writing data to the 8-bit register `part1` and `part2`, then combines these parts into the 16-bit value `{part1,part2}` to be downsampled and written to memory after both parts have been sent by the camera. 
 
 ```verilog
 always @ (posedge CLK) begin
@@ -217,7 +217,7 @@ always @ (posedge CLK) begin
       part1 <= input_data;
       write <= 1; 
       w_en <= 0;
-      X_ADDR <= X_ADDR ;
+      X_ADDR <= X_ADDR;
     end
     else//write data to part2 and store output to memory
     begin
