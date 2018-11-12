@@ -69,7 +69,7 @@ For the actual robot, this commnunication scheme will be done over a [spi or i2c
 
 ### Setting Up PLL
 
-To set up our PLL, we followed the instructions given to us exactly. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies. Below are outputs from the oscilloscope with clk_c0 (24 MHz), clk_c1 (25 MHz), and clk_c2 (50 MHz), respectively.
+To set up our PLL, we followed the instructions given to us precisely. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies. Below are outputs from the oscilloscope with clk_c0 (24 MHz), clk_c1 (25 MHz), and clk_c2 (50 MHz), respectively.
 
 <img src="https://user-images.githubusercontent.com/42748229/48320017-d5f87680-e5e2-11e8-9cba-878ecbb4d99f.jpg" width="400" />
 <img src="https://user-images.githubusercontent.com/42748229/48320019-ddb81b00-e5e2-11e8-8900-8e1c53b006b3.jpg" width="400" />
@@ -77,7 +77,7 @@ To set up our PLL, we followed the instructions given to us exactly. What we end
 
 ### Reading and Writing memory
 
-We first tested the memory module without inputs from the camera to make sure we actually understand how it works. In 'CONTROL_UNIT', we created two registers: `X_ADDR` that increments every clock cycle, and `Y_ADDR` that increments every time an entire row of data has been written into the memory. We then set `w_en` to 1 and output different colors according to the x-y coordinates. For example, to create our own color bar test, the output is defined as follows:
+We first tested the memory module without inputs from the camera to make sure we actually understand how it works. In `CONTROL_UNIT`, we created two registers: `X_ADDR` that increments every clock cycle, and `Y_ADDR` that increments every time an entire row of data has been written into the memory. We then set `w_en` to 1 and output different colors according to the x-y coordinates. For example, to create our own color bar test, the output is defined as follows:
 
 ```verilog
   if (X_ADDR < 20)
@@ -115,6 +115,9 @@ We first tested the memory module without inputs from the camera to make sure we
 ```
 
 <img src="https://user-images.githubusercontent.com/42748229/48320033-f32d4500-e5e2-11e8-8e21-c8740993b3e0.jpg" width="400" />
+
+Here are two other patterns we tested:
+
 <img src="https://user-images.githubusercontent.com/42748229/48320035-f45e7200-e5e2-11e8-8452-a6153e5a0d98.jpg" width="400" />
 <img src="https://user-images.githubusercontent.com/42748229/48320036-f58f9f00-e5e2-11e8-8fb0-2aa98bc8425e.jpg" width="400" />
 
@@ -154,6 +157,7 @@ end
 
 ```verilog
 always @ (*) begin
+        //We are simply using 50% as threshold. It will be changed when we do field tests
 	if (red > 12672) begin
 		RESULT <= 8'b00000001;
 	end
@@ -167,7 +171,7 @@ always @ (*) begin
 	end
 end
 ```
-We connected the output of color detection to the LEDs on the FPGA. The left 4 LEDs light up when the image is red and the 4 right LEDs light up when the image is blue.
+We connected the output of color detection to the LEDs on the FPGA. The right 4 LEDs light up when the image is red and the left 4 LEDs light up when the image is blue.
 
 ##### Detecting Red:
 <img src="https://user-images.githubusercontent.com/12742304/47939808-02afde00-debf-11e8-87ac-3e35e1386200.jpg" width="400" />
@@ -190,7 +194,7 @@ We connected the output of color detection to the LEDs on the FPGA. The left 4 L
 
 ### The Control Unit and Downsampler
 
-We set up our 'CONTROL_UNIT' Module to read in a stream of pixel data, down-sample the data to and 8-bit format, and store it in memory. 
+We set up our `CONTROL_UNIT` Module to read in a stream of pixel data, down-sample the data to an 8-bit format, and store it in memory. 
 The module definition is shown below:
 
 ```verilog
