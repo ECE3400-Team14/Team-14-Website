@@ -298,4 +298,5 @@ Notably, the second-to-last color was orange instead of dark red, and the last c
 With the resulting solution, we were able to easily distinguish red on a white background, and somewhat distinguish blue. The blue tresure must be directly illuminated in order to be visible on the camera feed, suggesting that the current setup of the camera might not be sensitive enough to blue. 
 
 ### Demonstration of Color Detection from Camera Feed:
-[video]
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ZkEB7EIZe8Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
