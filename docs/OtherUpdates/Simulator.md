@@ -23,4 +23,4 @@ Note that the camera module is not outputting a clock, as this is the ideal simu
 
 It is pretty straightforward. There are two always blocks. One controls `VSYNC`, `HREF`, and which byte of the pixel that the module is suppoed to be outputting. The other controls the color of a pixel determined by the X and Y addresses.
 
-Using this simulator, we managed to use our `CONTROL_UNIT` to get real images. However, we encountered problems regarding colors that we did not see while using our simulator. Therefore, keep in mind that this is merely an ideal simulation.
+Using this simulator, we managed to use our `CONTROL_UNIT` to get real images. However, we encountered problems regarding colors that we did not see while using our simulator. Therefore, keep in mind that this is merely an ideal simulation and other problems will very likely arise when using a real camera.
