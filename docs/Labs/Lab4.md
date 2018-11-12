@@ -45,7 +45,7 @@ SDA and SCL from the camera were hooked up to A4 and A5 of the Arduino, respecti
 and tried to write the registers of the camera, which seemed to come out accurately:
 ![image](https://user-images.githubusercontent.com/16722348/48296667-af620080-e467-11e8-8426-2aa60d31fb95.png)
 
-It took some significant debugging to make sure that these register values were correct, since communication to the FPGA was wrong and hard to diagnose. After changing many of them around, we settled on the values listed above.
+It took some significant debugging to make sure that these register values were correct, since communication to the FPGA was wrong and hard to diagnose. After changing many of them around, we settled on the values listed above. It should also be important to note that the displayed register values above were displayed in decimal. 
 
 ### Setting up Arduino-FPGA Communication
 For this lab, we decided to keep it simple and do a straightforward proof-of-concept for the FPGA-->Arduino communication scheme. The FPGA sends high or low signals to a few of its pins based on color and shape, and the Arduino reads individually over those pins to figure out if the camera is seeing a certain shape or color.
