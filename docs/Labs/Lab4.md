@@ -40,10 +40,10 @@ Then we set up the circuit as shown in the Lab description,
 (from https://cei-lab.github.io/ece3400-2018/lab4.html)
 
 SDA and SCL from the camera were hooked up to A4 and A5 of the Arduino, respectively. It looked something like this:
+![image](https://user-images.githubusercontent.com/16722348/48324952-562dd480-e601-11e8-9bc7-50521024e8bc.png)
 
 and tried to write the registers of the camera, which seemed to come out accurately:
 ![image](https://user-images.githubusercontent.com/16722348/48296667-af620080-e467-11e8-8426-2aa60d31fb95.png)
-
 
 It took some significant debugging to make sure that these register values were correct, since communication to the FPGA was wrong and hard to diagnose. After changing many of them around, we settled on the values listed above.
 
@@ -63,7 +63,7 @@ else {digitalWrite(squareLED, LOW);}
 
 The Arduino lights up LEDs based on these read values.
 
-For the actual robot, this commnunication scheme will be done over a [spi or i2c] data scheme so that the Arduino need only read information of a certain size over a given input pin.
+For the actual robot, this commnunication scheme will be done over a serial data scheme so that the Arduino need only read information of a certain size over a single given input pin.
 
 ## Team FPGA
 
