@@ -67,123 +67,62 @@ For the actual robot, this commnunication scheme will be done over a [spi or i2c
 
 ## Team FPGA
 
-### Setting Up PLL [?]
+### Setting Up PLL
+
+To set up our PLL, we followed the instructions given to us exactly. What we ended up with are three clock signals with frequencies 24 MHz, 25 MHz, and 50 MHz. We then probed all three signals using an oscilloscope to confirm that we have the correct frequencies. Below are outputs from the oscilloscope with clk_c0 (24 MHz), clk_c1 (25 MHz), and clk_c2 (50 MHz), respectively.
+
+<img src="https://user-images.githubusercontent.com/42748229/48320017-d5f87680-e5e2-11e8-9cba-878ecbb4d99f.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320019-ddb81b00-e5e2-11e8-8900-8e1c53b006b3.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320020-e4469280-e5e2-11e8-9d0e-47f175d68daa.jpg" width="400" />
 
 ### Reading and Writing memory
 
-### The Control Unit and Downsampler
-
-We set up our 'CONTROL_UNIT' Module to read in a stream of pixel data, down-sample the data to and 8-bit format, and store it in memory. 
-The module definition is shown below:
+We first tested the memory module without inputs from the camera to make sure we actually understand how it works. In 'CONTROL_UNIT', we created two registers: `X_ADDR` that increments every clock cycle, and `Y_ADDR` that increments every time an entire row of data has been written into the memory. We then set `w_en` to 1 and output different colors according to the x-y coordinates. For example, to create our own color bar test, the output is defined as follows:
 
 ```verilog
-module CONTROL_UNIT (
-  CLK,//the PCLK output from the camera, set using the 24 MHz clock (c0_sig) from the PLL. 
-  HREF,//Input HREF from the camera to indicate when row data is being sent
-  VSYNC,//Indicates frame reset
-  input_data,//8-bit input from the camera[D7-D0]
-  output_data,//8-bit output to be sent to memory
-  X_ADDR,//pixel x-address where [output_data] should be stored in memory
-  Y_ADDR,//pixel y-address where [output_data] should be stored in memory
-  w_en//output that enables the M9K block to write [output_data] to the address indicated by [X_Addr] and [Y_Addr]
-);
-```
-
-Because the camera sends 16 bits of data per pixel (when using RGB565, RGB555, or RGB444, we needed a way to read pixel data over two clock cycles to be down-sampled to 8-bits for storage in memory. Our module alternates between writing data to the 8-bit register `part1` and `part2`, then combines these parts into the 16-bit value `{part1,part2}` to be downsampled and written to memory after both parts have been sent by the camera. 
-
-```verilog
-always @ (posedge CLK) begin
-  if (HREF)//row data is sent only when HREF is high
+  if (X_ADDR < 20)
   begin
-    if (write == 0)//write data to part1
-    begin
-      part1 <= input_data;
-      write <= 1; 
-      w_en <= 0;
-      X_ADDR <= X_ADDR ;
-    end
-    else//write data to part2 and store output to memory
-    begin
-      part2 <= input_data;
-      write <= 0;
-      w_en <= 1;//enable writing to memory
-      X_ADDR <= X_ADDR+1;//update pixel x address
-    end
+    input_data <= 8'b11111111;
   end
-  else//no row data is being sent
+  if (X_ADDR < 40 && X_ADDR > 19)
   begin
-     w_en <= 0;
-     write <= 0;
-     X_ADDR <= 0;
+    input_data <= 8'b00000010;
   end
-end
-
+  if (X_ADDR < 60 && X_ADDR > 39)
+  begin
+    input_data <= 8'b00000100;
+  end
+  if (X_ADDR < 80 && X_ADDR > 59)
+  begin
+    input_data <= 8'b00001000;
+  end
+  if (X_ADDR < 100 && X_ADDR > 79)
+  begin
+    input_data <= 8'b00010000;
+  end
+  if (X_ADDR < 120 && X_ADDR > 99)
+  begin
+    input_data <= 8'b00100000;
+  end
+  if (X_ADDR < 140 && X_ADDR > 119)
+  begin
+    input_data <= 8'b01000000;
+  end
+  if (X_ADDR < 176 && X_ADDR > 139)
+  begin
+    input_data <= 8'b10000000;
+  end
 ```
 
-We use signals from the camera's `HREF` and `VSYNC` output to determine when to read data from each pixel to store in memory. As shown above, `HREF` is high when row data is being sent, and `HREF` goes low between rows. Thus, we use the negative edge of `HREF` to update the y address `Y_ADDR` of the pixel being read. `VSYNC` goes high to indicate the start of a new frame, so we use the positive edge of `VSYNC` to reset `Y_ADDR`.
+<img src="https://user-images.githubusercontent.com/42748229/48320033-f32d4500-e5e2-11e8-8e21-c8740993b3e0.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320035-f45e7200-e5e2-11e8-8452-a6153e5a0d98.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/42748229/48320036-f58f9f00-e5e2-11e8-8fb0-2aa98bc8425e.jpg" width="400" />
 
-<img src="https://user-images.githubusercontent.com/12742304/48309517-004a2580-e54a-11e8-8052-1d2a17e8c3f4.png" width="800" />
+We then moved on implementing our image processor.
 
+### Image Processor for Color Detection
 
-```verilog
-always @ (posedge VSYNC, negedge HREF) begin
-  if (VSYNC) begin
-    Y_ADDR <= 0;
-  end
-  else begin
-    Y_ADDR <= Y_ADDR + 1;
-  end
-end
-```
-To convert the 16-bit camera data to 8-bits to store the data in memory, we put the data read from the camera, `{part1, part2}` through a downsampler. This downsampler took the most significant bits from each color to construct an 8-bit RGB332 value (3-bits red, 3-bits green, 3-bits blue). 
-
-### OV7670 Color Formats:
-<img src="https://user-images.githubusercontent.com/12742304/48309510-e9a3ce80-e549-11e8-94ff-89ef7d3ae721.png" width="800" />
-
-### Our Initial Downsampler:
-<img src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png" width="800" />
-
-
-We started off by writing some test images to memory. We did this by writing sample data from our [Simulator]() to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
-
-<img src="https://user-images.githubusercontent.com/12742304/48309614-4b653800-e54c-11e8-9d73-195a590ea2f0.jpg" width="250" />
-
-<img src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg" width="250" />
-
-<img src="https://user-images.githubusercontent.com/12742304/48309608-3092c380-e54c-11e8-9479-c64f8968aadb.jpg" width="250" />
-
-
-
-### Sampling From the Camera:
-
-#### Arduino-Camera-FPGA Setup:
-<img width="500" alt="image" src="https://user-images.githubusercontent.com/12742304/48309624-5f109e80-e54c-11e8-98f9-269bc3d439e9.jpg" />
-
-For a frustratingly long time, we attempted to read in RGB565 data from the camera. We were able to get an image from the camera, but the colors were all jumbled. Not good if your trying to detect certain colors! We thought that this was initially due to the camera sending us the wrong color format, but we found no way on the camera to correct the error. When we tried RGB444, however, we began to see an image with more correct color output. We noticed that the expected order of the bits was swapped (giving us GB, Rx, rather than xR,GB as expected), but this was easily corrected by switching `part1` and `part2` in the control unit. 
-
-Using the camera color bar test, we noticed that most of the colors were close to accurate except the last two:
-
-#### Reference Color Bar
-<img src="https://user-images.githubusercontent.com/12742304/48309629-73ed3200-e54c-11e8-8524-0572750f21c2.jpg" width="250" />
-
-### Actual Color Bar:
-![img_4446](https://user-images.githubusercontent.com/12742304/48309671-16a5b080-e54d-11e8-9bc1-fcc779138d31.jpg)
-
-Notably, the second-to-last color was orange instead of dark red, and the last color bar was green when it should be black. What the color bar test suggested is that we were receiving excess amounts of green and red in our image. Viewing the camera feed confirmed this suspician, as the entire image was saturated with green. We found that specifically the second-most signifcant green bit (G2) seemed to trigger much more often than it should. Therefore, we removed it from the downsampler. After doing this, we still noticed a lot of red in the image, so we removed the second-most significant bit of red (R1) from the downsampler. The resulting image was dark, but we did start to see colors correctly. 
-
-<img src="https://user-images.githubusercontent.com/12742304/48309540-73ec3280-e54a-11e8-8ac4-1e5eed06d4d4.png" width="1213" />
-
-#### Red Saturation:
-![img_4453](https://user-images.githubusercontent.com/12742304/48309637-86676b80-e54c-11e8-83c6-ab8f8885f6f8.jpg)
-
-#### With Modified Downsampler:
-![img_4456](https://user-images.githubusercontent.com/12742304/48309641-92ebc400-e54c-11e8-9654-4c7829c1fc8e.jpg)
-
-With the resulting solution, we were able to easily distinguish red on a white background, and somewhat distinguish blue. The blue tresure must be directly illuminated in order to be visible on the camera feed, suggesting that the current setup of the camera might not be sensitive enough to blue. 
-
-### Color Detection
-
-Next, we wrote our image processing module to detect the color of the image. Our algorithm was as follows:
+We implemented our image processor without using inputs from the camera as we felt that we should test it in a more controlled environment and make sure it works before connecting it with the camera input. Therefore, we wrote our image processing module to detect the color of the image. Our algorithm was as follows:
 * For each pixel in the image, check if the pixel is mostly red or mostly blue. Mostly red means the most significant bit of the red part is 1 and the two most significant bits of the green and blue parts are 0. Mostly blue means the most significant bit of the blue part is 1 and two most significant parts of the red and green parts are 0. 
 
 #### Analyzing Each Pixel in the Image:
@@ -236,15 +175,123 @@ We connected the output of color detection to the LEDs on the FPGA. The left 4 L
 ##### Detecting Blue:
 <img src="https://user-images.githubusercontent.com/12742304/47939837-11969080-debf-11e8-80ca-b91544b9a397.jpg" width="400" />
 
+##### Detecting Red Background with Blue Cross:
+<img src="https://user-images.githubusercontent.com/42748229/48320049-15bf5e00-e5e3-11e8-9ebe-e51df376a169.jpg" width="400" />
+
+##### Detecting Blue Background with Red Cross:
+<img src="https://user-images.githubusercontent.com/42748229/48320058-21ab2000-e5e3-11e8-97c7-c596be2c47b4.jpg" width="400" />
+
 ##### Detecting No Color (White):
 <img src="https://user-images.githubusercontent.com/12742304/47939863-24a96080-debf-11e8-97ff-fe6eae21846d.jpg" width="400" />
 
 ##### Detecting No Color (Purple):
 <img src="https://user-images.githubusercontent.com/12742304/47939878-2d019b80-debf-11e8-95f4-0800ee1c90cb.jpg" width="400" />
 
-[code]
+
+### The Control Unit and Downsampler
+
+We set up our 'CONTROL_UNIT' Module to read in a stream of pixel data, down-sample the data to and 8-bit format, and store it in memory. 
+The module definition is shown below:
+
+```verilog
+module CONTROL_UNIT (
+  CLK,//the PCLK output from the camera, set using the 24 MHz clock (c0_sig) from the PLL. 
+  HREF,//Input HREF from the camera to indicate when row data is being sent
+  VSYNC,//Indicates frame reset
+  input_data,//8-bit input from the camera[D7-D0]
+  output_data,//8-bit output to be sent to memory
+  X_ADDR,//pixel x-address where [output_data] should be stored in memory
+  Y_ADDR,//pixel y-address where [output_data] should be stored in memory
+  w_en//output that enables the M9K block to write [output_data] to the address indicated by [X_Addr] and [Y_Addr]
+);
+```
+
+Because the camera sends 16 bits of data per pixel (when using RGB565, RGB555, or RGB444), we needed a way to read pixel data over two clock cycles to be down-sampled to 8-bits for storage in memory. Our module alternates between writing data to the 8-bit register `part1` and `part2`, then combines these parts into the 16-bit value `{part1,part2}` to be downsampled and written to memory after both parts have been sent by the camera. 
+
+```verilog
+always @ (posedge CLK) begin
+  if (HREF)//row data is sent only when HREF is high
+  begin
+    if (write == 0)//write data to part1
+    begin
+      part1 <= input_data;
+      write <= 1; 
+      w_en <= 0;
+      X_ADDR <= X_ADDR;
+    end
+    else//write data to part2 and store output to memory
+    begin
+      part2 <= input_data;
+      write <= 0;
+      w_en <= 1;//enable writing to memory
+      X_ADDR <= X_ADDR+1;//update pixel x address
+    end
+  end
+  else//no row data is being sent
+  begin
+     w_en <= 0;
+     write <= 0;
+     X_ADDR <= 0;
+  end
+end
+
+```
+
+We use signals from the camera's `HREF` and `VSYNC` output to determine when to read data from each pixel to store in memory. As shown above, `HREF` is high when row data is being sent, and `HREF` goes low between rows. Thus, we use the negative edge of `HREF` to update the y address `Y_ADDR` of the pixel being read. `VSYNC` goes high to indicate the start of a new frame, so we use the positive edge of `VSYNC` to reset `Y_ADDR`.
+
+<img src="https://user-images.githubusercontent.com/12742304/48309517-004a2580-e54a-11e8-8052-1d2a17e8c3f4.png" width="800" />
+
+
+```verilog
+always @ (posedge VSYNC, negedge HREF) begin
+  if (VSYNC) begin
+    Y_ADDR <= 0;
+  end
+  else begin
+    Y_ADDR <= Y_ADDR + 1;
+  end
+end
+```
+To convert the 16-bit camera data to 8-bits to store the data in memory, we put the data read from the camera, `{part1, part2}` through a downsampler. This downsampler took the most significant bits from each color to construct an 8-bit RGB332 value (3-bits red, 3-bits green, 3-bits blue). 
+
+### OV7670 Color Formats:
+<img src="https://user-images.githubusercontent.com/12742304/48309510-e9a3ce80-e549-11e8-94ff-89ef7d3ae721.png" width="800" />
+
+### Our Initial Downsampler:
+<img src="https://user-images.githubusercontent.com/12742304/48309525-10620500-e54a-11e8-997e-6b13c83c5f98.png" width="800" />
+
+We started off by writing some test images to memory. We did this by writing sample data from our [Simulator](/docs/OtherUpdates/Simulator.md) to our `CONTROL_UNIT` module to write to each pixel of the 176 x 144 image. Connecting our FPGA to the computer screen via our VGA adaptor, we were able to see the shapes we created, trying out various options:
+
+<img src="https://user-images.githubusercontent.com/12742304/48309590-f1647280-e54b-11e8-84d3-f3e2b2c911a2.jpg" width="250" />
+
+<img src="https://user-images.githubusercontent.com/12742304/48309608-3092c380-e54c-11e8-9479-c64f8968aadb.jpg" width="250" />
+
+### Sampling From the Camera:
+
+#### Arduino-Camera-FPGA Setup:
+<img width="500" alt="image" src="https://user-images.githubusercontent.com/12742304/48309624-5f109e80-e54c-11e8-98f9-269bc3d439e9.jpg" />
+
+For a frustratingly long time, we attempted to read in RGB565 data from the camera. We were able to get an image from the camera, but the colors were all jumbled. Not good if your trying to detect certain colors! We thought that this was initially due to the camera sending us the wrong color format, but we found no way on the camera to correct the error. When we tried RGB444, however, we began to see an image with more correct color output. We noticed that the expected order of the bits was swapped (giving us GB, Rx, rather than xR,GB as expected), but this was easily corrected by switching `part1` and `part2` in the control unit. 
+
+Using the camera color bar test, we noticed that most of the colors were close to accurate except the last two:
+
+#### Reference Color Bar
+<img src="https://user-images.githubusercontent.com/12742304/48309629-73ed3200-e54c-11e8-8524-0572750f21c2.jpg" width="250" />
+
+### Actual Color Bar:
+![img_4446](https://user-images.githubusercontent.com/12742304/48309671-16a5b080-e54d-11e8-9bc1-fcc779138d31.jpg)
+
+Notably, the second-to-last color was orange instead of dark red, and the last color bar was green when it should be black. What the color bar test suggested is that we were receiving excess amounts of green and red in our image. Viewing the camera feed confirmed this suspician, as the entire image was saturated with green. We found that specifically the second-most signifcant green bit (G2) seemed to trigger much more often than it should. Therefore, we removed it from the downsampler. After doing this, we still noticed a lot of red in the image, so we removed the second-most significant bit of red (R1) from the downsampler. The resulting image was dark, but we did start to see colors correctly. 
+
+<img src="https://user-images.githubusercontent.com/12742304/48309540-73ec3280-e54a-11e8-8ac4-1e5eed06d4d4.png" width="1213" />
+
+#### Red Saturation:
+![img_4453](https://user-images.githubusercontent.com/12742304/48309637-86676b80-e54c-11e8-83c6-ab8f8885f6f8.jpg)
+
+#### With Modified Downsampler:
+![img_4456](https://user-images.githubusercontent.com/12742304/48309641-92ebc400-e54c-11e8-9654-4c7829c1fc8e.jpg)
+
+With the resulting solution, we were able to easily distinguish red on a white background, and somewhat distinguish blue. The blue tresure must be directly illuminated in order to be visible on the camera feed, suggesting that the current setup of the camera might not be sensitive enough to blue. 
 
 ### Demonstration of Color Detection from Camera Feed:
 [video]
-
-
