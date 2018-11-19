@@ -34,6 +34,8 @@ The goal of this lab was to set up the Camera-FPGA system our robot will use to 
 Line sensing, intersection detection, and controlled turning.
 * [Milestone2](Milestones/Milestone2.md)
 Wall sensing, and right-hand-wall-following algorithm.
+* [Milestone3](Milestones/Milestone3.md)
+Maze search algorithms.
 
 ## Other Robot Updates
 * [New Wheels](OtherUpdates/newWheels.md)
@@ -47,5 +49,5 @@ Some troubleshooting tools for teams next year to debug their camera input.
 | -------------|:-------------:|:-------------:|
 | David        | 0             | 0             |
 | Greg         | 0             | 0             | 
-| Andrew       | 0             | 0             | 
+| Andrew       | 1             | 0             | 
 | Michael      | 0             | 2             | 
