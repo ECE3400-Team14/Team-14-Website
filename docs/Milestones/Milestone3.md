@@ -8,7 +8,7 @@ Going into this milestone, our robot was using right hand wall-following to trav
 
 [image?]
 
-With sensors facing forward, left, and right, our robot could determine every wall surrounding it after entering an unexplored square. Ot can assume that there is no wall behind it because it just came from that square (except at the start, when we assume the robot starts with a wall behind it).
+With sensors facing forward, left, and right, our robot could determine every wall surrounding it after entering an unexplored square. It can assume that there is no wall behind it because it just came from that square (except at the start, when we assume the robot starts with a wall behind it).
 
 ## Version 1: Movement Tree Algorithm (BFS)
 
