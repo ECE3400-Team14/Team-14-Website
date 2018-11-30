@@ -8,7 +8,7 @@ The goal of this milestone was to integrate treasure detection onto our robot. T
 
 In order to detect shapes, we continue implementing our image processor. In [Lab4](../Labs/Lab4.md), we finished the color detection part where the module simply counts the number of red pixels and blue pixels in the frame. We now do something more complicated to recognize shape.
 
-The method we chose to do is what I would consider a shortcut. Instead of looking at the entire picture, we just count the number of "colored" pixels those three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows on-the-fly. Basically, we found the `top` and the `bottom`
+The method we chose to do is what I would consider a shortcut. Instead of using every pixel in the picture, we just count the number of "colored" pixels from three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows on-the-fly. Basically, we found the `top` and the `bottom`
 
 ## Arduino-FPGA Communication
 
