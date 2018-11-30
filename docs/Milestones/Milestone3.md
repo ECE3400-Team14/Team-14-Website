@@ -43,7 +43,7 @@ struct Node {
 
 The valid moves that the robot can make in this algorithm are "move forward", "turn left", "turn right" and "stop". The algorithm will find the next unexplored square that requires the least number of moves to reach, prioritized in the order listed. That is, if two unexplored squares are an equal number of moves away, the one that uses higher-priority moves will be chosen. 
 
-<img src="https://media.giphy.com/media/3iySk9yKxzuh4hMkYz/giphy.gif" width="500" />
+<img src="https://media.giphy.com/media/3iySk9yKxzuh4hMkYz/giphy.gif" width="600" />
 
 Once we found an unexplored square, our algorithm traverses the tree back to the starting node, adding the moves at each node to a stack along the way. The final stack contains an ordered list of moves that the robot can follow to get from its current location to the new unexplored node. 
 
