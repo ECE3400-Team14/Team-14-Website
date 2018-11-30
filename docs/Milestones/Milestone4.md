@@ -6,6 +6,10 @@ The goal of this milestone was to integrate treasure detection onto our robot. T
 
 ## The Shape Detection Algorithm
 
+In order to detect shapes, we continue implementing our image processor. In [Lab4](../Labs/Lab4.md), we finished the color detection part where the module simply counts the number of red pixels and blue pixels in the frame. We now do something more complicated to recognize shape.
+
+The method we chose to do is what I would consider a shortcut. Instead of looking at the entire picture, we just count the number of "colored" pixels those three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows on-the-fly. Basically, we found the `top` and the `bottom`
+
 ## Arduino-FPGA Communication
 
 Rather than using a standard serial communication method, such as I2C or UART, we decided to create our own serial communication protocol to communicate shape data from the FPGA and Arduino. This decision was motiviated by a few reasons:
