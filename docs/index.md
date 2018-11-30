@@ -36,6 +36,8 @@ Line sensing, intersection detection, and controlled turning.
 Wall sensing, and right-hand-wall-following algorithm.
 * [Milestone3](Milestones/Milestone3.md)
 Maze search algorithms.
+* [Milestone4](Milestones/Milestone4.md)
+Treasure detection.
 
 ## Other Robot Updates
 * [New Wheels](OtherUpdates/newWheels.md)
