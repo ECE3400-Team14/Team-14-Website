@@ -10,8 +10,8 @@ In order to detect shapes, we continue implementing our image processor. In [Lab
 
 The method we chose to do is what I would consider a shortcut. Instead of using every pixel in the picture and evaluating the entire frame as a whole, we just count the number of "colored" pixels from three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows dynamically on-the-fly. Basically, we would find the `top` and the `bottom` rows of the shape and find three euqually spaced rows within that range. Unfortunately, calculating that was somehow problematic. After estimating the distance between the camera and the treasures, we figured out that the treasure would most likely fill the entire frame and we wouldn't have to determine those three rows dynamically. Therefore, we decided to have three fixed rows instead, namely 48,72,96.
 
-'''verilog
-'''
+```verilog
+```
 
 After counting the number of "colored" pixels for those rows, we store the results and start determining the shape of the treasure. For squares, the three rows would be approximately the same. For diamonds, the second row would be greater than both the first and the third row. For triangles, the third row would be greater than the second row, which would be greater than the first row. Depending on the lighting, our shape detection system is sometimes very accurate.
 
