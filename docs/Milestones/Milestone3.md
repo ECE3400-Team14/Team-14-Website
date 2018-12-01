@@ -135,6 +135,13 @@ int compare(Node *&a, Node *&b)
 
 Weighing the moves so that a turn has weight 1 and moving forward has weight 3, we get the following maze traversals:
 
-[videos performing dijkstra on multiple mazes] 
+Videos from smaller mazes we made in lab:
+<iframe width="853" height="480" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="853" height="480" src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Videos from the larger maze during the "practice competition day" which was a full 9x9 maze:
+<iframe width="853" height="480" src="https://www.youtube.com/embed/Z5Xj15CooWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="853" height="480" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="853" height="480" src="https://www.youtube.com/embed/EYCbm1mnoFc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
