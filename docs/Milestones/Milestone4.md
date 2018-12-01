@@ -8,22 +8,32 @@ The goal of this milestone was to integrate treasure detection onto our robot. T
 
 In order to detect shapes, we continue implementing our image processor. In [Lab4](../Labs/Lab4.md), we finished the color detection part where the module simply counts the number of red pixels and blue pixels in the frame. We now do something more complicated to recognize shape.
 
-The method we chose to do is what I would consider a shortcut. Instead of using every pixel in the picture, we just count the number of "colored" pixels from three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows on-the-fly. Basically, we found the `top` and the `bottom`
+The method we chose to do is what I would consider a shortcut. Instead of using every pixel in the picture and evaluating the entire frame as a whole, we just count the number of "colored" pixels from three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows dynamically on-the-fly. Basically, we would find the `top` and the `bottom` rows of the shape and find three euqually spaced rows within that range. Unfortunately, calculating that was somehow problematic. After estimating the distance between the camera and the treasures, we figured out that the treasure would most likely fill the entire frame and we wouldn't have to determine those three rows dynamically. Therefore, we decided to have three fixed rows instead, namely 48,72,96.
+
+'''verilog
+'''
+
+After counting the number of "colored" pixels for those rows, we store the results and start determining the shape of the treasure. For squares, the three rows would be approximately the same. For diamonds, the second row would be greater than both the first and the third row. For triangles, the third row would be greater than the second row, which would be greater than the first row. Depending on the lighting, our shape detection system is sometimes very accurate.
+
+[insert video]
 
 ## Arduino-FPGA Communication
 
 Rather than using a standard serial communication method, such as I2C or UART, we decided to create our own serial communication protocol to communicate shape data from the FPGA and Arduino. This decision was motiviated by a few reasons:
 - Many serial protocols requred either too many pins on our Arduino (SPI, for example). The one we created used open pins on our Arduino (one digital pin and one analog pin). 
-- Our communication protocol did not require two-way communication: The Arduino is only reading data and the FPGA was only writing data.
+- Our communication did not require two-way communication: The Arduino is only reading data and the FPGA was only sending data.
 
 ### Protocol Overview:
 Our serial protocol requires two wires:
-- **SIGNAL**: Driven by the Arduino. Sending this wire high requests the next bit from the FPGA.
+- **SIGNAL**: Driven by the Arduino. Driving this wire high requests the next bit from the FPGA.
 - **DATA**: Driven by the FPGA. Carries the data stream containing the shape/color data of the image. 
 
-[picture?]
+The picture below illustrates a typical transmission. Each packet consists of 16 bits. The first 6 bits are five zeros followed by a one. The purpose of this pilot sequence is time synchronization as five consecutive zeros would never occur. Data is transmitted twice for error detection. If a transmission error occurs, the Arduino will request another transmission.
 
-**SIGNAL** is driven at around 500Hz, slow compared to other communication protocols but fast enough for our needs (this is subject to change for the competition). 
+![packet](https://user-images.githubusercontent.com/42748229/49323587-b66eb280-f4eb-11e8-9f1a-5c5497f4fae2.png)
+
+
+**SIGNAL** is driven at around 500Hz, slow compared to other communication protocols but fast enough for our needs (this is subject to change for the competition). That means transmission of a single data packet takes about 0.03s.
 
 ## Hardware: Adding FPGA and Camera to the Robot
 
