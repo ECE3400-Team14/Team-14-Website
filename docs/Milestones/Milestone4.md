@@ -53,7 +53,7 @@ begin
 	begin
           //diamond
           shape = 3'b001;
-        end else  begin
+        end else begin
           shape = 3'b100;
 	end
       end
