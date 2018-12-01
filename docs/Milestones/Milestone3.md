@@ -46,7 +46,7 @@ struct Node {
 
 The valid moves that the robot can make in this algorithm are "move forward", "turn left", "turn right" and "stop". The algorithm will find the next unexplored square that requires the least number of moves to reach, prioritized in the order listed. That is, if two unexplored squares are an equal number of moves away, the one that uses higher-priority moves will be chosen. 
 
-<img src="https://media.giphy.com/media/3iySk9yKxzuh4hMkYz/giphy.gif" width="600" />
+<img src="https://media.giphy.com/media/3iySk9yKxzuh4hMkYz/giphy.gif" width="700" />
 
 Once we found an unexplored square, our algorithm traverses the tree back to the starting node, adding the moves at each node to a stack along the way. The final stack contains an ordered list of moves that the robot can follow to get from its current location to the new unexplored node. 
 
@@ -75,7 +75,7 @@ while (!S.isEmpty())
 To keep track of unvisited nodes in the bfs algorithm above, we used the arduino [QueueList](https://playground.arduino.cc/Code/QueueList) library. We used the [StackArray](https://playground.arduino.cc/Code/StackArray) library for generating the stack of moves to be performed by the robot. 
 
 ### Example running movement tree algorithm on 5x4 maze:
-<iframe width="853" height="480" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="650" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 &nbsp;
 
@@ -112,7 +112,7 @@ procedure dijkstra(T, v):
                        update w with path from v
 ```
 
-<img src="https://media.giphy.com/media/fdxqbPDPqBv4JJZ5Ce/giphy.gif" width="600" />
+<img src="https://media.giphy.com/media/fdxqbPDPqBv4JJZ5Ce/giphy.gif" width="700" />
 
 The data structure for `Node` now has an additional field `dist` for keeping track of distance from the start node.
 
@@ -148,10 +148,17 @@ int compare(Node *&a, Node *&b)
 Weighing the moves so that a turn has weight 1 and moving forward has weight 2, we get the following maze traversals:
 
 ### Running Dijkstra's algorithm on a 5x4 maze:
-<iframe width="853" height="480" src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="650"src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+&nbsp;
 
 ### Traversing the second half of a full 9x9 maze with Dijkstra's algorithm: 
-<iframe width="853" height="480" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="650" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Map of the 9x9 maze after complete traversal:
+
+<img width="600" alt="maze1" src="https://user-images.githubusercontent.com/12742304/49325004-51758580-f508-11e8-8272-cc45d9ce8817.png">
+
 
 
 
