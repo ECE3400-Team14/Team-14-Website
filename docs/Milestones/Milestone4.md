@@ -11,11 +11,51 @@ In order to detect shapes, we continue implementing our image processor. In [Lab
 The method we chose to do is what I would consider a shortcut. Instead of using every pixel in the picture and evaluating the entire frame as a whole, we just count the number of "colored" pixels from three rows, i.e., if the entire picture has a majority of red pixels, we count the number of red pixels for those three rows, and if it has a majority of blue pixels, we count the number of blue pixels. At first, we tried to determine the y-coordinates of those rows dynamically on-the-fly. Basically, we would find the `top` and the `bottom` rows of the shape and find three euqually spaced rows within that range. Unfortunately, calculating the three rows using `top` and `bottom` was somehow problematic. After estimating the distance between the camera and the treasures, we figured out that the treasure would most likely fill the entire frame and it wouldn't be necessary to determine those three rows dynamically. Therefore, we decided to have three fixed rows instead, namely 48,72,96.
 
 ```verilog
+
+if (VGA_PIXEL_X == 0) begin
+			color_count = 0;
+		end else begin
+			if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144 && //in visible range
+      (PIXEL_IN[7:5] >= 1 && PIXEL_IN[4] == 0 && RESULT[0] == 1) || //detects red, count red pixels
+      (PIXEL_IN[7] == 0 && PIXEL_IN[4] == 0 && RESULT[1] == 1)) //detects blue, count blue pixels
+      begin
+				color_count = color_count + 1;
+			end
+end
+
+if (VGA_PIXEL_Y == 48 && VGA_PIXEL_X == 175) begin
+		first = color_count;
+end
+if (VGA_PIXEL_Y == 72 && VGA_PIXEL_X == 175) begin
+		second = color_count;
+end
+if (VGA_PIXEL_Y == 96 && VGA_PIXEL_X == 175) begin
+		third = color_count;			
+end
 ```
 
 After counting the number of "colored" pixels for those rows, we store the results and start determining the shape of the treasure. For squares, the three rows would be approximately the same. For diamonds, the second row would be greater than both the first and the third row. For triangles, the third row would be greater than the second row, which would be greater than the first row. Depending on the lighting, our shape detection system is sometimes very accurate.
 
 ```verilog
+if (first != 0 && second != 0 && third != 0) begin
+		if ( (second-first)**2 < second**2/100 && (third-second)**2 < third**2/100) begin
+			//square
+			shape = 3'b011;
+		end else begin
+			if (second-first > second/10 && third-second > third/10 && first < second && second < third) begin
+				//triangle
+				shape = 3'b010;
+			end
+			else begin
+			  if (second-first > second/10 && second-third > second/10 && second > third && second > first) begin
+					//diamond
+					shape = 3'b001;
+				end else begin
+					shape = 3'b100;
+				end
+			end
+		end
+end
 ```
 
 A video is shown in the next section.
