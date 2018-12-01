@@ -31,7 +31,7 @@ Our serial protocol requires two wires:
 - **SIGNAL**: Driven by the Arduino. Driving this wire high requests the next bit from the FPGA.
 - **DATA**: Driven by the FPGA. Carries the data stream containing the shape/color data of the image. 
 
-The picture below illustrates a typical transmission. Each packet consists of 16 bits. The first 6 bits are five zeros followed by a one. The purpose of this pilot sequence is time synchronization as five consecutive zeros would never occur. Data is a agreed-upon 4-bit field where 2 bits are dedicated to shape detection and 2 bits to color detection. Data is transmitted twice for error detection. If a transmission error occurs, the Arduino will request another transmission.
+The table below illustrates a typical transmission. Each packet consists of 16 bits. The first 6 bits are five zeros followed by a one. The purpose of this pilot sequence is time synchronization as five consecutive zeros would never occur. Data is a agreed-upon 4-bit field where 2 bits are dedicated to shape detection and 2 bits to color detection. Data is transmitted twice for error detection. If a transmission error occurs, the Arduino will request another transmission.
 
 ![packet](https://user-images.githubusercontent.com/42748229/49323587-b66eb280-f4eb-11e8-9f1a-5c5497f4fae2.png)
 
