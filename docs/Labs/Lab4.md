@@ -131,26 +131,26 @@ We implemented our image processor without using inputs from the camera as we fe
 #### Analyzing Each Pixel in the Image:
 ```verilog
 always @ (posedge CLK) begin
-	if (VGA_PIXEL_X == 0 && VGA_PIXEL_Y == 0) begin
-		blue <= 0;
-		red <= 0;
-	end
-	else begin
-		if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144) begin
-			if (PIXEL_IN[7] == 1 && PIXEL_IN[1:0] == 0 && PIXEL_IN[4:3] == 0) begin
-				red <= red + 1;
-			end
-			else begin
-				red <= red;
-			end
-			if (PIXEL_IN[7:6] == 0 && PIXEL_IN[1] == 1 && PIXEL_IN[4:3] == 0) begin
-				blue <= blue + 1;
-			end
-			else begin
-				blue <= blue;
-			end
-		end
-	end
+  if (VGA_PIXEL_X == 0 && VGA_PIXEL_Y == 0) begin
+    blue <= 0;
+    red <= 0;
+  end
+  else begin
+    if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144) begin
+       if (PIXEL_IN[7] == 1 && PIXEL_IN[1:0] == 0 && PIXEL_IN[4:3] == 0) begin
+	 red <= red + 1;
+       end
+       else begin
+	red <= red;
+       end
+       if (PIXEL_IN[7:6] == 0 && PIXEL_IN[1] == 1 && PIXEL_IN[4:3] == 0) begin
+	 blue <= blue + 1;
+       end
+       else begin
+	 blue <= blue;
+       end
+     end
+  end
 end
 ```
 #### Calculating the Total Color of the Image
@@ -288,6 +288,8 @@ Using the camera color bar test, we noticed that most of the colors were close t
 Notably, the second-to-last color was orange instead of dark red, and the last color bar was green when it should be black. What the color bar test suggested is that we were receiving excess amounts of green and red in our image. Viewing the camera feed confirmed this suspician, as the entire image was saturated with green. We found that specifically the second-most signifcant green bit (G2) seemed to trigger much more often than it should. Therefore, we removed it from the downsampler. After doing this, we still noticed a lot of red in the image, so we removed the second-most significant bit of red (R1) from the downsampler. The resulting image was dark, but we did start to see colors correctly. 
 
 <img src="https://user-images.githubusercontent.com/12742304/48309540-73ec3280-e54a-11e8-8ac4-1e5eed06d4d4.png" width="1213" />
+
+**Note:** After finding an error in our data wiring from the camera to the FPGA, we were able to use the ideal down-sampling method to get a clearer image (see [Milestone4](https://ece3400-team14.github.io/Team-14-Website/Milestones/Milestone4.html)).
 
 #### Red Saturation:
 ![img_4453](https://user-images.githubusercontent.com/12742304/48309637-86676b80-e54c-11e8-83c6-ab8f8885f6f8.jpg)
