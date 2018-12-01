@@ -155,6 +155,10 @@ Weighing the moves so that a turn has weight 1 and moving forward has weight 2, 
 ### Traversing the second half of a full 9x9 maze with Dijkstra's algorithm: 
 <iframe width="700" height="400" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+**Note:** We provided some movement assistance to the robot at certain points due to it getting stuck on the tape, which did not affect the search algorithm. The robot misses a turn at the end (turning around instead of right) but maps the maze accurately because the walls on the path it took are almost identical to the intended path. 
+
+&nbsp;
+
 ### Map of the 9x9 maze after complete traversal:
 
 <img width="600" alt="maze1" src="https://user-images.githubusercontent.com/12742304/49325004-51758580-f508-11e8-8272-cc45d9ce8817.png">
