@@ -13,24 +13,24 @@ The method we chose to do is what I would consider a shortcut. Instead of using 
 ```verilog
 
 if (VGA_PIXEL_X == 0) begin
-			color_count = 0;
-		end else begin
-			if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144 && //in visible range
-      (PIXEL_IN[7:5] >= 1 && PIXEL_IN[4] == 0 && RESULT[0] == 1) || //detects red, count red pixels
-      (PIXEL_IN[7] == 0 && PIXEL_IN[4] == 0 && RESULT[1] == 1)) //detects blue, count blue pixels
-      begin
-				color_count = color_count + 1;
-			end
+  color_count = 0;
+end else begin
+  if (VGA_PIXEL_X < 176 && VGA_PIXEL_Y < 144 && //in visible range
+     (PIXEL_IN[7:5] >= 1 && PIXEL_IN[4] == 0 && RESULT[0] == 1) || //detects red, count red pixels
+     (PIXEL_IN[7] == 0 && PIXEL_IN[4] == 0 && RESULT[1] == 1)) //detects blue, count blue pixels
+  begin
+    color_count = color_count + 1;
+  end
 end
 
 if (VGA_PIXEL_Y == 48 && VGA_PIXEL_X == 175) begin
-		first = color_count;
+  first = color_count;
 end
 if (VGA_PIXEL_Y == 72 && VGA_PIXEL_X == 175) begin
-		second = color_count;
+  second = color_count;
 end
 if (VGA_PIXEL_Y == 96 && VGA_PIXEL_X == 175) begin
-		third = color_count;			
+  third = color_count;			
 end
 ```
 
@@ -38,23 +38,26 @@ After counting the number of "colored" pixels for those rows, we store the resul
 
 ```verilog
 if (first != 0 && second != 0 && third != 0) begin
-		if ( (second-first)**2 < second**2/100 && (third-second)**2 < third**2/100) begin
-			//square
-			shape = 3'b011;
-		end else begin
-			if (second-first > second/10 && third-second > third/10 && first < second && second < third) begin
-				//triangle
-				shape = 3'b010;
-			end
-			else begin
-			  if (second-first > second/10 && second-third > second/10 && second > third && second > first) begin
-					//diamond
-					shape = 3'b001;
-				end else begin
-					shape = 3'b100;
-				end
-			end
-		end
+  if ( (second-first)**2 < second**2/100 && (third-second)**2 < third**2/100)
+  begin
+    //square
+    shape = 3'b011;
+    end else begin
+      if (second-first > second/10 && third-second > third/10 && first < second && second < third) 
+      begin
+      //triangle
+      shape = 3'b010;
+      end else begin
+        if (second-first > second/10 && second-third > second/10 && second > third && second > first)
+	begin
+          //diamond
+          shape = 3'b001;
+        end else  begin
+          shape = 3'b100;
+	end
+      end
+    end
+  end
 end
 ```
 
