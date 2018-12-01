@@ -75,7 +75,7 @@ while (!S.isEmpty())
 To keep track of unvisited nodes in the bfs algorithm above, we used the arduino [QueueList](https://playground.arduino.cc/Code/QueueList) library. We used the [StackArray](https://playground.arduino.cc/Code/StackArray) library for generating the stack of moves to be performed by the robot. 
 
 ### Example running movement tree algorithm on 5x4 maze:
-<iframe width="650" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="700" height="400" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 &nbsp;
 
@@ -148,12 +148,12 @@ int compare(Node *&a, Node *&b)
 Weighing the moves so that a turn has weight 1 and moving forward has weight 2, we get the following maze traversals:
 
 ### Running Dijkstra's algorithm on a 5x4 maze:
-<iframe width="650"src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="700" height="400" src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 &nbsp;
 
 ### Traversing the second half of a full 9x9 maze with Dijkstra's algorithm: 
-<iframe width="650" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="700" height="400" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Map of the 9x9 maze after complete traversal:
 
