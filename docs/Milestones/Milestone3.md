@@ -6,8 +6,6 @@ The goal of this milestone was to implement a search algorithm that would allow 
 ### Hardware Updates:
 Going into this milestone, our robot was using right hand wall-following to traverse mazes. This only requred two wall sensors, a forward-facing and right-facing sensor, to accurately traverse the maze. Before writing our new algorithm, we knew that our robot would need accurate information about the walls on all sides to make informed decisions about where to go next. Therefore, we added a left-facing wall sensor. 
 
-[image?]
-
 With sensors facing forward, left, and right, our robot could determine every wall surrounding it after entering an unexplored square. It can assume that there is no wall behind it because it just came from that square (except at the start, when we assume the robot starts with a wall behind it).
 
 ## Version 1: Movement Tree Algorithm (BFS)
@@ -25,7 +23,8 @@ bfs-moves(T,v):
          label v as visited
            if v is not in T, construct the movement path to v and return
            otherwise:
-              for all possible moves w from v in the maze (priority order: forward, left, right, backwards)
+              for all possible moves w from v in the maze 
+              (priority order: forward, left, right, backwards)
                 if w moves to a node not visited by the algorithm
                   Q.push(w)
 ```
@@ -34,10 +33,14 @@ We created a `Node` data structure to maintain information about the graph. It s
 
 ```cpp
 struct Node {
-  byte position;//corresponds to x,y coordinates of the robot
-  char move;//move used to get here (forward: 'f', left turn: 'l', right turn: 'r', no move: 's')
-  byte orientation;//orientation of the robot at this point (North, South, East, or West)
-  struct Node* parent;//the parent of this node (the previous move)
+  byte position;      //corresponds to x,y coordinates of the robot
+  char move;          //move used to get here 
+                      //(forward: 'f', left turn: 'l', 
+                      //right turn: 'r', no move: 's')
+  byte orientation;   //orientation of the robot at this point 
+                      //(North, South, East, or West)
+  struct Node* parent;//the parent of this node 
+                      //(the previous move)
 };
 ```
 
@@ -64,13 +67,17 @@ These moves can then be executed in order by popping elements off of the movemen
 while (!S.isEmpty())
   {
     char move = S.pop();
-    performAction(move);//have robot perform [move] and update its coordinates and orientation
+    //have robot perform [move] and update its coordinates and orientation
+    performAction(move);
   }
 ```
 
 To keep track of unvisited nodes in the bfs algorithm above, we used the arduino [QueueList](https://playground.arduino.cc/Code/QueueList) library. We used the [StackArray](https://playground.arduino.cc/Code/StackArray) library for generating the stack of moves to be performed by the robot. 
 
-[video]
+### Example running movement tree algorithm on 5x4 maze:
+<iframe width="853" height="480" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+&nbsp;
 
 ### Advantages and Disadvantages:
 
@@ -96,13 +103,16 @@ procedure dijkstra(T, v):
            v = Q.pop() //node with shortest distance in Q
              if v is not in T, construct the path to v and return
              otherwise (have not found path to frontier yet):
-                for all moves to neighboring nodes w from v in the maze (priority order: forward, left, right, backwards)
+                for all moves to neighboring nodes w from v in the maze 
+                (priority order: forward, left, right, backwards)
                    if w has not been visited yet
                     Q.push(w)
                     else
-                     if the path from v to w is shorter than the known distance to w
+                     if the path from v to w is shorter than dist(w)
                        update w with path from v
 ```
+
+<img src="https://media.giphy.com/media/fdxqbPDPqBv4JJZ5Ce/giphy.gif" width="600" />
 
 The data structure for `Node` now has an additional field `dist` for keeping track of distance from the start node.
 
@@ -110,8 +120,10 @@ The data structure for `Node` now has an additional field `dist` for keeping tra
 struct Node
 {
   byte position; //corresponds to x,y coordinates of the robot
-  byte move_and_or;    //contains the orientation of the robot and move required to get here
-  struct Node *parent; //the parent of this node (the previous position and move)
+  byte move_and_or;    //contains the orientation of the robot 
+                       //and move required to get here
+  struct Node *parent; //the parent of this node 
+                       //(the previous position and move)
   unsigned int dist; //distance from start to [position]
 };
 
@@ -133,19 +145,14 @@ int compare(Node *&a, Node *&b)
 }
 ```
 
-Weighing the moves so that a turn has weight 1 and moving forward has weight 3, we get the following maze traversals:
+Weighing the moves so that a turn has weight 1 and moving forward has weight 2, we get the following maze traversals:
 
-Videos from smaller mazes we made in lab:
-<iframe width="853" height="480" src="https://www.youtube.com/embed/Hyez9abC3vw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+### Running Dijkstra's algorithm on a 5x4 maze:
 <iframe width="853" height="480" src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-
-Videos from the larger maze during the "practice competition day" which was a full 9x9 maze:
-<iframe width="853" height="480" src="https://www.youtube.com/embed/Z5Xj15CooWw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+### Traversing the second half of a full 9x9 maze with Dijkstra's algorithm: 
 <iframe width="853" height="480" src="https://www.youtube.com/embed/oD0W9CT7CgI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<iframe width="853" height="480" src="https://www.youtube.com/embed/EYCbm1mnoFc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 
