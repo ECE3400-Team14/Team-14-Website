@@ -47,8 +47,8 @@ We have been having some issues with weight distribution on the robot, and "rock
 The camera wiring was switched from a breadboard to a protoboard to allow the camera to be attached to the robot in a more custom location. Since the treasures are along walls, and since we rotate at intersections with front walls, we will orient the camera on the side of the robot in order to maximize detection. We move one of our wall sensors backwards to make room before attaching the camera to the underside of our FPGA mount plate on the top of the robot.
 
 The protoboarded mount:
-![20181130_183412](https://user-images.githubusercontent.com/16722348/49323505-8d99ed80-f4ea-11e8-938c-679cd398ed61.jpg)
-![20181130_183416](https://user-images.githubusercontent.com/16722348/49323506-8d99ed80-f4ea-11e8-8918-41245e0e59ed.jpg)
+![20181130_183412](https://user-images.githubusercontent.com/16722348/49323505-8d99ed80-f4ea-11e8-938c-679cd398ed61.jpg =50x)
+![20181130_183416](https://user-images.githubusercontent.com/16722348/49323506-8d99ed80-f4ea-11e8-8918-41245e0e59ed.jpg =50x)
 
 The wiring:
 ![circuit](https://user-images.githubusercontent.com/16722348/49323555-0f8a1680-f4eb-11e8-92e3-4cedf973f0b5.png)
