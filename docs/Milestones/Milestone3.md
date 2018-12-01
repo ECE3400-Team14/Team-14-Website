@@ -112,7 +112,7 @@ procedure dijkstra(T, v):
                        update w with path from v
 ```
 
-<img src="https://media.giphy.com/media/fdxqbPDPqBv4JJZ5Ce/giphy.gif" width="700" />
+<img src="https://media.giphy.com/media/w79tdWasWjS4MEFXsP/giphy.gif" width="700" />
 
 The data structure for `Node` now has an additional field `dist` for keeping track of distance from the start node.
 
