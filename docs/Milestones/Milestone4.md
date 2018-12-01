@@ -32,7 +32,6 @@ The picture below illustrates a typical transmission. Each packet consists of 16
 
 ![packet](https://user-images.githubusercontent.com/42748229/49323587-b66eb280-f4eb-11e8-9f1a-5c5497f4fae2.png)
 
-
 **SIGNAL** is driven at around 500Hz, slow compared to other communication protocols but fast enough for our needs (this is subject to change for the competition). That means transmission of a single data packet takes about 0.03s.
 
 Video of isolated camera detection (not on the robot):
