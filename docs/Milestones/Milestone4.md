@@ -15,7 +15,7 @@ The method we chose to do is what I would consider a shortcut. Instead of using 
 
 After counting the number of "colored" pixels for those rows, we store the results and start determining the shape of the treasure. For squares, the three rows would be approximately the same. For diamonds, the second row would be greater than both the first and the third row. For triangles, the third row would be greater than the second row, which would be greater than the first row. Depending on the lighting, our shape detection system is sometimes very accurate.
 
-[insert video]
+A video is shown in the next section.
 
 ## Arduino-FPGA Communication
 
@@ -35,7 +35,7 @@ The picture below illustrates a typical transmission. Each packet consists of 16
 **SIGNAL** is driven at around 500Hz, slow compared to other communication protocols but fast enough for our needs (this is subject to change for the competition). That means transmission of a single data packet takes about 0.03s.
 
 Video of isolated camera detection (not on the robot):
-<iframe width="901" height="507" src="https://www.youtube.com/embed/z2tLbDWV484" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/z2tLbDWV484" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Hardware: Adding FPGA and Camera to the Robot
 
