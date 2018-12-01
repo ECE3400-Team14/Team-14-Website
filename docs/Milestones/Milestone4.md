@@ -15,6 +15,9 @@ The method we chose to do is what I would consider a shortcut. Instead of using 
 
 After counting the number of "colored" pixels for those rows, we store the results and start determining the shape of the treasure. For squares, the three rows would be approximately the same. For diamonds, the second row would be greater than both the first and the third row. For triangles, the third row would be greater than the second row, which would be greater than the first row. Depending on the lighting, our shape detection system is sometimes very accurate.
 
+```verilog
+```
+
 A video is shown in the next section.
 
 ## Arduino-FPGA Communication
