@@ -35,6 +35,7 @@ The protoboarded mount:
 ![20181130_183416](https://user-images.githubusercontent.com/16722348/49323506-8d99ed80-f4ea-11e8-8918-41245e0e59ed.jpg)
 
 The wiring:
+![circuit](https://user-images.githubusercontent.com/16722348/49323555-0f8a1680-f4eb-11e8-92e3-4cedf973f0b5.png)
 
 ## Combined System
 
