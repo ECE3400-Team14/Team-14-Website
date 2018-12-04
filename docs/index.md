@@ -44,6 +44,8 @@ Treasure detection.
 Exactly what it sounds like.
 * [Simulator](OtherUpdates/Simulator.md)
 Some troubleshooting tools for teams next year to debug their camera input.
+* [Pre-Competition Updates](OtherUpdates/robotAbilities.md)
+A final listing of our robot's abilites and final design.
 
 ## Lateness Chart: 
 
