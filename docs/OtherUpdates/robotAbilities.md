@@ -4,7 +4,7 @@ Tall Boi is outfitted with almost entirely default materials provided by ECE 340
 
 [image of Tall Boi]
 
-You can see where our robot, Tall Boi, gets his name! Three tiers of electrical engineering effectiveness raises his stature to quite a height, and he is sure to raise eyebrows on Robotics Day on December 4th, 2018, when he is put to the test against our competitors.
+You can see where our robot, Tall Boi, gets his name! Three tiers of electrical engineering effectiveness brings his stature to quite a height, and he is sure to raise eyebrows on Robotics Day on December 4th, 2018, when he is put to the test against our competitors.
 
 
 ## Capabilities
