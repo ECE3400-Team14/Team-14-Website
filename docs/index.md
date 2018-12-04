@@ -6,7 +6,7 @@ Welcome to our website for [ECE 3400: Intelligent Physical Systems](https://cei-
 
 On this website we have logged our progress in creating such an autonomous robot. Team 14 has proven themselves as capable engineers with a strong ability to push through difficult times, where debugging and troubleshooting are our most valuable qualities. Below, each lab completed and milestone reached are carefully logged with visual aids and short video clips.
 
--Team 14
+-The Elevation Team
 ## Members:
 
 Andrew Lin (yl656)
