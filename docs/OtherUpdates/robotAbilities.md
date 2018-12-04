@@ -18,7 +18,7 @@ performs fast Fourier transform algorithms to detect audio and IR signal frequen
 
 * Larger wheels with rubber band treads as grips.
 * A low sitting chassis for consistent line tracking.
-* A ball bearing in the rear and just behind the line sensors in the front for stability and smooth traversal.
+* Ball bearings in the rear and just behind the line sensors in the front for stability and smooth traversal.
 * Four photosensitive line sensors, three short range IR distance sensors (wall sensing), attached to a MUX for easy analog reading.
 * A microphone and attached amplifier circuit.
 * IR phototransistor for robot detection (MUX'd with the audio circuit since audio is only required for the starting command).
