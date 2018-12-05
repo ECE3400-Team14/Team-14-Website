@@ -201,3 +201,5 @@ The GUI then works perfectly fine. When we performed our final test, the wheels 
 Maze data was accurate and the start signal was consistent as ever.
 
 Our Lab 3 source code for the robot can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Lab3_Combined) and our full base station code can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Lab3_Base_Station/Base_Station_to_GUI)
+
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
