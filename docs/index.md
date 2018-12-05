@@ -16,9 +16,9 @@ On this website we have logged our progress in creating such an autonomous robot
 - David Burgstahler (dfb93@cornell.edu)
 - Michaelangelo Rodriguez Ayala (mr2242@cornell.edu)
 
-[Team Contract](./team_contract.md)
-
-[Ethics](./ethics.md)
+## Team Documents:
+- [Team Contract](./team_contract.md)
+- [Ethics](./ethics.md)
 
 ## Labs
 * [Lab1](Labs/Lab1.md)
