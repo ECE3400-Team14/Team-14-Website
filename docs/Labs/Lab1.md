@@ -1,4 +1,4 @@
-[Return Home](Team-14-Website/docs/index.md)
+[Return Home]: https://ece3400-team14.github.io/Team-14-Website/
 #  Lab 1: Microcontrollers
 
 **Purpose:** The goal of this lab was to become familiar with the Arduino Uno platform and the Arduino IDE. This page describes how to connect various hardware components, such as LEDs, potentiometers, and servos, to the Arduino, and we show how to write code to control these devices through the Arduino's analog and digital ports. The final part of this lab details the construction and testing of our initial robot design. 
