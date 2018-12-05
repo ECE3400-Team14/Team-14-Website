@@ -1,4 +1,4 @@
-[Return Home](docs/index.md)
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 #  Lab 2: Analog Circuitry and FFT’s
 
 **Purpose:** The goal of this lab was to test and implement the audio and IR signal detection systems to be added onto our robot at a later date. This involved preparing both the analog and digital components necessary for our robot to perform signal analysis. Our first task was to capture an audio signal via an amplified microphone circuit and detect a 660 Hz signal. Our second task was to read a 6.08 kHz IR signal using a phototransistor circuit while ignoring an 18 kHz IR signal. Analysis of these signals were done on an Arduino using Fast Fourier Transform (FFT) analysis through the [Open Music Labs FFT Library](http://wiki.openmusiclabs.com/wiki/ArduinoFFT). 
