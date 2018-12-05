@@ -1,10 +1,11 @@
+ [Return Home](https://ece3400-team14.github.io/Team-14-Website/)
  # Ethics
  
  **Question: Is “a ban on offensive autonomous weapons beyond meaningful human control” going to work?**
 
-**Letter:** https://futureoflife.org/open-letter-autonomous-weapons/ 
+**Open letter calling for ban on autonomous weapons:** https://futureoflife.org/open-letter-autonomous-weapons/ 
 
-## Key Quotes:
+### Key quotes from the letter:
 
 - **“Unlike nuclear weapons, they [autonomous weapons] require no costly or hard-to-obtain raw materials, so they will become ubiquitous and cheap for all significant military powers to mass-produce. It will only be a matter of time until they appear on the black market and in the hands of terrorists, dictators wishing to better control their populace, warlords wishing to perpetrate ethnic cleansing, etc.”**
 
