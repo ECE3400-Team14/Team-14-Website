@@ -1,3 +1,4 @@
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 # Lab 4: FPGA and Camera
 
 ### Purpose:
