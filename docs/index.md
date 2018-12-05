@@ -19,6 +19,8 @@ Michaelangelo Rodriguez Ayala (mr2242)
 
 [Team Contract](./team_contract.md)
 
+[Ethics](./ethics.md)
+
 ## Labs
 * [Lab1](Labs/Lab1.md)
 The goal of this lab was to become familiar with the Arduino Uno platform and the Arduino IDE.
