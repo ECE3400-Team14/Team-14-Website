@@ -44,6 +44,8 @@ Exactly what it sounds like.
 Some troubleshooting tools for teams next year to debug their camera input.
 * [Pre-Competition Updates](OtherUpdates/robotAbilities.md)
 A final listing of our robot's abilites and final design.
+* [Final Competition](OtherUpdates/finalCompetition.md)
+What happened on the day of the final competition? Click to find out!
 
 ## Lateness Chart: 
 
