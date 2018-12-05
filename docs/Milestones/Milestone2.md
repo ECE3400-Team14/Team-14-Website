@@ -1,3 +1,4 @@
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 #  Milestone 2
 
 ## Overview of Robot Modifications
@@ -119,3 +120,5 @@ This allowed adequate time for the line sensors to keep the robot on track while
 Combining the two algorithms was then easy because we integrated avoidance into the movement of the robot. Like an obedient pet, our robot correctly executed wall following while ignoring decoy bots and stopping in the prescence of a real robot signal:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Yrjw4R42oCg" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
