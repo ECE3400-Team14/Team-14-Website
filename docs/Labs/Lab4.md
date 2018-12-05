@@ -303,3 +303,5 @@ With the resulting solution, we were able to easily distinguish red on a white b
 ### Demonstration of Color Detection from Camera Feed:
 
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ZkEB7EIZe8Q" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
