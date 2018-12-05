@@ -1,3 +1,4 @@
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 ## Robot changes as of 9/14/18 (Milestone 1 complete)
 We made just a few modifications to improve our robot going forward in prototyping: 
  - Attached larger wheels to the robot to increase our speed.
@@ -20,4 +21,4 @@ and cleaner, easier access to the electrical connections.
  ![20180914_181828](https://user-images.githubusercontent.com/16722348/45579045-0e820b00-b853-11e8-875c-55214e10163c.jpg)
 
 
-Look out for more changes to come! Thanks.
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
