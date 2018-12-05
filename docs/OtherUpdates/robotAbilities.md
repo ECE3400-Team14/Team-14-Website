@@ -18,7 +18,7 @@ performs fast Fourier transform algorithms to detect audio and IR signal frequen
 
 * Larger wheels with rubber band treads as grips.
 * A low sitting chassis for consistent line tracking.
-* Ball bearings in the rear and just behind the line sensors in the front for stability and smooth traversal.
+* Ball bearings in the rear and just behind the line sensors in the front for stability.
 * Four photosensitive line sensors, three short range IR distance sensors (wall sensing), attached to a MUX for easy analog reading.
 * A microphone and attached amplifier circuit.
 * IR phototransistor for robot detection (MUX'd with the audio circuit since audio is only required for the starting command).
@@ -26,7 +26,7 @@ performs fast Fourier transform algorithms to detect audio and IR signal frequen
 * An FPGA and accompanying CMOS OV7670 camera for imaging, image processing, and transmission of shape/color data to the Arduino.
 * A radio [brand? make? model?] for base station data transmission.
 
-The base station has its own radio and Arduino Uno for updating the GUI (an interface provided byt he 3400 staff).
+The base station has its own radio and Arduino Uno for updating the GUI (an interface provided by the 3400 staff).
 
 Everything is mounted to three main chassis plates, supported by struts, nuts, and bolts, hot glue, tape, and anything else to hold it together (including the sweat and tears of the invested Elevation Team).
 
