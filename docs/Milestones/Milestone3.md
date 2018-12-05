@@ -1,3 +1,4 @@
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 # Milestone 3: Maze Search Algorithm
 
 ### Purpose: 
@@ -163,6 +164,7 @@ Weighing the moves so that a turn has weight 1 and moving forward has weight 2, 
 
 <img width="600" alt="maze1" src="https://user-images.githubusercontent.com/12742304/49325004-51758580-f508-11e8-8272-cc45d9ce8817.png">
 
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 
 
 
