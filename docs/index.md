@@ -2,11 +2,14 @@
 
 <img width="1024" alt="team photo resize" src="https://user-images.githubusercontent.com/12742304/48309828-96347f00-e54f-11e8-9730-968ae422ac79.png">
 
-Welcome to our website for [ECE 3400: Intelligent Physical Systems](https://cei-lab.github.io/ece3400-2018/), a class required in the Electrical & Computer Engineering Department at Cornell University. The course website describes ECE 3400 as: "a class where students learn to tie the fundamental principles of Electrical and Computer Engineering (ECE) across virtual and physical boundaries to create autonomous robots able to perceive, reason about, and act upon their environment." Feel free to read more at the link above.
+Welcome to our website for [ECE 3400: Intelligent Physical Systems, Fall 2018](https://cei-lab.github.io/ece3400-2018/) a class required in the Electrical & Computer Engineering Department at Cornell University. The course website describes ECE 3400 as: "a class where students learn to tie the fundamental principles of Electrical and Computer Engineering (ECE) across virtual and physical boundaries to create autonomous robots able to perceive, reason about, and act upon their environment." Feel free to read more at the link above.
 
 On this website we have logged our progress in creating such an autonomous robot. Team 14 has proven themselves as capable engineers with a strong ability to push through difficult times, where debugging and troubleshooting are our most valuable qualities. Below, each lab completed and milestone reached are carefully logged with visual aids and short video clips.
 
 -The Elevation Team
+
+**[Learn About Our Robot](OtherUpdates/robotAbilities.md) (3rd Place Finalist)**
+
 ## Members:
 - Andrew Lin (yl656@cornell.edu)
 - Gregory Kaiser (ghk48@cornell.edu)
@@ -42,8 +45,7 @@ Treasure detection.
 Exactly what it sounds like.
 * [Simulator](OtherUpdates/Simulator.md)
 Some troubleshooting tools for teams next year to debug their camera input.
-* [Pre-Competition Updates](OtherUpdates/robotAbilities.md)
-A final listing of our robot's abilites and final design.
+* [Pre-Competition Updates]() Additions to treasure detection and robot avoidance made before the competition (TODO).
 
 ## Final Competition
 What happened on the day of the final competition? [Click here](finalCompetition.md) to find out!
