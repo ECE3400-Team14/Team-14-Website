@@ -4,7 +4,7 @@
 
 **Question: Is “a ban on offensive autonomous weapons beyond meaningful human control” going to work?**
 
-**Open letter calling for ban on autonomous weapons:** https://futureoflife.org/open-letter-autonomous-weapons/ 
+**[Open letter calling for a ban on autonomous weapons](https://futureoflife.org/open-letter-autonomous-weapons/)**
 
 ### Key quotes from the letter:
 
