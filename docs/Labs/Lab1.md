@@ -306,3 +306,5 @@ void loop() {
 
 ### Video Demonstration of Figure-8 Motion
 <iframe width="560" height="315" src="https://www.youtube.com/embed/mq7fXP7EtU8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
