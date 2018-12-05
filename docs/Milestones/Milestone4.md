@@ -1,3 +1,4 @@
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 # Milestone 4: Treasure Detection
 
 ### Purpose: 
@@ -99,5 +100,7 @@ The wiring:
 
 ## Combined System
 
-[TODO?]
+[TODO]
+
+[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 
