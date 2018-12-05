@@ -1,5 +1,5 @@
  [Return Home](https://ece3400-team14.github.io/Team-14-Website/)
- # Ethics
+ #  Ethics
  
  **Question: Is “a ban on offensive autonomous weapons beyond meaningful human control” going to work?**
 
