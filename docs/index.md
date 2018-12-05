@@ -8,14 +8,10 @@ On this website we have logged our progress in creating such an autonomous robot
 
 -The Elevation Team
 ## Members:
-
-Andrew Lin (yl656)
-
-Gregory Kaiser (ghk48)
-
-David Burgstahler (dfb93)
-
-Michaelangelo Rodriguez Ayala (mr2242)
+- Andrew Lin (yl656@cornell.edu)
+- Gregory Kaiser (ghk48@cornell.edu)
+- David Burgstahler (dfb93@cornell.edu)
+- Michaelangelo Rodriguez Ayala (mr2242@cornell.edu)
 
 [Team Contract](./team_contract.md)
 
