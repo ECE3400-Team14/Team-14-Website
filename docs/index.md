@@ -48,6 +48,7 @@ Exactly what it sounds like.
 * [Simulator](OtherUpdates/Simulator.md)
 Some troubleshooting tools for teams next year to debug their camera input.
 * [Pre-Competition Updates](OtherUpdates/preCompetitionUpdates.md) Additions to treasure detection and robot avoidance made before the competition.
+* [Summary of Robot Abilities](OtherUpdates/robotAbilities.md) An overview of hardware and software components, plus a performance review.
 
 ## Final Competition
 [Click here](finalCompetition.md) to see our robot's performance on competition day!
