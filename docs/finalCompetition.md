@@ -2,7 +2,7 @@
 
 # Final Competition:
 
-Much to our dismay, the treasures in the competition mazes were almost all in dead ends, spots where our robot was incapable of detecting them. The lighting was also drastically different from our previous testing environments, and the camera input was heavily influenced. In the end, we had to rely our our robot's movement, maze searching, and robot avoidance for points. 
+Much to our dismay, the treasures in the competition mazes were almost all in dead ends, spots where our robot was incapable of detecting them. The lighting was also drastically different from our previous testing environments, and the camera input was heavily impacted. In the end, we had to rely our our robot's movement, maze searching, and robot avoidance for points. 
 
 ## Round 1:
 The first round was probably our least accurate maze mapping. The robot missed a turn early on, causing its coordinate system to become offset. We let it map out the maze of a minute of two after in case some of the data ligned up. Unforunately, we do no have video of our first round. 
