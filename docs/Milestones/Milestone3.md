@@ -148,6 +148,8 @@ int compare(Node *&a, Node *&b)
 
 Weighing the moves so that a turn has weight 1 and moving forward has weight 2, we get the following maze traversals:
 
+See [our source code](../sourceCode.md) for the full implementation on our robot. 
+
 ### Running Dijkstra's algorithm on a 5x4 maze:
 <iframe width="700" height="400" src="https://www.youtube.com/embed/NXd52I8BfZY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
