@@ -2,7 +2,7 @@
 
 ## Integrating shape detection onto the robot:
 
-After finishing [milestone 4](../Milestones/Milestone4.md), we wanted to focus our efforts on getting shape detection onto our robot. This involved constructing an entirely new level of our robot to contain the [DE-Nano FPGA](), battery, and camera circuitry. We though it best to put the camera/FPGA on its own power source to avoid interference with other working systems on the robot. In order to pick up treasures on walls of the maze, we mounted our camera on the right side of the robot, in line with our intersection-detection line sensors. We printed a custom camera mount, but had to adjust it and mount it with hot glue to get the camera at the right angle. 
+After finishing [milestone 4](../Milestones/Milestone4.md), we wanted to focus our efforts on getting shape detection onto our robot. This involved constructing an entirely new level of our robot to contain the [DE-Nano FPGA](), battery, and camera circuitry. We though it best to put the camera/FPGA on its own power source to avoid interference with other working systems on the robot. In order to pick up treasures on walls of the maze, we mounted our camera on the right side of the robot, in line with our intersection-detection line sensors. We printed a custom camera mount, but had to adjust it and mount it with hot glue to get the camera at the right angle. We also realized our treasure detection was inconsistent under different lighting conditions, so we added an LED above the camera to slightly improve lighting conditions on treasures in front of the camera.
 
 <img width="646" alt="robot" src="https://user-images.githubusercontent.com/12742304/49557189-d845ac00-f8d4-11e8-818d-6e9d9c53fe43.jpeg">
 
