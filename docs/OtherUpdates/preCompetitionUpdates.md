@@ -22,7 +22,7 @@ For this run, we had 6 accurately detected locations and colors, and 4 inaccurat
 &nbsp;
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/A5Kt-bS-FXg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-For this run, we had 5 accurately detected locations and colors, one false positive, and 1 inaccurate shape. In competition, this would be 10 points. If we don't attempt to detect shapes, it would be worth 8 points.
+For this run, we had 4 accurately detected locations and colors, one false positive, and 1 inaccurate shape. In competition, this would be 9 points. If we don't attempt to detect shapes, it would be worth 8 points.
 
 ## Robot Avoidance Updates:
 
