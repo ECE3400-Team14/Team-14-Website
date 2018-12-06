@@ -10,18 +10,19 @@ After finishing [milestone 4](../Milestones/Milestone4.md), we wanted to focus o
 Our robot was quite accurate at distinguising the color of treasures, and the numbers of missed treasures and false positives were small. Shape detection worked occasionally but was mostly inaccurate. 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/HzJs7IEtQ9A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+For this run, we had 4 accurately detected locations and colors, and 2 inaccurate shapes. In competition, this would be 8 points (+2 for 2 shapes and -2 for the wrong ones). If we don't attempt to detect shapes, it would still be worth 8 points.
 &nbsp;
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Vtmck79LdVs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+For this run, we had 6 accurately detected locations and colors, and 5 inaccurate shapes. In competition, this would be 8 points. If we don't attempt to detect shapes, it would be worth 12 points.
 &nbsp;
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Cj8_2oRjutA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+For this run, we had 6 accurately detected locations and colors, and 4 inaccurate shapes. In competition, this would be 10 points. If we don't attempt to detect shapes, it would be worth 12 points.
 &nbsp;
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/A5Kt-bS-FXg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+For this run, we had 5 accurately detected locations and colors, one false positive, and 1 inaccurate shape. In competition, this would be 10 points. If we don't attempt to detect shapes, it would be worth 8 points.
 
 ## Robot Avoidance Updates:
 
