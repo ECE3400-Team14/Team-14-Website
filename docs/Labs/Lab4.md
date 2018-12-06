@@ -66,6 +66,8 @@ The Arduino lights up LEDs based on these read values.
 
 For the actual robot, this commnunication scheme will be done over a serial data scheme so that the Arduino need only read information of a certain size over a single given input pin.
 
+For the final serial communication scheme we used on our robot, see [Milestone 4](../Milestones/Milestone4.md).
+
 ## Team FPGA
 
 ### Setting Up PLL
