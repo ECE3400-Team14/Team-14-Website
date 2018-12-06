@@ -25,6 +25,8 @@ Tall boi may not be the most elegant robot, but he is very smart! Tall Boi is ou
 
 - Robot detection: Avoids collisions with other robots wearing standard ECE 3400 IR Hats (detected using FFT).
 
+To see our robot's abilities in action, check out our robot's performance during the [final competition](../finalCompetition.md). Unfortunately, the competition does not show off our robot's treasure detection abilities very well, but we have demos of treasure detection in action [here]().
+
 ### Hardware Included
 
 * Larger wheels with rubber band treads as grips.
