@@ -1,4 +1,3 @@
-[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 #  Milestone 1
 
 ## Overview of Robot Modifications
@@ -94,5 +93,3 @@ At first, we had the turn executed with only one wheel turning, and the other st
 
 Then, we implemented a faster turn using both wheels. We called this a "dime turn":
 <iframe width="560" height="315" src="https://www.youtube.com/embed/m2-dYcXzxF4?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-[Return Home](https://ece3400-team14.github.io/Team-14-Website/)

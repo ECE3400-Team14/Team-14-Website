@@ -30,5 +30,3 @@ We wanted to update and test our IR detection and robot avoidance algorithm befo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qCYuCaHZuYs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 &nbsp;
-
-[return home](../index.md)

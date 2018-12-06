@@ -38,5 +38,3 @@ Since our robot tied for thrid place in the final round, our robot had to run ag
 
 ### Tie-breaker map (start in top left) 
 <img width="645" alt="round 4" src="https://user-images.githubusercontent.com/12742304/49554849-9ebc7300-f8cb-11e8-8848-345278b8b607.png">
-
-[Return Home](./index.md)

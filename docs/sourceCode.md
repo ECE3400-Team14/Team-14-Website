@@ -16,5 +16,3 @@ For detailed comments and descriptions of the main code on the competition robot
 - [Signal_Processing.ino](https://github.com/ECE3400-Team14/3400/blob/master/CompetitionRobot/Signal_Processing.ino): Runs FFT on the audio/IR analog signal. 
 
 The code for our base station can be found [here](https://github.com/ECE3400-Team14/3400/tree/master/Lab3_Base_Station/Base_Station_to_GUI).
-
-[Return Home](./index.md)

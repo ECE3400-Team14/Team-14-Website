@@ -1,4 +1,3 @@
-[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 # Team Contract
 ECE 3400, Fa 2018 Team # 14
 
@@ -103,13 +102,10 @@ a)    I participated in formulating the standards, roles, and procedures as stat
 b)    I understand that I am obligated to abide by these terms and conditions. 
 c)    I understand that if I do not abide by these terms and conditions, I will suffer the consequences as stated in this contract.
 
-1)  David Burgstahler                                     date: 8/3/18
+1)  David Burgstahler                                date: 8/31/18
 
-2) Michaelangelo Rodriguez                          date: 8/31/18
+2)  Michaelangelo Rodriguez                          date: 8/31/18
 
-3) Gregory Kaiser                                           date: 8/31/18
+3)  Gregory Kaiser                                   date: 8/31/18
 
-4) Andrew Lin                                                 date: 8/31/18
-
-
-[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
+4)  Andrew Lin                                       date: 8/31/18

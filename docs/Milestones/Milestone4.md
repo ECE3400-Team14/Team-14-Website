@@ -1,4 +1,3 @@
-[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
 # Milestone 4: Treasure Detection
 
 ### Purpose: 
@@ -101,6 +100,3 @@ The camera wiring was switched from a breadboard to a protoboard to allow the ca
 ## Combined System
 
 See our [update](../OtherUpdates/preCompetitionUpdates.md) on how we integrated our shape detection system onto our robot. 
-
-[Return Home](https://ece3400-team14.github.io/Team-14-Website/)
-
