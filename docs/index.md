@@ -10,6 +10,8 @@ On this website we have logged our progress in creating such an autonomous robot
 
 **[Learn About Our Robot](OtherUpdates/robotAbilities.md) (3rd Place Finalist)**
 
+**[View Our Source Code](sourceCode.md)**
+
 ## Members:
 - Andrew Lin (yl656@cornell.edu)
 - Gregory Kaiser (ghk48@cornell.edu)
