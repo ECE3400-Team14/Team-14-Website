@@ -42,7 +42,6 @@ We decided to mount two wall sensors onto our robot: one facing forward and one 
 To add our IR circuit to the robot, we decided to move our IR circuit from the breadboard to a perfboard. This way, we can have a stable connection without worrying wires coming loose, and we can save a lot of space on our robot. We soldered our IR circuit onto a tiny corner on the perfboard and cut that corner off so it is compact and doesn't take much space. Then, we mounted the perfboard onto our chasis using a bolt and a nut. 
 
 ![IR_Circuit](https://user-images.githubusercontent.com/42748229/47131953-8470fc00-d26f-11e8-9b25-71cf3b455092.jpg)
-]
 
 ### Wall Follow Algorithm:
 
