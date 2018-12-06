@@ -29,21 +29,24 @@ To see our robot's abilities in action, check out our robot's performance during
 ### Hardware Included
 
 * Larger wheels with rubber band treads as grips.
+* Two parallax servos. ($13 Each)
 * A low sitting chassis for consistent line tracking.
 * Ball bearings in the rear and just behind the line sensors in the front for stability.
-* Four photosensitive analog line sensors for line following.
-* Three short range IR distance sensors for wall sensing.
+* Four photosensitive analog line sensors for line following. ($3 Each)
+* Three short range IR distance sensors for wall sensing. ($7 each)
 * Two analog [CD74HC4051 multiplexers](http://www.ti.com/lit/ds/symlink/cd74hc4051.pdf) for easy analog reading. One is used for line sensor and wall sensor inputs, the other is used to switch between audio and IR signal inputs. 
 * A microphone and attached amplifier circuit using an [LM258 op amp](http://www.ti.com/lit/ds/symlink/lm158-n.pdf).
 * [OP598A](http://www.mouser.com/ds/2/414/OP593-598-6739.pdf) IR phototransistor for robot detection. 
-* An [Arduino Genuino Uno](https://store.arduino.cc/usa/arduino-uno-rev3) for all processing except for treasure detection and for I/O.
-* A [CMOS OV7670 camera](http://web.mit.edu/6.111/www/f2016/tools/OV7670_2006.pdf) for seeing treasures. 
+* An [Arduino Genuino Uno](https://store.arduino.cc/usa/arduino-uno-rev3) for all processing except for treasure detection and for I/O. ($16)
+* A [CMOS OV7670 camera](http://web.mit.edu/6.111/www/f2016/tools/OV7670_2006.pdf) for seeing treasures. ($14)
 * A [DE0-NANO FPGA](http://www.ti.com/lit/ug/tidu737/tidu737.pdf) for image processing.
 * A [Nordic nRF24L01+ radio tranceiver](https://www.sparkfun.com/datasheets/Components/SMD/nRF24L01Pluss_Preliminary_Product_Specification_v1_0.pdf) for transmission to the Arduino base station.
 
-The base station has its own Nordic nRF24L01+ radio and Arduino Genuino Uno for updating the GUI (an interface provided by the 3400 staff).
+The base station has its own Nordic nRF24L01+ radio and Arduino Genuino Uno for updating the GUI (an [interface](https://github.com/backhous/ece3400-maze-gui) provided by the 3400 staff).
 
 Everything is mounted to three main chassis plates, supported by struts, nuts, and bolts, hot glue, tape, and anything else to hold it together (including the sweat and tears of the invested Elevation Team).
+
+Total Cost (based on [3400 cost guidelines](https://cei-lab.github.io/ece3400-2018/Cost.html)): $89 
 
 ## Performance Review:
 
